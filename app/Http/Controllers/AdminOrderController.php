@@ -13,7 +13,7 @@
 			$this->title_field = "id";
 			$this->limit = "20";
 			$this->orderby = "id,desc";
-			$this->global_privilege = false;
+			$this->global_privilege = true;
 			$this->button_table_action = true;
 			$this->button_bulk_action = true;
 			$this->button_action_style = "button_text";
@@ -22,9 +22,13 @@
 			$this->button_delete = true;
 			$this->button_detail = true;
 			$this->button_show = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_show = true; } else { $this->button_show = false; }
 			$this->button_filter = true;
-			$this->button_import = false;
-			$this->button_export = false;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_filter = true; } else { $this->button_filter = false; }
+			$this->button_import = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_import = true; } else { $this->button_import = false; }
+			$this->button_export = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_export = true; } else { $this->button_export = false; }
 			$this->table = "order";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
@@ -32,41 +36,23 @@
 			$this->col = [];
 			$this->col[] = ["label"=>"Tanggal Order","name"=>"created_at"];
 			$this->col[] = ["label"=>"Nomer Order","name"=>"nomer_order"];
-			$this->col[] = ["label"=>"Pelanggan","name"=>"pelanggan_id","join"=>"pelanggan,nama"];
-			$this->col[] = ["label"=>"Total","name"=>"total","callback_php"=>'number_format($row->total)'];
-			$this->col[] = ["label"=>"Diskon","name"=>"diskon"];
-			$this->col[] = ["label"=>"Pajak","name"=>"pajak","callback_php"=>'number_format($row->diskon)'];
-			$this->col[] = ["label"=>"Grand Total","name"=>"grand_total","callback_php"=>'number_format($row->grand_total)'];
+			$this->col[] = ["label"=>"Users","name"=>"cms_users_id","join"=>"cms_users,name"];
+			$this->col[] = ["label"=>"Total","name"=>"total","callback_php"=>'"Rp. ".number_format($row->total)'];
+			$this->col[] = ["label"=>"Diskon","name"=>"diskon","callback_php"=>'"Rp. ".number_format($row->diskon)'];
+			$this->col[] = ["label"=>"Pajak","name"=>"pajak","callback_php"=>'"Rp. ".number_format($row->pajak)'];
+			$this->col[] = ["label"=>"Grand Total","name"=>"grand_total","callback_php"=>'"Rp. ".number_format($row->grand_total)'];
 			$this->col[] = ["label"=>"Status","name"=>"status"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			$nomer_order = DB::table('order')->max('id') + 1;
-			$nomer_order = str_pad($nomer_order, 5, 0 , STR_PAD_LEFT);
+			$nomer_order = str_pad('INV/ORDER/'.$nomer_order, 5, 0 , STR_PAD_LEFT);
+
+			//$cms_users_id = CRUDBooster::myId();
 
 			# START FORM DO NOT REMOVE THIS LINE
-//			$this->form = [];
-//			$this->form[] = ['label'=>'Pelanggan','name'=>'pelanggan_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'pelanggan,nama','datatable_format'=>'nama,\' - \',telepon'];
-//			$this->form[] = ['label'=>'Nomer Order','name'=>'nomer_order','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','readonly'=>'1'];
-//			$this->form[] = ['label'=>'Order Detail','name'=>'order_detail','type'=>'child','width'=>'col-sm-10','table'=>'order_detail','foreign_key'=>'order_id'];
-//			$this->form[] = ['label'=>'Total','name'=>'total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>'true'];
-//			$this->form[] = ['label'=>'Tax','name'=>'pajak','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-//			$this->form[] = ['label'=>'Discount','name'=>'diskon','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-//			$this->form[] = ['label'=>'Grand Total','name'=>'grand_total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>'1'];
-			# END FORM DO NOT REMOVE THIS LINE
-
-			# OLD START FORM
-			//			$this->form = [];
-			//			$this->form[] = ['label'=>'Pelanggan','name'=>'pelanggan_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'pelanggan','datamodal_columns'=>'nama','datamodal_size'=>'large'];
-			//			$this->form[] = ['label'=>'Nomer Order','name'=>'nomer_order','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
-			//			$this->form[] = ['label'=>'Total','name'=>'total','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-			//			$this->form[] = ['label'=>'Pajak','name'=>'pajak','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-			//			$this->form[] = ['label'=>'Diskon','name'=>'diskon','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-			//			$this->form[] = ['label'=>'Grand Total','name'=>'grand_total','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-			
-			
 			
 			$this->form = [];
-			$this->form[] = ['label'=>'Pelanggan','name'=>'pelanggan_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'pelanggan,nama','datatable_format'=>"nama,' - ',telepon"];
+			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];	
 			$this->form[] = ['label'=>'Nomer Order','name'=>'nomer_order','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$nomer_order,'readonly'=>true];
 			
 			
@@ -112,9 +98,10 @@
 	        | 
 	        */
 			$this->addaction = [];
+			if(CRUDBooster::isSuperadmin()){
 			$this->addaction[] = ['label'=>'Belum Bayar','url'=>CRUDBooster::mainpath('set-status/lunas/[id]'),'icon'=>'fa fa-money','color'=>'warning','showIf'=>"[status] == 'pending'"];
 			$this->addaction[] = ['label'=>'Sudah Bayar','url'=>CRUDBooster::mainpath('set-status/pending/[id]'),'icon'=>'fa fa-money','color'=>'success','showIf'=>"[status] == 'lunas'", 'confirmation' => true];
-
+			}
 
 	        /* 
 	        | ---------------------------------------------------------------------- 
@@ -163,7 +150,7 @@
 	        | 
 	        */
 	        $this->table_row_color = array();     	          
-
+			//$this->table_row_color[] = ["nama"=>"[produk] == 'active'","color"=>"success"];
 	        
 	        /*
 	        | ---------------------------------------------------------------------- 
@@ -289,7 +276,16 @@
 	    */
 	    public function hook_query_index(&$query) {
 	        //Your code here
-	            
+		 if(!CRUDBooster::isSuperadmin()){
+			$query->where('cms_users_id',CRUDBooster::myId());
+
+
+		 }
+//		$query->where('cms_users_id',CRUDBooster::myId());
+//		$query->where('cms_users_id',CRUDBooster::isSuperadmin());
+//		 $query->where('cms_users_id',CRUDBooster::getCurrentId());
+//		 $query->where('cms_users_id',CRUDBooster::getCurrentMethod());  
+
 	    }
 
 	    /*
@@ -299,7 +295,14 @@
 	    |
 	    */    
 	    public function hook_row_index($column_index,&$column_value) {	        
-	    	//Your code here
+			//Your code here
+			if($column_index=='8'){
+	    		if($column_value=='pending'){
+	    			$column_value = "<label style='padding:5px;font-size:12px' class='label label-warning'>pending</label>";
+	    		}else{
+	    			$column_value = "<label style='padding:5px;font-size:12px' class='label label-success'>lunas</label>";
+	    		}
+	    	}
 	    }
 
 	    /*
@@ -321,13 +324,22 @@
 	    | @id = last insert id
 	    | 
 	    */
-	    public function hook_after_add($id) {        
+	    public function hook_after_add($id) {   
+			if(CRUDBooster::isSuperadmin()){    
 	        //Your code here
 	    	$order_detail = DB::table('order_detail')->where('order_id',$id)->get();	    	
 	    	foreach($order_detail as $od) {
 	    		$p = DB::table('produk')->where('id',$od->produk_id)->first();
 	    		DB::table('produk')->where('id',$od->produk_id)->update(['stock'=> abs($p->stock - $od->qty) ]);
-	    	}
+			}
+		}
+			$data = ['name'=>'John Doe','address'=>'Lorem ipsum dolor...'];
+			$row = CRUDBooster::first($this->table,$id);
+			$member = CRUDBooster::first('cms_users',$row->cms_users_id);
+			CRUDBooster::sendEmail(['to'=>$member->email,'data'=>$data,'template'=>'order_berhasil']);
+
+
+
 	    }
 
 	    /* 
@@ -352,7 +364,12 @@
 	    */
 	    public function hook_after_edit($id) {
 	        //Your code here 
-
+//			if(Request::get('status') == 'pending') {
+//				$row = CRUDBooster::first($this->table,$id);
+//				$member = CRUDBooster::first('member',$row->member_id);
+//				$data = ['name'=>$member->name ];
+//				CRUDBooster::sendEmail(['to'=>$member->email,'data'=>$data,'template'=>'email_after_paid');
+//			}
 	    }
 
 	    /* 

@@ -18,13 +18,19 @@
 			$this->button_bulk_action = true;
 			$this->button_action_style = "button_text";
 			$this->button_add = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_add= true; } else { $this->button_add = false; }
 			$this->button_edit = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_edit = true; } else { $this->button_edit = false; }
 			$this->button_delete = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_delete = true; } else { $this->button_delete = false; }
 			$this->button_detail = true;
-			$this->button_show = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_show = true; } else { $this->button_show = false; }
 			$this->button_filter = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_filter = true; } else { $this->button_filter = false; }
 			$this->button_import = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_import = true; } else { $this->button_import = false; }
 			$this->button_export = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_export = true; } else { $this->button_export = false; }
 			$this->table = "produk";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
@@ -35,6 +41,10 @@
 			$this->col[] = ["label"=>"Stock","name"=>"stock"];
 			$this->col[] = ["label"=>"Deskripsi","name"=>"deskripsi"];
 			$this->col[] = ["label"=>"Gambar","name"=>"gambar","image"=>true];
+			$this->col[] = ["label"=>"Brand","name"=>"brand"];
+			$this->col[] = ["label"=>"Harga","name"=>"harga_jual","callback_php"=>'"Rp. ".number_format($row->harga_jual)'];
+//			$this->col[] = ["label"=>"Supplier","name"=>"supplier_id","join"=>"supplier,nama"];
+//			$this->col[] = ["label"=>"Kategori","name"=>"kategori_id","join"=>"kategori,nama"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
@@ -62,6 +72,7 @@
 			//$this->form[] = ['label'=>'Berat','name'=>'berat','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Harga Beli','name'=>'harga_beli','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Harga Jual','name'=>'harga_jual','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Gambar','name'=>'gambar','type'=>'upload','validation'=>'required','width'=>'col-sm-10'];
 			# OLD END FORM
 
 			/* 
@@ -76,9 +87,10 @@
 			| @parent_columns = Sparate with comma, e.g : name,created_at
 	        | 
 	        */
-	        $this->sub_module = array();
+			$this->sub_module = array();
+			if(CRUDBooster::isSuperadmin()){
 			$this->sub_module[] = ['label'=>'Atur Stock','path'=>'stock','button_color'=>'warning','button_icon'=>'fa fa-pencil-square-o','parent_columns'=>'id,sku,nama,stock','foreign_key'=>'produk_id'];
-
+			}
 	        /* 
 	        | ---------------------------------------------------------------------- 
 	        | Add More Action Button / Menu
