@@ -5,7 +5,7 @@
 	use DB;
 	use CRUDBooster;
 
-	class AdminOrderController extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminPembayaranController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
@@ -22,56 +22,63 @@
 			$this->button_delete = true;
 			$this->button_detail = true;
 			$this->button_show = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_show = true; } else { $this->button_show = false; }
 			$this->button_filter = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_filter = true; } else { $this->button_filter = false; }
-			$this->button_import = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_import = true; } else { $this->button_import = false; }
-			$this->button_export = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_export = true; } else { $this->button_export = false; }
-			$this->table = "order";
+			$this->button_import = false;
+			$this->button_export = false;
+			$this->table = "pembayaran";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Tanggal Order","name"=>"created_at"];
-			$this->col[] = ["label"=>"Nomer Order","name"=>"nomer_order"];
+//			$this->col[] = ["label"=>"Kode Pelanggan","name"=>"cms_users_id","join"=>"cms_users,name"];
+//			$this->col[] = ["label"=>"Nomer Inv","name"=>"nomer_inv"];
+//			$this->col[] = ["label"=>"Total","name"=>"total"];
+//			$this->col[] = ["label"=>"Pajak","name"=>"pajak"];
+		
+			$this->col[] = ["label"=>"Tanggal Pembayaran","name"=>"created_at"];
+			$this->col[] = ["label"=>"Nomer Inv","name"=>"nomer_inv"];
 			$this->col[] = ["label"=>"Users","name"=>"cms_users_id","join"=>"cms_users,name"];
 			$this->col[] = ["label"=>"Total","name"=>"total","callback_php"=>'"Rp. ".number_format($row->total)'];
 			$this->col[] = ["label"=>"Diskon","name"=>"diskon","callback_php"=>'"Rp. ".number_format($row->diskon)'];
-			$this->col[] = ["label"=>"Biaya Servis","name"=>"pajak","callback_php"=>'"Rp. ".number_format($row->pajak)'];
-//			$this->col[] = ["label"=>"Biaya Servis","name"=>"servis","callback_php"=>'"Rp. ".number_format($row->pajak)'];
+			$this->col[] = ["label"=>"Pajak","name"=>"pajak","callback_php"=>'"Rp. ".number_format($row->pajak)'];
+			$this->col[] = ["label"=>"Biaya Servis","name"=>"biaya","callback_php"=>'"Rp. ".number_format($row->pajak)'];
 			$this->col[] = ["label"=>"Grand Total","name"=>"grand_total","callback_php"=>'"Rp. ".number_format($row->grand_total)'];
-			$this->col[] = ["label"=>"Status","name"=>"status"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
-			$nomer_order = DB::table('order')->max('id') + 1;
-			$nomer_order = str_pad('INV/ORDER/'.$nomer_order, 5, 0 , STR_PAD_LEFT);
 
-			//$cms_users_id = CRUDBooster::myId();
+			$nomer_inv = DB::table('pembayaran')->max('id') + 1;
+			$nomer_inv = str_pad('INV/'.$nomer_inv, 5, 0 , STR_PAD_LEFT);
 
 
-			#$biaya_servis = DB::table('servis')->first()->biaya;
+
 			# START FORM DO NOT REMOVE THIS LINE
-			
 			$this->form = [];
-			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];	
-			$this->form[] = ['label'=>'Nomer Order','name'=>'nomer_order','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$nomer_order,'readonly'=>true];
-			
-			
-			$columns = [];
-			$columns[] = ['label'=>'Produk','name'=>'produk_id','type'=>'datamodal','datamodal_table'=>'produk','datamodal_columns'=>'nama,sku,harga_jual,stock','datamodal_select_to'=>'harga_jual:harga,sku:produk_sku','required'=>true];
-			$columns[] = ['label'=>'Product SKU','name'=>'produk_sku','type'=>'text','readonly'=>true,'required'=>true];
-			$columns[] = ['label'=>'Harga','name'=>'harga','type'=>'number','readonly'=>true,'required'=>true];
-			$columns[] = ['label'=>'QTY','name'=>'qty','type'=>'number','required'=>true];
-			$columns[] = ['label'=>'Sub Total','name'=>'sub_total','type'=>'number','formula'=>'[harga] * [qty]','readonly'=>true,'required'=>true];
-			$this->form[] = ['label'=>'Order Detail','name'=>'order_detail','type'=>'child','columns'=>$columns,'table'=>'order_detail','foreign_key'=>'order_id'];			
+			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
+			$this->form[] = ['label'=>'Nomer Invoice','name'=>'nomer_inv','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$nomer_inv,'readonly'=>true];
 
-			$this->form[] = ['label'=>'Total','name'=>'total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>'true','value'=>0];
-//			$this->form[] = ['label'=>'Biaya Servis','name'=>'servis','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','value'=>0];
-			$this->form[] = ['label'=>'Biaya Servis','name'=>'pajak','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','value'=>0];
+			$columns = [];
+			$columns[] = ['label'=>'Produk','name'=>'produk_id','type'=>'datamodal','datamodal_table'=>'produk','datamodal_columns'=>'nama,harga_jual','datamodal_select_to'=>'harga_jual:harga','required'=>true];
+			$columns[] = ['label'=>'Harga','name'=>'harga','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>true,'value'=>0];
+			$columns[] = ['label'=>'QTY','name'=>'qty','type'=>'number','required'=>true];
+			$columns[] = ['label'=>'Sub Total','name'=>'sub_total','type'=>'number','formula'=>'[harga] * [qty]','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>true,'value'=>0];
+			$this->form[] = ['label'=>'Pembayaran Detail','name'=>'pembayaran_detail','type'=>'child','columns'=>$columns,'table'=>'pembayaran_detail','foreign_key'=>'pembayaran_id'];	
+
+
+			$this->form[] = ['label'=>'Total','name'=>'total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','value'=>0];
+			$this->form[] = ['label'=>'Biaya Servis','name'=>'biaya','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','value'=>0];
+			$this->form[] = ['label'=>'Pajak','name'=>'pajak','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','value'=>0];
 			$this->form[] = ['label'=>'Diskon','name'=>'diskon','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','value'=>0];
 			$this->form[] = ['label'=>'Grand Total','name'=>'grand_total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>true,'value'=>0];
+			# END FORM DO NOT REMOVE THIS LINE
+
+			# OLD START FORM
+			//$this->form = [];
+			//$this->form[] = ["label"=>"Cms Users Id","name"=>"cms_users_id","type"=>"select2","required"=>TRUE,"validation"=>"required|integer|min:0","datatable"=>"cms_users,name"];
+			//$this->form[] = ["label"=>"Nomer Inv","name"=>"nomer_inv","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Total","name"=>"total","type"=>"money","required"=>TRUE,"validation"=>"required|integer|min:0"];
+			//$this->form[] = ["label"=>"Pajak","name"=>"pajak","type"=>"money","required"=>TRUE,"validation"=>"required|integer|min:0"];
+			//$this->form[] = ["label"=>"Diskon","name"=>"diskon","type"=>"money","required"=>TRUE,"validation"=>"required|integer|min:0"];
+			//$this->form[] = ["label"=>"Grand Total","name"=>"grand_total","type"=>"money","required"=>TRUE,"validation"=>"required|integer|min:0"];
 			# OLD END FORM
 
 			/* 
@@ -100,11 +107,8 @@
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        | 
 	        */
-			$this->addaction = [];
-			if(CRUDBooster::isSuperadmin()){
-			$this->addaction[] = ['label'=>'Belum Bayar','url'=>CRUDBooster::mainpath('set-status/lunas/[id]'),'icon'=>'fa fa-money','color'=>'warning','showIf'=>"[status] == 'pending'"];
-			$this->addaction[] = ['label'=>'Sudah Bayar','url'=>CRUDBooster::mainpath('set-status/pending/[id]'),'icon'=>'fa fa-money','color'=>'success','showIf'=>"[status] == 'lunas'", 'confirmation' => true];
-			}
+	        $this->addaction = array();
+
 
 	        /* 
 	        | ---------------------------------------------------------------------- 
@@ -153,7 +157,7 @@
 	        | 
 	        */
 	        $this->table_row_color = array();     	          
-			//$this->table_row_color[] = ["nama"=>"[produk] == 'active'","color"=>"success"];
+
 	        
 	        /*
 	        | ---------------------------------------------------------------------- 
@@ -161,10 +165,10 @@
 	        | ---------------------------------------------------------------------- 
 	        | @label, @count, @icon, @color 
 	        |
-			*/
-			
+	        */
 	        $this->index_statistic = array();
-	//		$this->index_statistic[] = ['label'=>'Lorem Ipsum','count'=>DB::order($this->table)->count(),'icon'=>'fa fa-bars','color'=>'red','width'=>'col-sm-3'];
+
+
 
 	        /*
 	        | ---------------------------------------------------------------------- 
@@ -174,25 +178,8 @@
 	        | $this->script_js = "function() { ... }";
 	        |
 	        */
-	        $this->script_js ="
-			$(function() {
-				
-				setInterval(function() {
-					var total = 0;
-					$('#table-orderdetail tbody .sub_total').each(function() {
-						total += parseInt($(this).text());
-					})
-					$('#total').val(total);
+	        $this->script_js = NULL;
 
-					var grand_total = 0;
-					grand_total += total;
-					grand_total += parseInt($('#pajak').val());
-					grand_total -= parseInt($('#diskon').val());
-					
-					$('#grand_total').val(grand_total);
-				},500);
-			})
-		";
 
             /*
 	        | ---------------------------------------------------------------------- 
@@ -223,13 +210,36 @@
 	        | Include Javascript File 
 	        | ---------------------------------------------------------------------- 
 	        | URL of your javascript each array 
-	        | $this->load_js[] = asset("myfile.js");
+			| $this->load_js[] = asset("myfile.js");
+			
+			var servis = 0;
+					$('#form-servis_id onclick .datamodal_label').each(function() {
+						servis += parseInt($(this).text());
+					})
+					$('#servis').val(servis);
+
 	        |
 	        */
-	        $this->load_js = array();
-	        
-	        
-	        
+	        $this->script_js ="
+			$(function() {
+				
+				setInterval(function() {
+					var total = 0;
+					$('#table-pembayarandetail tbody .sub_total').each(function() {
+						total += parseInt($(this).text());
+					})
+					$('#total').val(total);
+
+					var grand_total = 0;
+					grand_total += total;
+					grand_total += parseInt($('#biaya').val());
+					grand_total += parseInt($('#pajak').val());
+					grand_total -= parseInt($('#diskon').val());
+					
+					$('#grand_total').val(grand_total);
+				},500);
+			})
+		"; 
 	        /*
 	        | ---------------------------------------------------------------------- 
 	        | Add css style at body 
@@ -279,16 +289,7 @@
 	    */
 	    public function hook_query_index(&$query) {
 	        //Your code here
-		 if(!CRUDBooster::isSuperadmin()){
-			$query->where('cms_users_id',CRUDBooster::myId());
-
-
-		 }
-//		$query->where('cms_users_id',CRUDBooster::myId());
-//		$query->where('cms_users_id',CRUDBooster::isSuperadmin());
-//		 $query->where('cms_users_id',CRUDBooster::getCurrentId());
-//		 $query->where('cms_users_id',CRUDBooster::getCurrentMethod());  
-
+	            
 	    }
 
 	    /*
@@ -298,14 +299,7 @@
 	    |
 	    */    
 	    public function hook_row_index($column_index,&$column_value) {	        
-			//Your code here
-			if($column_index=='8'){
-	    		if($column_value=='pending'){
-	    			$column_value = "<label style='padding:5px;font-size:12px' class='label label-warning'>pending</label>";
-	    		}else{
-	    			$column_value = "<label style='padding:5px;font-size:12px' class='label label-success'>lunas</label>";
-	    		}
-	    	}
+	    	//Your code here
 	    }
 
 	    /*
@@ -327,21 +321,8 @@
 	    | @id = last insert id
 	    | 
 	    */
-	    public function hook_after_add($id) {   
-			if(CRUDBooster::isSuperadmin()){    
+	    public function hook_after_add($id) {        
 	        //Your code here
-	    	$order_detail = DB::table('order_detail')->where('order_id',$id)->get();	    	
-	    	foreach($order_detail as $od) {
-	    		$p = DB::table('produk')->where('id',$od->produk_id)->first();
-	    		DB::table('produk')->where('id',$od->produk_id)->update(['stock'=> abs($p->stock - $od->qty) ]);
-			}
-		}
-			$data = ['name'=>'John Doe','address'=>'Lorem ipsum dolor...'];
-			$row = CRUDBooster::first($this->table,$id);
-			$member = CRUDBooster::first('cms_users',$row->cms_users_id);
-			CRUDBooster::sendEmail(['to'=>$member->email,'data'=>$data,'template'=>'order_berhasil']);
-
-
 
 	    }
 
@@ -367,12 +348,7 @@
 	    */
 	    public function hook_after_edit($id) {
 	        //Your code here 
-//			if(Request::get('status') == 'pending') {
-//				$row = CRUDBooster::first($this->table,$id);
-//				$member = CRUDBooster::first('member',$row->member_id);
-//				$data = ['name'=>$member->name ];
-//				CRUDBooster::sendEmail(['to'=>$member->email,'data'=>$data,'template'=>'email_after_paid');
-//			}
+
 	    }
 
 	    /* 
@@ -401,13 +377,7 @@
 
 
 
-		//By the way, you can still create your own method in here... :) 
-		public function getSetStatus($status,$id) {
-			DB::table('order')->where('id',$id)->update(['status'=>$status]);
-			
-			//This will redirect back and gives a message
-			CRUDBooster::redirect($_SERVER['HTTP_REFERER'],"The status Order has been updated !","info");
-		 }
+	    //By the way, you can still create your own method in here... :) 
 
 
 	}
