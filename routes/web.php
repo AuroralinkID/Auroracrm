@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+CRUDBooster::routeController('/','FrontController');
 
 Route::get('/', function () {
     return view('home');
