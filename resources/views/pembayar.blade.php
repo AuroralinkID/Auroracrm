@@ -12,7 +12,7 @@
         </a>
     </div>
     <div class="col-sm-6">
-		<table>Pembayaran Dari
+		<table>#Pembayaran Dari
                                     <tr>
                                         <td width="30%">No.Inv</td>
                                         <td>:</td>
@@ -32,11 +32,16 @@
                                         <td>Email</td>
                                         <td>:</td>
                                         <td>{{ $orders->email }}</td>
+                                    </tr> 
+                                    <tr>
+                                        <td>Tanggal</td>
+                                        <td>:</td>
+                                        <td>{{ $orders->created_at }}</td>
                                     </tr>
                                 </table>
                             </div>
                             <div class="col-md-6">
-                                <table>Pembayaran Kepada
+                                <table>#Pembayaran Kepada
                                     <tr>
                                         <td width="30%">AURORALINK</td>
                                     </tr>
@@ -59,6 +64,7 @@
 	   @else
        <span class="label label-success">SUDAH DIBAYAR</span>
 	 @endif
+   <a href="{{CRUDBooster::mainpath("export-data?t=".time())}}" class="print"><i class="fa fa-print"></i>Print</a>
    </div>
    </div>
     <!-- /.box-tools -->
@@ -67,7 +73,7 @@
 
   <div class="box-body table-responsive no-padding">
     <table class="table table-hover table-striped table-bordered">
-    <thead >
+    <thead-light >
       <tr class="active">
         <th>#</th>
         <th>Produk</th>
@@ -76,7 +82,7 @@
         <th>Harga/unit Rp.</th>
         <th>Total Rp.</th>
       </tr>
-    </thead>
+    </thead-light>
     <tbody>
 	@foreach($ordersdetail as  $key => $od)
       <tr>
@@ -110,39 +116,70 @@
   </table>
   </div>
     <div class="box-body table-responsive no-padding">
-    <h4 class="box-title">Silahkan lakukan pembayaran Sebesar <strong>Rp. {{ $orders->grand_total }}</strong> ke salah satu rekening di bawah ini : </h4>
-  <div class="col-sm-6">
-				Bank BCA<br>
-				Norek 18002823<br>
-				AN Bambang Pamungkas<br>
-			<br>
-      </div>
-      <div class="col-sm-6">
-				Bank Mandiri<br>
-				Norek 18002823<br>
-				AN Bambang Pamungkas<br>
-			<br>
-      </div>
-      <div class="col-sm-6">
-      Bank BRI<br>
-      Norek 18002823<br>
-      AN Bambang Pamungkas<br>
-      <br>
-      </div>
+    <h4 class="box-title">Silahkan melakukan pembayaran Sebesar <strong>Rp. {{ $orders->grand_total }}</strong> ke salah satu rekening di bawah ini : </h4>
 
-      <div class="col-sm-6">
-      Bank Muamalat<br>
-      Norek 18002823<br>
-      AN Bambang Pamungkas<br>
-    <br>
-    </div>
+  <div class="col-sm-2">
+        <div class="card" style="width: 18rem;">
+  <img src="{{url('')}}/img/bank-1bca.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>
+  <div class="card-body">
+    <br><p class="card-text">
+    An. Agoes Suryani<br>
+    Rek : 325 066 7956<br>
+    </p>
+<!--    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+            </div>
+            </div>
+      <div class="col-sm-2">
+      <div class="card" style="width: 18rem;">
+  <img src="{{url('')}}/img/bank-1bri.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>
+  <div class="card-body">
+    <br><p class="card-text">
+    An. Agoes Suryani<br>
+    Rek : 6263 0100 5365 530<br>
+    </p>
+<!--    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+      </div>
+      </div>
+      <div class="col-sm-2">
+      <div class="card" style="width: 18rem;">
+  <img src="{{url('')}}/img/bank-1mandiri.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>
+  <div class="card-body">
+    <br><p class="card-text">
+    An. Sofan Wahyudi<br>
+    Rek : 1400013788303<br>
+    </p>
+<!--    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+      </div>
+      </div>
+      <div class="col-sm-2">
+      <div class="card" style="width: 18rem;">
+  <img src="{{url('')}}/img/bank-1muamalat.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>
+  <div class="card-body">
+    <br><p class="card-text">
+    An. Sofan Wahyudi<br>
+    Rek : 706 000 8988<br>
+    </p>
+<!--    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+      </div>
+      </div>
+      <div class="col-sm-2">
+      <div class="card" style="width: 18rem;">
+  <img src="{{url('')}}/img/bank-1cimb.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>
+  <div class="card-body">
+    <br><p class="card-text">
+    An. Sofan Wahyudi<br>
+    Rek Ponsel : 081553177408<br>
+    </p>
+<!--    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+      </div>
       </div>
   <!-- /.box-body -->
-  <div class="box-footer">
-  Dibuat pada tanggal {{ $orders->created_at }}
-  </div>
-  <!-- box-footer -->
-</div>
+      </div>
 <!-- /.box -->
 
 @endsection

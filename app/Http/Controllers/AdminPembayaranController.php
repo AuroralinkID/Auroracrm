@@ -98,6 +98,7 @@
 									->get();
 
 			$this->cbView('pembayar',$data);
+			
 
 		}
 
