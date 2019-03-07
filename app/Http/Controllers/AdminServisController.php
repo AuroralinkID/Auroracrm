@@ -311,6 +311,11 @@
 			$row = CRUDBooster::first($this->table,$id);
 			$member = CRUDBooster::first('cms_users',$row->cms_users_id);
 			CRUDBooster::sendEmail(['to'=>$member->email,'data'=>$data,'template'=>'servis_baru']);
+
+			$config['content'] = "Ada Servis Baru";
+                        $config['to'] = CRUDBooster::adminPath('servis');
+                        $config['id_cms_users'] = [1]; //The Id of the user that is going to receive notification. This could be an array of id users [1,2,3,4,5]
+                        CRUDBooster::sendNotification($config);
 	    }
 
 	    /* 

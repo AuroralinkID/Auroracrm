@@ -2,6 +2,7 @@
 @extends('crudbooster::admin_template')
 @section('content')
 
+
 <div class="box">
   <div class="box-header with-border">
   <div class="login-logo">
@@ -21,7 +22,7 @@
                                     <tr>
                                         <td width="30%">Nama </td>
                                         <td>:</td>
-                                        <td>{{ $orders->nama }}</td>
+                                        <td>{{$orders->nama}}</td>
                                     </tr>
                                     <tr>
                                         <td>Alamat</td>
@@ -29,14 +30,14 @@
                                         <td>{{ $orders->alamat }}</td>
                                     </tr>
                                     <tr>
+                                        <td>Telepon</td>
+                                        <td>:</td>
+                                        <td>{{ $orders->telepon }}</td>
+                                    </tr> 
+                                    <tr>
                                         <td>Email</td>
                                         <td>:</td>
                                         <td>{{ $orders->email }}</td>
-                                    </tr> 
-                                    <tr>
-                                        <td>Tanggal</td>
-                                        <td>:</td>
-                                        <td>{{ $orders->created_at }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -54,6 +55,9 @@
                                     <tr>
                                         <td> support@auroralink.id</td>
                                     </tr>
+                                    <tr>
+                                        <td>{{ $orders->created_at }}</td>
+                                    </tr>
                                 </table>
                             </div>
     <div class="box-tools pull-right">
@@ -64,8 +68,8 @@
 	   @else
        <span class="label label-success">SUDAH DIBAYAR</span>
 	 @endif
-   <a href="{{CRUDBooster::mainpath("export-data?t=".time())}}" class="print"><i class="fa fa-print"></i>Print</a>
-   </div>
+	<button class="btn btn-primary hidden-print" onclick="myFunction('{{CRUDBooster::mainpath("export-data?t=" .time())}}')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Cetak</button>
+</div>
    </div>
     <!-- /.box-tools -->
   </div>

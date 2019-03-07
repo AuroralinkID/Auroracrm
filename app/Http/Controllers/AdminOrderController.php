@@ -37,6 +37,10 @@
 			$this->col[] = ["label"=>"Tanggal Order","name"=>"created_at"];
 			$this->col[] = ["label"=>"Nomer Order","name"=>"nomer_order"];
 			$this->col[] = ["label"=>"Users","name"=>"cms_users_id","join"=>"cms_users,name"];
+//			$this->col[] = ["label"=>"Nama","name"=>"nama"];
+//			$this->col[] = ["label"=>"Email","name"=>"email"];
+//			$this->col[] = ["label"=>"Telepon","name"=>"telepon"];
+//			$this->col[] = ["label"=>"Email","name"=>"email"];
 			$this->col[] = ["label"=>"Total","name"=>"total","callback_php"=>'"Rp. ".number_format($row->total)'];
 			$this->col[] = ["label"=>"Diskon","name"=>"diskon","callback_php"=>'"Rp. ".number_format($row->diskon)'];
 			$this->col[] = ["label"=>"Biaya Servis","name"=>"pajak","callback_php"=>'"Rp. ".number_format($row->pajak)'];
@@ -48,14 +52,18 @@
 			$nomer_order = DB::table('order')->max('id') + 1;
 			$nomer_order = str_pad('INV/ORDER/'.$nomer_order, 5, 0 , STR_PAD_LEFT);
 
-			//$cms_users_id = CRUDBooster::myId();
+			//$cms_users_id = CRUDBooster::myName();
 
 
 			#$biaya_servis = DB::table('servis')->first()->biaya;
 			# START FORM DO NOT REMOVE THIS LINE
 			
 			$this->form = [];
-			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];	
+			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
+			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'number','validation'=>'required','width'=>'col-sm-10'];	
 			$this->form[] = ['label'=>'Nomer Order','name'=>'nomer_order','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$nomer_order,'readonly'=>true];
 			
 			
@@ -341,6 +349,12 @@
 			$member = CRUDBooster::first('cms_users',$row->cms_users_id);
 			CRUDBooster::sendEmail(['to'=>$member->email,'data'=>$data,'template'=>'order_berhasil']);
 
+
+
+			$config['content'] = "Ada Order Baru";
+			$config['to'] = CRUDBooster::adminPath('order');
+			$config['id_cms_users'] = [1]; //The Id of the user that is going to receive notification. This could be an array of id users [1,2,3,4,5]
+			CRUDBooster::sendNotification($config);
 
 
 	    }

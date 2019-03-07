@@ -1,8 +1,11 @@
 <?php namespace App\Http\Controllers;
 
+	use Illuminate\Http\Request;
 	use Session;
-	use Request;
+//	use Request;
 	use DB;
+	use PDF;
+
 	use CRUDBooster;
 
 	class AdminPembayaranController extends \crocodicstudio\crudbooster\controllers\CBController {
@@ -24,7 +27,7 @@
 			$this->button_show = false;
 			$this->button_filter = false;
 			$this->button_import = false;
-			$this->button_export = false;
+			$this->button_export = true;
 			$this->table = "order";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
@@ -87,6 +90,7 @@
 			
 			$myid = CRUDBooster::myId();
 			$data = [];
+			$data['export'] = true;
 			$data['page_title'] = 'Pembayaran';  
 			$data['idorder'] = $id;
 			
@@ -98,13 +102,10 @@
 									->get();
 
 			$this->cbView('pembayar',$data);
-			
 
 		}
 
 
 
-	    //By the way, you can still create your own method in here... :) 
-
-
+		//By the way, you can still create your own method in here... :) 
 	}

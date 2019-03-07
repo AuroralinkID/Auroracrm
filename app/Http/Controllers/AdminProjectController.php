@@ -32,7 +32,7 @@
 			$this->col = [];
 			$this->col[] = ["label"=>"Nama","name"=>"nama"];
 			$this->col[] = ["label"=>"Deskripsi","name"=>"deskripsi"];
-			$this->col[] = ["label"=>"Kategori","name"=>"kategori_id","join"=>"kategori,nama"];
+			$this->col[] = ["label"=>"Kategori","name"=>"dkategori_id","join"=>"dkategori,nama"];
 			$this->col[] = ["label"=>"Tgl Mulai","name"=>"tgl_mulai"];
 			$this->col[] = ["label"=>"Status","name"=>"status"];
 			$this->col[] = ["label"=>"Pelaksana","name"=>"team_id","join"=>"team,nama"];
@@ -42,7 +42,7 @@
 			$this->form = [];
 			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
 			$this->form[] = ['label'=>'Deskripsi','name'=>'deskripsi','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Kategori','name'=>'kategori_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'kategori','datamodal_columns'=>'nama','datamodal_size'=>'small'];
+			$this->form[] = ['label'=>'Kategori','name'=>'dkategori_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'dkategori','datamodal_columns'=>'nama','datamodal_size'=>'small'];
 			$this->form[] = ['label'=>'Tgl Mulai','name'=>'tgl_mulai','type'=>'date','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Tgl Selesai','name'=>'tgl_selesai','type'=>'date','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Status','name'=>'status','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];

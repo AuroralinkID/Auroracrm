@@ -314,7 +314,10 @@
 		//	$config['to'] = CRUDBooster::adminPath('ticket');
 		//	$config['cms_users_id'] = CRUDBooster::isSuperadmin(); //This is an array of id users
 		//	CRUDBooster::sendNotification($config);
-
+			$config['content'] = "Ada Ticket Baru";
+                        $config['to'] = CRUDBooster::adminPath('ticket');
+                        $config['id_cms_users'] = [1]; //The Id of the user that is going to receive notification. This could be an array of id users [1,2,3,4,5]
+                        CRUDBooster::sendNotification($config);
 
 			//kirim email setelah buat tiket
 			//Send Email
