@@ -15,12 +15,18 @@
 			$this->orderby = "id,desc";
 			$this->global_privilege = true;
 			$this->button_table_action = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_table_action = true; } else { $this->button_table_action= false; }
 			$this->button_bulk_action = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_bulk_action = true; } else { $this->button_bulk_action = false; }
 			$this->button_action_style = "button_text";
 			$this->button_add = true;
+		//	if(CRUDBooster::isSuperadmin()){ $this->$button_add = true; } else { $this->button_add = false; }
 			$this->button_edit = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_edit = true; } else { $this->button_edit = false; }
 			$this->button_delete = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_delete = true; } else { $this->button_delete = false; }
 			$this->button_detail = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_detail = true; } else { $this->button_detail = false; }
 			$this->button_show = true;
 			if(CRUDBooster::isSuperadmin()){ $this->$button_show = true; } else { $this->button_show = false; }
 			$this->button_filter = true;

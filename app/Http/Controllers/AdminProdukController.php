@@ -16,6 +16,7 @@
 			$this->global_privilege = true;
 			$this->button_table_action = true;
 			$this->button_bulk_action = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_bulk_action = true; } else { $this->button_bulk_action = false; }
 			$this->button_action_style = "button_text";
 			$this->button_add = true;
 			if(CRUDBooster::isSuperadmin()){ $this->$button_add= true; } else { $this->button_add = false; }
@@ -38,9 +39,9 @@
 			$this->col = [];
 			$this->col[] = ["label"=>"Sku","name"=>"sku"];
 			$this->col[] = ["label"=>"Nama","name"=>"nama"];
-			$this->col[] = ["label"=>"Stock","name"=>"stock"];
-			$this->col[] = ["label"=>"Deskripsi","name"=>"deskripsi"];
+//			$this->col[] = ["label"=>"Deskripsi","name"=>"deskripsi"];
 			$this->col[] = ["label"=>"Gambar","name"=>"gambar","image"=>true];
+			$this->col[] = ["label"=>"Stock","name"=>"stock"];
 			$this->col[] = ["label"=>"Brand","name"=>"brand"];
 			$this->col[] = ["label"=>"Harga","name"=>"harga_jual","callback_php"=>'"Rp. ".number_format($row->harga_jual)'];
 //			$this->col[] = ["label"=>"Supplier","name"=>"supplier_id","join"=>"supplier,nama"];

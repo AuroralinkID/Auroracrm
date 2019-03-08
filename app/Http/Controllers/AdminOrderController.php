@@ -15,12 +15,17 @@
 			$this->orderby = "id,desc";
 			$this->global_privilege = true;
 			$this->button_table_action = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_table_action = true; } else { $this->button_table_action = false; }
 			$this->button_bulk_action = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_bulk_action = true; } else { $this->button_bulk_action = false; }
 			$this->button_action_style = "button_text";
 			$this->button_add = true;
 			$this->button_edit = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_edit = true; } else { $this->button_edit = false; }
 			$this->button_delete = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_delete = true; } else { $this->button_delete = false; }
 			$this->button_detail = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_detail = true; } else { $this->button_detail = false; }
 			$this->button_show = true;
 			if(CRUDBooster::isSuperadmin()){ $this->$button_show = true; } else { $this->button_show = false; }
 			$this->button_filter = true;
@@ -95,7 +100,7 @@
 	        | 
 	        */
 	        $this->sub_module = array();
-
+		//	$this->sub_module[] = ['label'=>'bayar','path'=>'pembayaran','button_color'=>'warning','button_icon'=>'fa fa-pencil-square-o','parent_columns'=>'id,sku,nama,stock','foreign_key'=>'produk_id'];
 
 	        /* 
 	        | ---------------------------------------------------------------------- 
@@ -113,7 +118,7 @@
 			$this->addaction[] = ['label'=>'Belum Bayar','url'=>CRUDBooster::mainpath('set-status/lunas/[id]'),'icon'=>'fa fa-money','color'=>'warning','showIf'=>"[status] == 'pending'"];
 			$this->addaction[] = ['label'=>'Sudah Bayar','url'=>CRUDBooster::mainpath('set-status/pending/[id]'),'icon'=>'fa fa-money','color'=>'success','showIf'=>"[status] == 'lunas'", 'confirmation' => true];
 			}
-
+			//$this->addaction[] = ['label'=>'Bayar','url'=>CRUDBooster::mainpath('pembayaran/detail/[id]'),'icon'=>'fa fa-money','color'=>'warning','showIf'=>"[status] == 'pending'"];
 	        /* 
 	        | ---------------------------------------------------------------------- 
 	        | Add More Button Selected

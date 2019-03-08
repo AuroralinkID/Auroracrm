@@ -19,7 +19,7 @@
 			$this->global_privilege = false;
 			$this->button_table_action = true;
 			$this->button_bulk_action = false;
-			$this->button_action_style = "button_icon";
+			$this->button_action_style = "button_text";
 			$this->button_add = false;
 			$this->button_edit = false;
 			$this->button_delete = false;
@@ -28,6 +28,7 @@
 			$this->button_filter = false;
 			$this->button_import = false;
 			$this->button_export = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_export = true; } else { $this->button_export = false; }
 			$this->table = "order";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
@@ -37,6 +38,7 @@
 			$this->col[] = ["label"=>"Nama","name"=>"nama"];
 			$this->col[] = ["label"=>"Email","name"=>"email"];
 			$this->col[] = ["label"=>"Nomer Order","name"=>"nomer_order"];
+			$this->col[] = ["label"=>"Status","name"=>"status"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
