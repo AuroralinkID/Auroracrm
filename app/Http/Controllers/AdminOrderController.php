@@ -349,9 +349,13 @@
 	    		DB::table('produk')->where('id',$od->produk_id)->update(['stock'=> abs($p->stock - $od->qty) ]);
 			}
 		}
-			$data = ['name'=>'John Doe','address'=>'Lorem ipsum dolor...'];
+
+			
+			
 			$row = CRUDBooster::first($this->table,$id);
 			$member = CRUDBooster::first('cms_users',$row->cms_users_id);
+			$no_order = DB::table('order')->where('id',$id)->first()->nomer_order;
+			$data = ['name'=> $member->name,'idorder'=> $no_order];
 			CRUDBooster::sendEmail(['to'=>$member->email,'data'=>$data,'template'=>'order_berhasil']);
 
 

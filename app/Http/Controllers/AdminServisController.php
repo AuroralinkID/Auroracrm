@@ -315,9 +315,10 @@
 	    */
 	    public function hook_after_add($id) {        
 	        //Send Email
-			$data = ['name'=>'John Doe','address'=>'Lorem ipsum dolor...'];
 			$row = CRUDBooster::first($this->table,$id);
 			$member = CRUDBooster::first('cms_users',$row->cms_users_id);
+			$no_servis = DB::table('servis')->where('id',$id)->first()->kode_servis;
+			$data = ['name'=> $member->name,'idservis'=> $no_servis];
 			CRUDBooster::sendEmail(['to'=>$member->email,'data'=>$data,'template'=>'servis_baru']);
 
 			$config['content'] = "Ada Servis Baru";
@@ -381,7 +382,20 @@
 			CRUDBooster::redirect($_SERVER['HTTP_REFERER'],"Ticket Berhasil Di update !","info");
 
 		}
-	    //By the way, you can still create your own method in here... :) 
-
+	    public function getDetail($id) {
+			//Create an Auth
+			if(!CRUDBooster::isRead() && $this->global_privilege==FALSE || $this->button_edit==FALSE) {    
+			  CRUDBooster::redirect(CRUDBooster::adminPath(),trans("crudbooster.denied_access"));
+			}
+			
+			$myid = CRUDBooster::myId();
+			$data = [];
+			$data['export'] = true;
+			$data['page_title'] = 'Detail Servis';  
+			$data['idservis'] = $id;
+			$data['servis'] = DB::table('servis')->where('id',$id)->first();	
+			//Please use cbView method instead view method from laravel
+			$this->cbView('dservis',$data);
+		  }
 
 	}

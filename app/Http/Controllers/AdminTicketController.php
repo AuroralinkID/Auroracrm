@@ -327,9 +327,11 @@
 
 			//kirim email setelah buat tiket
 			//Send Email
-			$data = ['name'=>'John Doe','address'=>'Lorem ipsum dolor...'];
+			
 			$row = CRUDBooster::first($this->table,$id);
 			$member = CRUDBooster::first('cms_users',$row->cms_users_id);
+			$no_ticket = DB::table('ticket')->where('id',$id)->first()->nomer_ticket;
+			$data = ['name'=> $member->name,'idticket'=> $no_ticket];
 			CRUDBooster::sendEmail(['to'=>$member->email,'data'=>$data,'template'=>'ticket_baru']);
 	    }
 
