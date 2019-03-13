@@ -2,73 +2,87 @@
 @extends('crudbooster::admin_template')
 @section('content')
 
-
-<div class="box">
-  <div class="box-header with-border">
-  <div class="login-logo">
-  <p><h1> SURAT TANDA TERIMA SERVIS </h1><p>
+<div class="box-tools">
+	<button class="btn btn-primary hidden-print" onclick="myFunction('{{CRUDBooster::mainpath("export-data?t=" .time())}}')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Cetak</button>
+</div>
+        <div class="box">
+<div class="row">
+    <div class="col-sm-9">
+    <div class="text-center">
+        <img src="/img/SiapPasangWeb.png" alt="Logo" style="border-bottom:1px solid black;text-decoration:none;color:#000001;"/>
+        <p>TANDA TERIMA SERVIS NO: {{ $servis->kode_servis }}<p>
+        </div>
     </div>
+<div class="container">
+  <div class="row">
     <div class="col-sm-6">
 		<table>#DITERIMA DARI
                                     <tr>
-                                        <td width="30%">No.Servis</td>
-                                        <td>:</td>
-                                        <td>{{ $servis->kode_servis }}</td>
+                                        <td style="padding: 1px;">No.Servis</td>
+                                        <td style="padding: 1px;">: </td>
+                                        <td style="padding: 1px;"> {{ $servis->kode_servis }}</td>
                                     </tr>
                                     <tr>
-                                        <td width="30%">Nama </td>
-                                        <td>:</td>
-                                        <td>{{$servis->nama}}</td>
+                                        <td style="padding: 1px;" width="30%">Nama </td>
+                                        <td style="padding: 1px;">:</td>
+                                        <td style="padding: 1px;">{{$servis->nama}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Alamat</td>
-                                        <td>:</td>
-                                        <td>{{ $orders->alamat }}</td>
+                                        <td style="padding: 1px;">Alamat</td>
+                                        <td style="padding: 1px;">:</td>
+                                        <td style="padding: 1px;">{{ $servis->alamat }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Telepon</td>
-                                        <td>:</td>
-                                        <td>{{ $orders->telepon }}</td>
+                                        <td style="padding: 1px;">Telepon</td>
+                                        <td style="padding: 1px;">:</td>
+                                        <td style="padding: 1px;">{{ $servis->telepon }}</td>
                                     </tr> 
                                     <tr>
-                                        <td>Email</td>
-                                        <td>:</td>
-                                        <td>{{ $orders->email }}</td>
+                                        <td style="padding: 1px;">Email</td>
+                                        <td style="padding: 1px;">:</td>
+                                        <td style="padding: 1px;">{{ $servis->email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 1px;">Status</td>
+                                        <td style="padding: 1px;">: </td>
+                                        <td style="padding: 1px;">
+                                        @if($orders->status == 'dalam-antiran')
+                                            <span class="label label-danger">Dalam Antrian</span>
+                                          @else
+                                            <span class="label label-success">Selesai Di Ambil</span>
+                                        @endif</td>
                                     </tr>
                                 </table>
                                 </div>
                                 <div class="col-md-6">
                                 <table>#DITERIMA OLEH
                                     <tr>
-                                        <td width="30%">AURORALINK</td>
+                                        <td style="padding: 1px;" width="30%">AURORALINK</td>
                                     </tr>
                                     <tr>
-                                        <td> Jl Bulak Setro Utara VI/4C Bulak Surabaya</td>
+                                        <td style="padding: 1px;"> Jl Bulak Setro Utara VI/4C Bulak Surabaya</td>
                                     </tr>
                                     <tr>
-                                        <td> 081553177408</td>
+                                        <td style="padding: 1px;"> 081553177408</td>
                                     </tr>
                                     <tr>
-                                        <td> support@auroralink.id</td>
+                                        <td style="padding: 1px;"> support@auroralink.id</td>
                                     </tr>
+                                    @foreach($team as $key => $tm) 
                                     <tr>
-                                        <td>{{ $servis->created_at }}</td>
+                                        <td style="padding: 1px;">{{ $tm->tnama }}</td>
+                                    </tr>
+                                    @endforeach 
+                                    <tr>
+                                        <td style="padding: 1px;">{{ $servis->created_at }}</td>
                                     </tr>
                                 </table>
                             </div>
-
+                            </div>
+                    </div>
  
     <!-- /.box-tools -->
-    <div class="box-tools pull-right">
-      <!-- Buttons, labels, and many other things can be placed here! -->
-      <!-- Here is a label for example -->
-	@if($orders->status == 'dalam-antiran')
-       <span class="label label-danger">Dalam Antrian</span>
-	   @else
-       <span class="label label-success">Selesai Di Ambil</span>
-	 @endif
-	<button class="btn btn-primary hidden-print" onclick="myFunction('{{CRUDBooster::mainpath("export-data?t=" .time())}}')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Cetak</button>
-</div>
+
    </div>
     <!-- /.box-tools -->
     </div>
@@ -85,28 +99,25 @@
         <th>Snid</th>
         <th>Status</th>
         <th>Keluhan</th>
+        <th>Biaya</th>
       </tr>
     </thead-light>
     <tbody>
+    @foreach($servisdetail as  $key => $sd)
+    @foreach($statusgaransi as $key => $sg)
       <tr>
         <th scope="row">{{++$key}}</th>
         <th align="right">{{$servis->unit}}</th>
-        <th align="right">{{$servis->unit}}</th>
+        <th align="right">{{$servis->model}}</th>
         <th align="right">{{$servis->snid}}</th>
-        <th align="right">{{$servis->sgaransi_id}}</th>
+        <th align="right">{{$sg->status}}</th>
         <th align="right">{{$servis->keluhan}}</th>
+        <th align="right">{{$sd->jbiaya}}</th>
       </tr>
+     @endforeach
+     @endforeach
     </tbody>
   </table>
-<h4> Kelengkapan :</h4>
-<label class="checkbox-inline"><input type="checkbox" value="">Baterai</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Hardisk</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Carger</label>
-<label class="checkbox-inline"><input type="checkbox" value="">RAM</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Tas</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Mouse</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Lainya</label>
-
   </div>
   </div>
   </div>

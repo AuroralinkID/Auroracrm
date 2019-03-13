@@ -34,11 +34,18 @@
 			  <li><a href="#aboutUs" class="scroll-link">Tentang Kami</a></li>
 			  <li><a href="#service" class="scroll-link">Layanan</a></li>
 			  <li><a href="#Portfolio" class="scroll-link">Portfolio</a></li>
-			  <li><a href="#clients" class="scroll-link">Klien</a></li>
-			  <li><a href="#team" class="scroll-link">Team</a></li>
+		<!--	  <li><a href="#clients" class="scroll-link">Klien</a></li> -->
+		<!--	  <li><a href="#team" class="scroll-link">Team</a></li> -->
 			  <li><a href="#contact" class="scroll-link">Kontak</a></li>
       </ul>
-      <a href="{{url('')}}/daftar" class="btn btn-primary btn-sm" role="button">Daftar</a> <a href='{{route("getLogin")}}' class="btn btn-primary btn-sm" role="button">Login</a>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{url('')}}/daftar"><span class="fa fa-users"></span> Daftar</a></li>
+        <li><a href="{{route('getLogin')}}"><span class="fa fa-sign-in"></span> Masuk</a></li>
+      </ul>
+
+
+
+    <!---  <a href="{{url('')}}/daftar" class="btn btn-primary btn-sm m-0" role="button">Daftar</a> <a href='{{route("getLogin")}}' class="btn btn-primary btn-sm" role="button">Login</a> -->
       </div>
 	 </nav>
     </div>

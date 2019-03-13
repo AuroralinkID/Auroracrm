@@ -3,9 +3,8 @@
 @section('content')
 
 <div class="box-tools">
-	<button class="btn btn-primary hidden-print" onclick="printJS('printJS-form', 'html')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Cetak</button>
+	<button class="btn btn-primary hidden-print" onclick="window.print();"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Cetak</button>
 </div>
-
 
 <div class="box">
 <div class="row">
