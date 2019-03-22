@@ -4,6 +4,7 @@
 	use Request;
 	use DB;
 	use CRUDBooster;
+	use PDF;
 
 	class AdminOrderController extends \crocodicstudio\crudbooster\controllers\CBController {
 
@@ -78,12 +79,23 @@
 			$columns[] = ['label'=>'Harga','name'=>'harga','type'=>'number','readonly'=>true,'required'=>true];
 			$columns[] = ['label'=>'QTY','name'=>'qty','type'=>'number','required'=>true];
 			$columns[] = ['label'=>'Sub Total','name'=>'sub_total','type'=>'number','formula'=>'[harga] * [qty]','readonly'=>true,'required'=>true];
-			$this->form[] = ['label'=>'Sparepart','name'=>'order_detail','type'=>'child','columns'=>$columns,'table'=>'order_detail','foreign_key'=>'order_id'];			
+			$this->form[] = ['label'=>'Order Detail','name'=>'order_detail','type'=>'child','columns'=>$columns,'table'=>'order_detail','foreign_key'=>'order_id'];			
 
 			$this->form[] = ['label'=>'Total','name'=>'total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>'true','value'=>0];
 			$this->form[] = ['label'=>'Biaya Servis','name'=>'biaya_servis','type'=>'number','validation'=>'required','width'=>'col-sm-10','value'=>0];
-			$this->form[] = ['label'=>'Pajak','name'=>'pajak','type'=>'number','validation'=>'required','width'=>'col-sm-10','value'=>0];
-			$this->form[] = ['label'=>'Diskon','name'=>'diskon','type'=>'number','validation'=>'required','width'=>'col-sm-10','value'=>0];
+			$this->form[] = ['label'=>'Pajak %','name'=>'pajak','type'=>'number','validation'=>'required','width'=>'col-sm-10','value'=>10,'readonly'=>'true'];
+			
+			
+			
+			$idsaya = CRUDBooster::myId();
+			$ambillangganan = DB::table('order')->where('cms_users_id',$idsaya)->count();
+			if($ambillangganan == 0){
+					$diskonin = DB::table('diskon')->where('nama','newuser')->first();
+				}else{
+					$diskonin = DB::table('diskon')->where('nama','langganan')->first();
+					}
+			
+			$this->form[] = ['label'=>'Diskon','name'=>'diskon','type'=>'number','validation'=>'required','width'=>'col-sm-10','value'=>$diskonin->nilai];
 			$this->form[] = ['label'=>'Grand Total','name'=>'grand_total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>true,'value'=>0];
 			# OLD END FORM
 
@@ -197,13 +209,18 @@
 					})
 					$('#total').val(total);
 
+					
 					var grand_total = 0;
 					grand_total += total;
 					grand_total += parseInt($('#biaya_servis').val());
-					grand_total += parseInt($('#pajak').val());
 					grand_total -= parseInt($('#diskon').val());
 					
-					$('#grand_total').val(grand_total);
+					var nikajap = parseInt($('#pajak').val());
+					var pajakin = total/nikajap;
+					pajakin += grand_total;
+					
+					
+					$('#grand_total').val(pajakin);
 				},500);
 			})
 		";
@@ -451,9 +468,16 @@
 									 ->where('order_id',$data['orders']->id)
 									 ->get();
  
-			 $this->cbView('pembayar',$data);
+			 $this->cbView('order',$data);
+
  
 		 }
  
-
+		 public function getOrderpdf($idorder)
+		 {
+			$invoice = $this->prepareInvoice($idorder);
+		   
+		   $pdf = PDF::loadView('invoice', compact('invoice'))->render();
+		   return $pdf->stream('invoice.pdf');
+		 }
 	}

@@ -5,18 +5,18 @@
 	use DB;
 	use CRUDBooster;
 
-	class AdminJasaController extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminPostController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
 			# START CONFIGURATION DO NOT REMOVE THIS LINE
-			$this->title_field = "nama";
+			$this->title_field = "judul";
 			$this->limit = "20";
 			$this->orderby = "id,desc";
 			$this->global_privilege = true;
 			$this->button_table_action = true;
 			$this->button_bulk_action = true;
-			$this->button_action_style = "button_text";
+			$this->button_action_style = "button_icon";
 			$this->button_add = true;
 			$this->button_edit = true;
 			$this->button_delete = true;
@@ -25,46 +25,31 @@
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
-			$this->table = "jasa";
+			$this->table = "post";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Nama","name"=>"nama"];
-			$this->col[] = ["label"=>"Deskripsi","name"=>"deskripsi"];
-			$this->col[] = ["label"=>"Fitur","name"=>"fitur"];
-			$this->col[] = ["label"=>"Kategori","name"=>"jkategori_id","join"=>"jkategori,nama"];
-		//	$this->col[] = ["label"=>"Fitur1","name"=>"fitur1"];
-		//	$this->col[] = ["label"=>"Fitur2","name"=>"fitur2"];
-		//	$this->col[] = ["label"=>"Fitur3","name"=>"fitur3"];
-			$this->col[] = ["label"=>"Gambar","name"=>"gambar","image"=>true];
-			$this->col[] = ["label"=>"Biaya","name"=>"biaya","callback_php"=>'"Rp. ".number_format($row->biaya)'];
+			$this->col[] = ["label"=>"Judul","name"=>"judul"];
+			$this->col[] = ["label"=>"Konten","name"=>"konten"];
+			$this->col[] = ["label"=>"Tags","name"=>"tags"];
+			$this->col[] = ["label"=>"User","name"=>"cms_users_id","join"=>"cms_users,name"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Deskripsi','name'=>'deskripsi','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Fitur','name'=>'fitur','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Fitur 1','name'=>'fitur1','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Fitur 2','name'=>'fitur2','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Fitur 3','name'=>'fitur3','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Gambar','name'=>'gambar','type'=>'upload','validation'=>'required','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Kategori','name'=>'jkategori_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'jkategori','datamodal_columns'=>'nama','datamodal_size'=>'small'];
-			$this->form[] = ['label'=>'Biaya','name'=>'biaya','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Judul','name'=>'judul','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
+			$this->form[] = ['label'=>'Konten','name'=>'konten','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Tags','name'=>'tags','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'User','name'=>'cms_users_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'cms_users,name'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
-			//$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Deskripsi','name'=>'deskripsi','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Fitur','name'=>'fitur','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Fitur 1','name'=>'fitur1','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Fitur 2','name'=>'fitur2','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Fitur 3','name'=>'fitur3','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Gambar','name'=>'gambar','type'=>'upload','validation'=>'required','width'=>'col-sm-10','datamodal_table'=>'kategori','datamodal_columns'=>'nama','datamodal_size'=>'large'];
-			//$this->form[] = ['label'=>'Kategori','name'=>'jkategori_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Biaya','name'=>'biaya','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			//$this->form[] = ["label"=>"Judul","name"=>"judul","type"=>"text","required"=>TRUE,"validation"=>"required|string|min:3|max:70","placeholder"=>"Anda hanya dapat memasukkan huruf saja"];
+			//$this->form[] = ["label"=>"Konten","name"=>"konten","type"=>"textarea","required"=>TRUE,"validation"=>"required|string|min:5|max:5000"];
+			//$this->form[] = ["label"=>"Tags","name"=>"tags","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Cms Users Id","name"=>"cms_users_id","type"=>"select2","required"=>TRUE,"validation"=>"required|integer|min:0","datatable"=>"cms_users,name"];
 			# OLD END FORM
 
 			/* 
@@ -93,11 +78,9 @@
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        | 
 	        */
-			$this->addaction = [];
-			$this->addaction[] = ['label'=>'Set Onsite','url'=>CRUDBooster::mainpath('set-status/onsite/[id]'),'icon'=>'fa fa-support','color'=>'danger','showIf'=>"[status] == 'remote'"];
-			$this->addaction[] = ['label'=>'Set Remote','url'=>CRUDBooster::mainpath('set-status/remote/[id]'),'icon'=>'fa fa-laptop','color'=>'warning','showIf'=>"[status] == 'onsite'"];
-			$this->addaction[] = ['label'=>'Set Selesai','url'=>CRUDBooster::mainpath('set-status/selesai/[id]'),'icon'=>'fa fa-money','color'=>'info','showIf'=>"[status] == 'remote'", 'confirmation' => true];
-			$this->addaction[] = ['label'=>'Set Selesai','url'=>CRUDBooster::mainpath('set-status/selesai/[id]'),'icon'=>'fa fa-money','color'=>'info','showIf'=>"[status] == 'onsite'", 'confirmation' => true];
+	        $this->addaction = array();
+
+
 	        /* 
 	        | ---------------------------------------------------------------------- 
 	        | Add More Button Selected
@@ -343,11 +326,6 @@
 
 
 	    //By the way, you can still create your own method in here... :) 
-		public function getSetStatus($status,$id) {
-			DB::table('jasa')->where('id',$id)->update(['status'=>$status]);
-			
-			//This will redirect back and gives a message
-			CRUDBooster::redirect($_SERVER['HTTP_REFERER'],"The status Order has been updated !","info");
-		 }
+
 
 	}

@@ -51,7 +51,7 @@
 		//	$this->col[] = ["label"=>"Kelengkapan","name"=>"kelengkapan"];
 			$this->col[] = ["label"=>"Teknisi","name"=>"team_id","join"=>"team,nama"];
 			$this->col[] = ["label"=>"Status","name"=>"status"];
-		//	$this->col[] = ["label"=>"Biaya","name"=>"jasa_id","join"=>"jasa,biaya"];
+			$this->col[] = ["label"=>"Biaya","name"=>"jasa_id","join"=>"jasa,biaya"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			$kode_servis = DB::table('servis')->max('id') + 1;
@@ -61,7 +61,7 @@
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
+			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
 			$this->form[] = ['label'=>'Nomer Servis','name'=>'kode_servis','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$kode_servis,'readonly'=>true];
 			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required','width'=>'col-sm-10'];
@@ -69,16 +69,17 @@
 			$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'number','validation'=>'required','width'=>'col-sm-10'];	
 			$this->form[] = ['label'=>'Unit','name'=>'unit','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Garansi','name'=>'sgaransi_id','type'=>'radio','validation'=>'required','width'=>'col-sm-10','datatable'=>'sgaransi,nama'];
-			$this->form[] = ['label'=>'kelengkapan','name'=>'kelengkapan','type'=>'checkbox','dataenum'=>'1|baterai;2|carger;3|ram;4|hardisk;5|ssd;6|tas'];
+			$this->form[] = ['label'=>'kelengkapan','name'=>'kelengkapan','type'=>'checkbox','dataenum'=>'DVD/CD/DVD-RW;Baterai;Carger/Adaptor;RAM/Memory;Hardisk;SSD;Tas;Lain-Lain'];
 			$this->form[] = ['label'=>'Merk/Model','name'=>'model','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Snid','name'=>'snid','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Keluhan','name'=>'keluhan','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Teknisi','name'=>'team_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'team','datamodal_columns'=>'nama','datamodal_size'=>'small'];
-			$columns = [];
-			$columns[] = ['label'=>'Jasa','name'=>'jasa_id','type'=>'datamodal','datamodal_table'=>'jasa','datamodal_columns'=>'nama,biaya','datamodal_select_to'=>'biaya:jasa_biaya,nama:jasa_nama','required'=>true];
-			$columns[] = ['label'=>'Nama Jasa','name'=>'jasa_nama','type'=>'text','readonly'=>true,'required'=>true];
-			$columns[] = ['label'=>'Biaya','name'=>'jasa_biaya','type'=>'number','readonly'=>true,'required'=>true];
-			$this->form[] = ['label'=>'Servis Detail','name'=>'servis_detail','type'=>'child','columns'=>$columns,'table'=>'servis_detail','foreign_key'=>'servis_id'];	
+			$this->form[] = ['label'=>'Biaya','name'=>'jasa_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'jasa','datamodal_columns'=>'biaya,nama','datamodal_size'=>'small'];
+		//	$columns = [];
+		//	$columns[] = ['label'=>'Jasa','name'=>'jasa_id','type'=>'datamodal','datamodal_table'=>'jasa','datamodal_columns'=>'nama,biaya','datamodal_select_to'=>'biaya:jasa_biaya,nama:jasa_nama','required'=>true];
+		//	$columns[] = ['label'=>'Nama Jasa','name'=>'jasa_nama','type'=>'text','readonly'=>true,'required'=>true];
+		//	$columns[] = ['label'=>'Biaya','name'=>'jasa_biaya','type'=>'number','readonly'=>true,'required'=>true];
+		//	$this->form[] = ['label'=>'Servis Detail','name'=>'servis_detail','type'=>'child','columns'=>$columns,'table'=>'servis_detail','foreign_key'=>'servis_id'];	
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
@@ -411,21 +412,22 @@
 			$data['idservis'] = $id;
 
 			$data['servis'] = DB::table('servis')->where('id',$id)->first();
-			$data['servisdetail'] = DB::table('servis_detail')
+			$data['kelengkapan'] = DB::table('servis')->where('id',$id)->first()->kelengkapan;
+			$data['biaya'] = DB::table('servis')
 									->join('jasa','jasa.id','=','jasa_id')
-									->select('servis_detail.*','jasa_nama as judul','jasa_biaya as jbiaya')
-									->where('servis_id',$data['servis']->id)
-									->get();
+									->select('jasa.*','jasa.nama as judul','jasa.biaya as jbiaya')
+									->where('servis.id',$data['servis']->id)
+									->first();
 			$data['statusgaransi'] = DB::table('servis')
 									->join('sgaransi','sgaransi.id','=','sgaransi_id')
 									->select('sgaransi.*','sgaransi.nama as status')
-								//	->where('sgaransi_id',$data['servis']->id)
-									->get();
+									->where('servis.id',$data['servis']->id)
+									->first();
 			$data['team'] = DB::table('servis')
 									->join('team','team.id','=','team_id')
 									->select('team.*','team.nama as tnama')
-								//	->where('servis_id',$data['servis']->id)
-									->get();
+									->where('servis.id',$data['servis']->id)
+									->first();
 			//Please use cbView method instead view method from laravel
 			$this->cbView('dservis',$data);
 		  }

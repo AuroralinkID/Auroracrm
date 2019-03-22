@@ -13,6 +13,7 @@ namespace App\Http\Controllers;
 	use Location;
 	use Illuminate\Support\Facades\Validator;
 	use RajaOngkir;
+	use PDF;
 
 class FrontController extends Controller
 {
@@ -20,38 +21,140 @@ class FrontController extends Controller
 	// register
 	public function getDaftar(\Illuminate\Http\Request $request){
 			
-				$data['page_title'] = 'Register |';		
+		$data['page_title'] = 'Register |';		
+
+	return view('register',$data);
+}
+public function postDaftar(\Illuminate\Http\Request $req){
+
+	$this->validate($req, [
+		'email' => 'required|unique:cms_users|max:255',
+		'password' => 'required',
+		'nama' => 'required',
+		'alamat' => 'required',
+		'telepon' => 'required',
+		'alamat' => 'required',
+	]);
+
+		$pass = Request::get('password');
+		$pass2 = bcrypt($pass);
+		$save['name'] = Request::get('nama');
+		$save['email'] = Request::get('email');
+		$save['password'] = $pass2;
+		$save['id_cms_privileges'] = 3;
+		$save['telepon'] = Request::get('telepon');
+		$save['alamat'] = Request::get('alamat');
+		$save['verify'] = \Hash::make(Request::get('email'));
+		$save['created_at'] = Carbon::now();
+		DB::table('cms_users')->insert($save);
+		$lastinsertid = DB::getPdo()->lastInsertId();
 		
-			return view('register',$data);
-		}
-	public function postDaftar(\Illuminate\Http\Request $req){
 		
-			$this->validate($req, [
-				'email' => 'required|unique:cms_users|max:255',
-				'password' => 'required',
-				'nama' => 'required',
-				'alamat' => 'required',
-				'telepon' => 'required',
-				'alamat' => 'required',
-			]);
+		$inilinkna = url('verify/'.$lastinsertid);
 		
-				$pass = Request::get('password');
-				$pass2 = bcrypt($pass);
-				$save['name'] = Request::get('nama');
-				$save['email'] = Request::get('email');
-				$save['password'] = $pass2;
-				$save['id_cms_privileges'] = 3;
-				$save['telepon'] = Request::get('telepon');
-				$save['alamat'] = Request::get('alamat');
-				$save['created_at'] = Carbon::now();
-				DB::table('cms_users')->insert($save);
+
+		$data = ['linkna'=> $inilinkna,'name'=> $save['name']];
+		CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$data,'template'=>'verifikas_email_member']);
+		
+		
+		Session::flash('success', 'Registrasi Berhasil Silahkan Periksa Email Anda');
+		Session::flash('message', "Registrasi Berhasil Silahkan Periksa Email Anda");
+		return redirect()->back();
+	
+	
+}
+
+		public function getVerify($ida) {	
+
+		$users = DB::table(config('crudbooster.USER_TABLE'))->where("id",$ida)->first(); 	
+		if($ida == $users->id) {
+			
+			DB::table(config('crudbooster.USER_TABLE'))->where('email', $users->email)->update(['status' => 'Active']);
 				
-				Session::flash('success', 'Registrasi Berhasil Silahkan Login');
-				Session::flash('message', "Registrasi Berhasil Silahkan Login");
-				return redirect()->back();
-			
-			
-		}
+			return redirect()->route('getLogin')->with(['message'=>'Verifikasi berhasil ','message_type'=>'success']);
+		}else{
+			return view('daftar');			
+			}
+
+
+
+}
+
+public function getPdf($idservis)
+{
+  $myid = CRUDBooster::myId();
+
+	$usr = DB::table('servis')->where('id',$idservis)->first();
+	
+	$gars= DB::table('servis')
+	->join('sgaransi','sgaransi.id','=','sgaransi_id')
+	->select('sgaransi.*','sgaransi.nama as status')
+	->where('servis.id',$usr->id)
+	->first();
+	
+	$teams = DB::table('servis')
+	->join('team','team.id','=','team_id')
+	->select('team.*','team.nama as tnama')
+	->where('servis.id',$usr->id)
+	->first();
+
+	$bias = DB::table('servis')
+	->join('jasa','jasa.id','=','jasa_id')
+	->select('jasa.*','jasa.nama as judul','jasa.biaya as jbay')
+	->where('servis.id',$usr->id)
+	->first();
+
+
+  $pdf = PDF::loadView('tts', compact('usr','gars','teams','bias'));
+  return $pdf->stream('tts.pdf');
+}	
+
+
+public function getOrderpdf($idorder)
+{
+	$myid = CRUDBooster::myId();
+	$data = [];
+	$data['export'] = true;
+	$data['page_title'] = 'Invoice';  
+	$data['idorder'] = $id;
+
+	$ord = DB::table('order')->where('id',$idorder)->first();
+	$ords = DB::table('order_detail')
+	->join('produk','produk.id','=','produk_id')
+	->select('order_detail.*','produk.nama as judul','produk.sku as prosku')
+	->where('order_id',$ord->id)
+	->get();
+		   
+	$pdf = PDF::loadView('invoice', compact('ord','ords'));
+	return $pdf->stream('invoice.pdf');
+}
+
+
+public function getIndex()
+{
+	$myid = CRUDBooster::myId();
+	$data = [];
+	$data['export'] = true;
+	$data['page_title'] = 'Halaman Harga';  
+	$data['produk'] = $id;
+ 
+	$data['jasa'] = DB::table('jasa')
+	->join('jkategori','jkategori.id','=','jkategori_id',)
+	->select('jasa.*','jasa.nama as judul','jasa.jkategori_id as jid','jasa.biaya as jasah','jasa.deskripsi as jdesk','jasa.fitur as fitur','jasa.fitur1 as fitur1','jasa.fitur2 as fitur2','jasa.fitur3 as fitur3')
+	->orderby('jasa.id','DESC')
+	->take(8)
+	->get();
+
+//	$data['jk'] = DB::table('jasa')
+//	->join('jkategori','jkategori.id','=','jkategori_id',)
+//	->select('jkategori.*','jkategori.nama as jnama')
+//	->where('jasa.id',$data['jk']->id)
+//	->first();
+
+
+	return view('home',$data);
+}
+
 	public function postLogin() {		
 
 			$validator = Validator::make(Request::all(),			

@@ -2,27 +2,29 @@
 @extends('crudbooster::admin_template')
 @section('content')
 
+
+
 <div class="box-tools">
-	<button class="btn btn-primary hidden-print" onclick="window.print();"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Cetak</button>
+	<a  href="{{action('FrontController@getOrderpdf', $idorder)}}" class="btn btn-primary hidden-print" role="button" aria-pressed="true"><span class="glyphicon glyphicon-print"></span>Print</a>
 </div>
+
 
 <div class="box">
 <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-8">
     <div class="text-center">
         <img src="/img/SiapPasangWeb.png" alt="Logo" style="border-bottom:1px solid black;text-decoration:none;color:#000001;"/>
         <p>TANDA PEMBAYARAN NO: {{ $orders->nomer_order }}<p>
         </div>
     </div>
-    <div class="container">
-  <div class="row">
-    <div class="col-sm-6">
-		<table>#Pembayaran Dari
-                                    <tr>
-                                        <td style="padding: 1px;" width="30%">No.Inv</td>
-                                        <td style="padding: 1px;">:</td>
-                                        <td style="padding: 1px;">{{ $orders->nomer_order }}</td>
-                                    </tr>
+    </div>
+    </div>    
+    <div class="box-body table-responsive no-padding">
+    <table class="table" style="text-decoration:none;">
+    <thead-light >
+      <tr class="active">
+        <th>
+		<table>#PEMBAYARAN DARI
                                     <tr>
                                         <td style="padding: 1px;" width="30%">Nama </td>
                                         <td style="padding: 1px;">:</td>
@@ -54,11 +56,11 @@
                                         @endif</td>
                                     </tr>
                                 </table>
-                            </div>
-                            <div class="col-md-6">
-                                <table>#Pembayaran Kepada
+        </th> 
+        <th>
+        <table>#PEMBAYARAN KEPADA
                                     <tr>
-                                        <td style="padding: 1px;" width="30%">AURORALINK</td>
+                                        <td style="padding: 1px;">AURORALINK</td>
                                     </tr>
                                     <tr>
                                         <td style="padding: 1px;"> Jl Bulak Setro Utara VI/4C Bulak Surabaya</td>
@@ -73,12 +75,12 @@
                                         <td style="padding: 1px;">{{ $orders->created_at }}</td>
                                     </tr>
                                 </table>
-                            </div>
-   </div>
-   </div>
+        </th> 
+      </tr>
+    </thead-light>
+    </table>
     </div>
-    <!-- /.box-tools -->
-  </div>
+
   <!-- /.box-header -->
 
   <div class="box-body table-responsive no-padding">
@@ -130,6 +132,7 @@
     </tfoot>
   </table>
   </div>
+  
     <div class="box-body table-responsive no-padding">
     <h4 class="box-title">Silahkan melakukan pembayaran Sebesar <strong>Rp. {{ $orders->grand_total }}</strong> ke salah satu rekening di bawah ini : </h4>
 
@@ -141,7 +144,7 @@
     An. Agoes Suryani<br>
     Rek : 325 066 7956<br>
     </p>
-<!--    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    <a href="#" class="btn btn-primary">BCA Virtual Account</a> 
             </div>
             </div>
             </div>
@@ -153,7 +156,7 @@
     An. Agoes Suryani<br>
     Rek : 6263 0100 5365 530<br>
     </p>
-<!--    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    <a href="#" class="btn btn-primary">BRI Virtual Account</a> 
       </div>
       </div>
       </div>
@@ -165,11 +168,11 @@
     An. Sofan Wahyudi<br>
     Rek : 1400013788303<br>
     </p>
-<!--    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+   <a href="#" class="btn btn-primary">MANDIRI Click Pay</a> 
       </div>
       </div>
       </div>
-      <div class="col-sm-2">
+      <!--     <div class="col-sm-2">
       <div class="card" style="width: 18rem;">
   <img src="{{url('')}}/img/bank-1muamalat.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>
   <div class="card-body">
@@ -177,7 +180,7 @@
     An. Sofan Wahyudi<br>
     Rek : 706 000 8988<br>
     </p>
-<!--    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+<!--    <a href="#" class="btn btn-primary">BCA Virtual Account</a> 
       </div>
       </div>
       </div>
@@ -189,12 +192,11 @@
     An. Sofan Wahyudi<br>
     Rek Ponsel : 081553177408<br>
     </p>
-<!--    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+<!--    <a href="#" class="btn btn-primary">BCA Virtual Account</a> 
       </div>
       </div>
       </div>
   <!-- /.box-body -->
       </div>
 <!-- /.box -->
-
 @endsection

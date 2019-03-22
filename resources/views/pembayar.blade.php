@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="box-tools">
-	<button class="btn btn-primary hidden-print" onclick="printJS('printJS-form', 'html')"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Cetak</button>
+	<a href="{{action('AdminOrderController@getOrderpdf', $idorder)}}">Download PDF</a>
 </div>
 
 
