@@ -71,9 +71,9 @@ public function postDaftar(\Illuminate\Http\Request $req){
 			
 			DB::table(config('crudbooster.USER_TABLE'))->where('email', $users->email)->update(['status' => 'Active']);
 				
-			return redirect()->route('getLogin')->with(['message'=>'Verifikasi berhasil ','message_type'=>'success']);
+			return redirect()->route('getLogin')->with(['message'=>'Verifikasi Berhasil Dilakukan ^_^','message_type'=>'success']);
 		}else{
-			return view('daftar');			
+			return view('register');			
 			}
 
 

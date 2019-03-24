@@ -14,6 +14,8 @@ CRUDBooster::routeController('/','FrontController');
 Route::get('/pdf/{$idservis}','FrontController@getPdf');
 Route::get('/orderpdf/{$idorder}','FrontController@getOrderpdf');
 
+
+
 Route::get('/','FrontController@getIndex');
 //Route::get('/','FrontController@getShow');
  //   return view('home');

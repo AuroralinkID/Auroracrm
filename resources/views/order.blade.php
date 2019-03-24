@@ -140,11 +140,46 @@
         <div class="card" style="width: 18rem;">
   <img src="{{url('')}}/img/bank-1bca.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>
   <div class="card-body">
+  
+    
     <br><p class="card-text">
-    An. Agoes Suryani<br>
-    Rek : 325 066 7956<br>
+
     </p>
-    <a href="#" class="btn btn-primary">BCA Virtual Account</a> 
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+    BCA Virtual Account
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">BCA Virtual Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h4 class="box-title">Silahkan melakukan pembayaran Sebesar <strong>Rp. {{ $orders->grand_total }}</strong><br>  
+      An. Agoes Suryani<br>
+    Rek : 325 066 7956<br>
+    Pembayaran Virtual Account BCA<br>
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
             </div>
             </div>
             </div>
@@ -153,10 +188,43 @@
   <img src="{{url('')}}/img/bank-1bri.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>
   <div class="card-body">
     <br><p class="card-text">
-    An. Agoes Suryani<br>
-    Rek : 6263 0100 5365 530<br>
+
     </p>
-    <a href="#" class="btn btn-primary">BRI Virtual Account</a> 
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+BRI Virtual Account
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">BRI Virtual Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h4 class="box-title">Silahkan melakukan pembayaran Sebesar <strong>Rp. {{ $orders->grand_total }}</strong><br>  
+      An. Agoes Suryani<br>
+    Rek : 6263 0100 5365 530<br>
+    Pembayaran Virtual Account BCA<br>
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+    <br><strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong> >> <strong>Rp. {{ $orders->grand_total }}</strong><br> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
       </div>
       </div>
       </div>
@@ -165,13 +233,48 @@
   <img src="{{url('')}}/img/bank-1mandiri.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>
   <div class="card-body">
     <br><p class="card-text">
+
+    </p>
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+MANDIRI Click Pay
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">MANDIRI Click Pay</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h4 class="box-title">Silahkan melakukan pembayaran Sebesar <strong>Rp. {{ $orders->grand_total }}</strong><br>  
+      An. Sofan Wahyudi<br>
+    Rek : 1400013788303<br>
+    Pembayaran Virtual Account BCA<br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<!--      <div class="col-sm-2">
+      <div class="card" style="width: 18rem;">
+  <img src="{{url('')}}/img/bank-1mandiri.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>
+  <div class="card-body">
+    <br><p class="card-text">
     An. Sofan Wahyudi<br>
     Rek : 1400013788303<br>
     </p>
-   <a href="#" class="btn btn-primary">MANDIRI Click Pay</a> 
+   <a href="#" onclick="print()" class="btn btn-primary">MANDIRI Click Pay</a> 
       </div>
       </div>
-      </div>
+      </div> -->
       <!--     <div class="col-sm-2">
       <div class="card" style="width: 18rem;">
   <img src="{{url('')}}/img/bank-1muamalat.jpg" class="card-img-top" style='max-width: 50%;max-height:50px;position: absolute; left: 1px; top: 0px;' alt="Sample image"><br>

@@ -65,7 +65,7 @@
 			# START FORM DO NOT REMOVE THIS LINE
 			
 			$this->form = [];
-			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
+			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
 			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
@@ -258,8 +258,9 @@
 	        |
 	        */
 	        $this->load_js = array();
-	        
-	        
+	
+
+
 	        
 	        /*
 	        | ---------------------------------------------------------------------- 
@@ -449,6 +450,16 @@
 			//This will redirect back and gives a message
 			CRUDBooster::redirect($_SERVER['HTTP_REFERER'],"The status Order has been updated !","info");
 		 }
+
+
+//		 public function getAdd(){
+//			$data['page_title'] = 'Add Order';
+			
+			
+//			$this->cbView('add_order',$data);
+
+
+//		 }
 
 		 public function getDetail($id){
 		

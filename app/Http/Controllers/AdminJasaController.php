@@ -18,13 +18,19 @@
 			$this->button_bulk_action = true;
 			$this->button_action_style = "button_text";
 			$this->button_add = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_add= true; } else { $this->button_add = false; }
 			$this->button_edit = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_edit = true; } else { $this->button_edit = false; }
 			$this->button_delete = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_delete = true; } else { $this->button_delete = false; }
 			$this->button_detail = true;
-			$this->button_show = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_show = true; } else { $this->button_show = false; }
 			$this->button_filter = true;
-			$this->button_import = false;
-			$this->button_export = false;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_filter = true; } else { $this->button_filter = false; }
+			$this->button_import = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_import = true; } else { $this->button_import = false; }
+			$this->button_export = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_export = true; } else { $this->button_export = false; }
 			$this->table = "jasa";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
@@ -348,6 +354,29 @@
 			
 			//This will redirect back and gives a message
 			CRUDBooster::redirect($_SERVER['HTTP_REFERER'],"The status Order has been updated !","info");
-		 }
-
+		}
+		public function getIndex()
+		{
+			$myid = CRUDBooster::myId();
+			$data = [];
+			$data['export'] = true;
+			$data['page_title'] = 'Halaman Harga';  
+			$data['jasa'] = $id;
+		 
+			$data['jasa'] = DB::table('jasa')
+			->join('jkategori','jkategori.id','=','jkategori_id',)
+			->select('jasa.*','jasa.nama as judul','jasa.jkategori_id as jid','jasa.biaya as jasah','jasa.deskripsi as jdesk','jasa.fitur as fitur','jasa.fitur1 as fitur1','jasa.fitur2 as fitur2','jasa.fitur3 as fitur3')
+			->orderby('jasa.id','DESC')
+			->take(20)
+			->get();
+		
+		//	$data['jk'] = DB::table('jasa')
+		//	->join('jkategori','jkategori.id','=','jkategori_id',)
+		//	->select('jkategori.*','jkategori.nama as jnama')
+		//	->where('jasa.id',$data['jk']->id)
+		//	->first();
+		
+		
+			return view('jasa',$data);
+		}
 	}
