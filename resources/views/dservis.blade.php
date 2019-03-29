@@ -79,7 +79,7 @@
                                     </tr>
                                     
                                     <tr>
-                                        <td style="padding: 1px;">{{ $team->tnama }}</td>
+                                        <td style="padding: 1px;">{{ $steam->tnama }}</td>
                                     </tr>
                                     
                                     <tr>
@@ -108,28 +108,31 @@
         <th>Snid</th>
         <th>Status</th>
         <th>Keluhan</th>
-        <th>Biaya</th>
       </tr>
     </thead-light>
+ 
     <tbody>
-  
+@foreach($serpis as $key => $serv)
       <tr>
+      
         <th scope="row">{{++$key}}</th>
-        <th align="right">{{$servis->unit}}</th>
-        <th align="right">{{$servis->model}}</th>
-        <th align="right">{{$servis->snid}}</th>
-        <th align="right">{{$statusgaransi->status}}</th>
-        <th align="right">{{$servis->keluhan}}</th>
-        <th align="right">{{$biaya->jbiaya}}</th>
+        <th align="right">{{$serv->unit}}</th>
+        <th align="right">{{$serv->model}}</th>
+        <th align="right">{{$serv->snid}}</th>
+        <th align="right">{{$serv->status}}</th>
+        <th align="right">{{$serv->keluhan}}</th>
+ 
+        
       </tr>
-
+@endforeach
     </tbody>
+
   </table>
-
-
-
-
   </div>
+
+
+
+
 
 
 

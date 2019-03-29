@@ -14,6 +14,7 @@ namespace App\Http\Controllers;
 	use Illuminate\Support\Facades\Validator;
 	use RajaOngkir;
 	use PDF;
+	use crocodicstudio\crudbooster\fonts\Fontawesome;
 
 class FrontController extends Controller
 {
@@ -98,12 +99,11 @@ public function getPdf($idservis)
 	->where('servis.id',$usr->id)
 	->first();
 
-	$bias = DB::table('servis')
-	->join('jasa','jasa.id','=','jasa_id')
-	->select('jasa.*','jasa.nama as judul','jasa.biaya as jbay')
-	->where('servis.id',$usr->id)
-	->first();
-
+//	$bias = DB::table('servis_detail')
+//	->join('produk','produk.id','=','produk_id')
+//	->select('servis_detail.*','produk.nama as judul','produk.sku as prosku')
+//	->where('servis_id',$usr->id)
+//	->get();
 
   $pdf = PDF::loadView('tts', compact('usr','gars','teams','bias'));
   return $pdf->stream('tts.pdf');
@@ -124,8 +124,14 @@ public function getOrderpdf($idorder)
 	->select('order_detail.*','produk.nama as judul','produk.sku as prosku')
 	->where('order_id',$ord->id)
 	->get();
+	$disc = DB::table('order')
+	->join('servis','servis.id','=','servis_id')
+	->join('diskon','diskon.id','=','diskon_id')
+	->select('order.*','servis.biaya as biaya','diskon.nilai as disc')
+	->where('order.id',$ord->id)
+	->get();
 		   
-	$pdf = PDF::loadView('invoice', compact('ord','ords'));
+	$pdf = PDF::loadView('invoice', compact('ord','ords','disc'));
 	return $pdf->stream('invoice.pdf');
 }
 
@@ -136,25 +142,59 @@ public function getIndex()
 	$data = [];
 	$data['export'] = true;
 	$data['page_title'] = 'Halaman Harga';  
-	$data['produk'] = $id;
+	$data['jasa'] = $id;
  
 	$data['jasa'] = DB::table('jasa')
 	->join('jkategori','jkategori.id','=','jkategori_id',)
-	->select('jasa.*','jasa.nama as judul','jasa.jkategori_id as jid','jasa.biaya as jasah','jasa.deskripsi as jdesk','jasa.fitur as fitur','jasa.fitur1 as fitur1','jasa.fitur2 as fitur2','jasa.fitur3 as fitur3')
+	->select('jasa.*','jasa.nama as judul','jkategori.nama as jid','jasa.biaya as jasah','jasa.deskripsi as jdesk','jasa.fitur as fitur','jasa.fitur1 as fitur1','jasa.fitur2 as fitur2','jasa.fitur3 as fitur3')
 	->orderby('jasa.id','DESC')
 	->take(8)
 	->get();
 
-//	$data['jk'] = DB::table('jasa')
-//	->join('jkategori','jkategori.id','=','jkategori_id',)
-//	->select('jkategori.*','jkategori.nama as jnama')
-//	->where('jasa.id',$data['jk']->id)
-//	->first();
+	$data['porto'] = DB::table('post')
+	->select('post.*','post.judul as pjud','post.gambar as ppict','post.tags as tags','post.konten as desk')
+	->orderby('post.id','DESC')
+	->take(12)
+	->get();
+
+	$data['team'] = DB::table('team')
+	->join('dev','dev.id','=','dev_id',)
+	->select('team.*','team.nama as tnam','dev.nama as tid','team.profil as tdesk','team.foto as tfot')
+	->orderby('team.id','DESC')
+	->take(3)
+	->get();
+
+	$data['pabout'] = DB::table('pabout')
+	->select('pabout.*','pabout.judul as pajud','pabout.logo as papict','pabout.deskripsi as padesk')
+	->orderby('pabout.id','DESC')
+	->take(1)
+	->get();
+
+	$data['phero'] = DB::table('phero')
+	->select('phero.*','phero.judul as herjud','phero.logo as herlog','phero.deskripsi as herdesk')
+	->orderby('phero.id','DESC')
+	->take(1)
+	->get();
+
+	$data['pklien'] = DB::table('pklien')
+	->select('pklien.*','pklien.judul as pkjud','pklien.logo as pklog','pklien.deskripsi as pkdesk')
+	->orderby('pklien.id','DESC')
+	->take(5)
+	->get();
+
+	$data['playanan'] = DB::table('playanan')
+	->select('playanan.*','playanan.judul as pljud','playanan.jdsatu as pjsatu','playanan.jdua as pjdua','playanan.jtiga as pjtiga','playanan.logo as plog','playanan.deskripsi as pldesk','playanan.desksatu as plsatu','playanan.deskdua as pldua','playanan.desktiga as pltiga')
+	->orderby('playanan.id','DESC')
+	->take(6)
+	->get();
+
+	$data['Fontawesome'] = Fontawesome::getIcons();
 
 
-	return view('home',$data);
+//	$data = Fontawesome::getIcons();
+	return view('home',$data)->render();
+//	return view('crudbooster::components.list_icon', compact('data'))->render();
 }
-
 	public function postLogin() {		
 
 			$validator = Validator::make(Request::all(),			

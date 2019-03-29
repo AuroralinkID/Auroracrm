@@ -21,6 +21,7 @@
 			if(CRUDBooster::isSuperadmin()){ $this->$button_bulk_action = true; } else { $this->button_bulk_action = false; }
 			$this->button_action_style = "button_text";
 			$this->button_add = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_add = true; } else { $this->button_add = false; }
 			$this->button_edit = true;
 			if(CRUDBooster::isSuperadmin()){ $this->$button_edit = true; } else { $this->button_edit = false; }
 			$this->button_delete = true;
@@ -43,14 +44,14 @@
 			$this->col[] = ["label"=>"Tanggal Order","name"=>"created_at"];
 			$this->col[] = ["label"=>"Nomer Order","name"=>"nomer_order"];
 			$this->col[] = ["label"=>"Users","name"=>"cms_users_id","join"=>"cms_users,name"];
-//			$this->col[] = ["label"=>"Nama","name"=>"nama"];
+			$this->col[] = ["label"=>"Nama","name"=>"nama"];
 //			$this->col[] = ["label"=>"Email","name"=>"email"];
 //			$this->col[] = ["label"=>"Telepon","name"=>"telepon"];
 //			$this->col[] = ["label"=>"Email","name"=>"email"];
-			$this->col[] = ["label"=>"Total","name"=>"total","callback_php"=>'"Rp. ".number_format($row->total)'];
-			$this->col[] = ["label"=>"Diskon","name"=>"diskon","callback_php"=>'"Rp. ".number_format($row->diskon)'];
-			$this->col[] = ["label"=>"Biaya Servis","name"=>"biaya_servis","callback_php"=>'"Rp. ".number_format($row->biaya_servis)'];
-			$this->col[] = ["label"=>"Pajak","name"=>"pajak","callback_php"=>'"Rp. ".number_format($row->pajak)'];
+	//		$this->col[] = ["label"=>"Total","name"=>"total","callback_php"=>'"Rp. ".number_format($row->total)'];
+	//		$this->col[] = ["label"=>"Diskon","name"=>"diskon_id","join"=>"diskon,nilai","callback_php"=>'"Rp. ".number_format($row->diskon)'];
+	//		$this->col[] = ["label"=>"Biaya Servis","name"=>"servis_id","join"=>"servis,biaya","callback_php"=>'"Rp. ".number_format($row->biaya_servis)'];
+	//		$this->col[] = ["label"=>"Pajak","name"=>"pajak","callback_php"=>'"Rp. ".number_format($row->pajak)'];
 			$this->col[] = ["label"=>"Grand Total","name"=>"grand_total","callback_php"=>'"Rp. ".number_format($row->grand_total)'];
 			$this->col[] = ["label"=>"Status","name"=>"status"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
@@ -81,11 +82,14 @@
 			$columns[] = ['label'=>'Sub Total','name'=>'sub_total','type'=>'number','formula'=>'[harga] * [qty]','readonly'=>true,'required'=>true];
 			$this->form[] = ['label'=>'Order Detail','name'=>'order_detail','type'=>'child','columns'=>$columns,'table'=>'order_detail','foreign_key'=>'order_id'];			
 
-			$this->form[] = ['label'=>'Total','name'=>'total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>'true','value'=>0];
-			$this->form[] = ['label'=>'Biaya Servis','name'=>'biaya_servis','type'=>'number','validation'=>'required','width'=>'col-sm-10','value'=>0];
+			$this->form[] = ['label'=>'Total Rp','name'=>'total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>'true','value'=>0];
+
+
+		//	$this->form[] = ['label'=>'Biaya Servis','name'=>'biaya_servis','type'=>'number','validation'=>'required','width'=>'col-sm-10','value'=>0];
+			
 			$this->form[] = ['label'=>'Pajak %','name'=>'pajak','type'=>'number','validation'=>'required','width'=>'col-sm-10','value'=>10,'readonly'=>'true'];
 			
-			
+			$this->form[] = ['label'=>'Biaya Servis Rp','name'=>'servis_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'servis','datamodal_columns'=>'biaya,kode_servis','datamodal_size'=>'small'];
 			
 			$idsaya = CRUDBooster::myId();
 			$ambillangganan = DB::table('order')->where('cms_users_id',$idsaya)->count();
@@ -95,8 +99,9 @@
 					$diskonin = DB::table('diskon')->where('nama','langganan')->first();
 					}
 			
-			$this->form[] = ['label'=>'Diskon','name'=>'diskon','type'=>'number','validation'=>'required','width'=>'col-sm-10','value'=>$diskonin->nilai];
-			$this->form[] = ['label'=>'Grand Total','name'=>'grand_total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>true,'value'=>0];
+		//	$this->form[] = ['label'=>'Diskon','name'=>'diskon','type'=>'number','validation'=>'required','width'=>'col-sm-10','value'=>$diskonin->nilai];
+			$this->form[] = ['label'=>'Diskon Rp','name'=>'diskon_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'diskon','datamodal_columns'=>'nilai,nama','datamodal_size'=>'small'];
+			$this->form[] = ['label'=>'Grand Total Rp','name'=>'grand_total','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10','readonly'=>true,'value'=>0];
 			# OLD END FORM
 
 			/* 
@@ -212,11 +217,14 @@
 					
 					var grand_total = 0;
 					grand_total += total;
-					grand_total += parseInt($('#biaya_servis').val());
-					grand_total -= parseInt($('#diskon').val());
-					
+
+					grand_total += parseInt($('#servis_id .input-label').val());
+					grand_total -= parseInt($('#diskon_id .input-label').val());
+
 					var nikajap = parseInt($('#pajak').val());
 					var pajakin = total/nikajap;
+
+					
 					pajakin += grand_total;
 					
 					
@@ -331,7 +339,7 @@
 	    */    
 	    public function hook_row_index($column_index,&$column_value) {	        
 			//Your code here
-			if($column_index=='8'){
+			if($column_index=='6'){
 	    		if($column_value=='pending'){
 	    			$column_value = "<label style='padding:5px;font-size:12px' class='label label-warning'>pending</label>";
 	    		}else{
@@ -478,17 +486,60 @@
 									 ->select('order_detail.*','produk.nama as judul','produk.sku as prosku')
 									 ->where('order_id',$data['orders']->id)
 									 ->get();
- 
+			 $data['dsic'] = DB::table('order')
+									 ->join('servis','servis.id','=','servis_id')
+									 ->join('diskon','diskon.id','=','diskon_id')
+									 ->select('order.*','servis.biaya as biaya','diskon.nilai as disc')
+									 ->where('order.id',$data['orders']->id)
+									 ->first();
 			 $this->cbView('order',$data);
 
  
 		 }
- 
-		 public function getOrderpdf($idorder)
+		 public function postExportData()
 		 {
-			$invoice = $this->prepareInvoice($idorder);
-		   
-		   $pdf = PDF::loadView('invoice', compact('invoice'))->render();
-		   return $pdf->stream('invoice.pdf');
+			 ini_set('memory_limit', '1024M');
+			 set_time_limit(180);
+	 
+			 $this->limit = Request::input('limit');
+			 $this->index_return = true;
+			 $filetype = Request::input('fileformat');
+			 $filename = Request::input('filename');
+			 $papersize = Request::input('page_size');
+			 $paperorientation = Request::input('page_orientation');
+			 $response = $this->getIndex();
+	 
+			 if (Request::input('default_paper_size')) {
+				 DB::table('cms_settings')->where('name', 'default_paper_size')->update(['content' => $papersize]);
+			 }
+	 
+			 switch ($filetype) {
+				 case "pdf":
+					 $view = view('crudbooster::export', $response)->render();
+					 $pdf = App::make('dompdf.wrapper');
+					 $pdf->loadHTML($view);
+					 $pdf->setPaper($papersize, $paperorientation);
+	 
+					 return $pdf->stream($filename.'.pdf');
+					 break;
+				 case 'xls':
+					 Excel::create($filename, function ($excel) use ($response) {
+						 $excel->setTitle($filename)->setCreator("crudbooster.com")->setCompany(CRUDBooster::getSetting('appname'));
+						 $excel->sheet($filename, function ($sheet) use ($response) {
+							 $sheet->setOrientation($paperorientation);
+							 $sheet->loadview('crudbooster::export', $response);
+						 });
+					 })->export('xls');
+					 break;
+				 case 'csv':
+					 Excel::create($filename, function ($excel) use ($response) {
+						 $excel->setTitle($filename)->setCreator("crudbooster.com")->setCompany(CRUDBooster::getSetting('appname'));
+						 $excel->sheet($filename, function ($sheet) use ($response) {
+							 $sheet->setOrientation($paperorientation);
+							 $sheet->loadview('crudbooster::export', $response);
+						 });
+					 })->export('csv');
+					 break;
+			 }
 		 }
 	}

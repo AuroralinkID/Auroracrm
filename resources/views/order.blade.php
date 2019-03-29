@@ -111,18 +111,18 @@
     <tfoot >
         <tr>
             <th colspan="4"></th>
-            <th align="right">Biaya Servis Rp.</th>
-            <th align="right">{{ $orders->biaya_servis }}</th>
-        </tr>
-        <tr>
-            <th colspan="4"></th>
             <th align="right">Pajak Rp.</th>
             <th align="right">{{ $orders->pajak }}</th>
         </tr>
         <tr>
             <th colspan="4"></th>
+            <th align="right">Biaya Servis Rp.</th>
+            <th align="right">{{ $dsic->biaya }}</th>
+        </tr>
+        <tr>
+            <th colspan="4"></th>
             <th align="right">Diskon Rp.</th>
-            <th align="right">{{ $orders->diskon }}</th>
+            <th align="right">{{ $dsic->disc }}</th>
         </tr>
         <tr>
             <th colspan="4"></th>

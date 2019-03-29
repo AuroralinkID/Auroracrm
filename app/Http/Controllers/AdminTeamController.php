@@ -32,8 +32,10 @@
 			$this->col = [];
 			$this->col[] = ["label"=>"Nama","name"=>"nama"];
 			$this->col[] = ["label"=>"Alamat","name"=>"alamat"];
+		//	$this->col[] = ["label"=>"Alamat","name"=>"profil"];
 			$this->col[] = ["label"=>"Email","name"=>"email"];
 			$this->col[] = ["label"=>"Telepon","name"=>"telepon"];
+			$this->col[] = ["label"=>"Gambar","name"=>"foto","image"=>true];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
@@ -43,7 +45,9 @@
 			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required|min:1|max:255|email|unique:team','width'=>'col-sm-10','placeholder'=>'Mohon input alamat email dengan benar'];
 			$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Dev','name'=>'dev_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'dev','datamodal_columns'=>'nama','datamodal_size'=>'small'];
-			$this->form[] = ['label'=>'Kategori','name'=>'kategori_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'kategori','datamodal_columns'=>'nama','datamodal_size'=>'small'];
+			$this->form[] = ['label'=>'Gambar','name'=>'foto','type'=>'upload','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Deskripsi','name'=>'profil','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
+		//	$this->form[] = ['label'=>'Kategori','name'=>'kategori_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'kategori','datamodal_columns'=>'nama','datamodal_size'=>'small'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM

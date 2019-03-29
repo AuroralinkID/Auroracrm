@@ -15,25 +15,17 @@
 			$this->orderby = "id,desc";
 			$this->global_privilege = true;
 			$this->button_table_action = true;
-		//	if(CRUDBooster::isSuperadmin()){ $this->$button_table_action = true; } else { $this->button_table_action = false; }
 			$this->button_bulk_action = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_bulk_action = true; } else { $this->button_bulk_action = false; }
-			$this->button_action_style = "button_text";
+			$this->button_action_style = "button_icon";
 			$this->button_add = true;
-		//	if(CRUDBooster::isSuperadmin()){ $this->$button_add = true; } else { $this->button_add = false; }
+			if(CRUDBooster::isSuperadmin()){ $this->$button_add= true; } else { $this->button_add = false; }
 			$this->button_edit = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_edit = true; } else { $this->button_edit = false; }
-			$this->button_delete = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_delete = true; } else { $this->button_delete = false; }
+			$this->button_delete = false;
 			$this->button_detail = true;
-		//	if(CRUDBooster::isSuperadmin()){ $this->$button_detail = true; } else { $this->button_detail = false; }
-			$this->button_show = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_show = true; } else { $this->button_show = false; }
+			$this->button_show = false;
 			$this->button_filter = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_filter = true; } else { $this->button_filter = false; }
 			$this->button_import = false;
-			$this->button_export = true;
-			if(CRUDBooster::isSuperadmin()){ $this->button_export = true; } else { $this->button_export = false; }
+			$this->button_export = false;
 			$this->table = "servis";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
@@ -41,54 +33,47 @@
 			$this->col = [];
 			$this->col[] = ["label"=>"Nama Pelanggan","name"=>"cms_users_id","join"=>"cms_users,name"];
 			$this->col[] = ["label"=>"Kode Servis","name"=>"kode_servis"];
-//			$this->col[] = ["label"=>"Nama","name"=>"nama"];
-//			$this->col[] = ["label"=>"Email","name"=>"email"];
-//			$this->col[] = ["label"=>"Telepon","name"=>"telepon"];
-//			$this->col[] = ["label"=>"Email","name"=>"email"];
 			$this->col[] = ["label"=>"Unit","name"=>"unit"];
 			$this->col[] = ["label"=>"Merk/Model","name"=>"model"];
 			$this->col[] = ["label"=>"Garansi","name"=>"sgaransi_id","join"=>"sgaransi,nama"];
-		//	$this->col[] = ["label"=>"Kelengkapan","name"=>"kelengkapan"];
 			$this->col[] = ["label"=>"Teknisi","name"=>"team_id","join"=>"team,nama"];
 			$this->col[] = ["label"=>"Status","name"=>"status"];
-			$this->col[] = ["label"=>"Biaya","name"=>"jasa_id","join"=>"jasa,biaya"];
+			$this->col[] = ["label"=>"Biaya","name"=>"biaya"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			$kode_servis = DB::table('servis')->max('id') + 1;
 			$kode_servis = str_pad('SRVS#'.$kode_servis, 5, 0 , STR_PAD_LEFT);
 
-
-
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
-			$this->form[] = ['label'=>'Nomer Servis','name'=>'kode_servis','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$kode_servis,'readonly'=>true];
+			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Nomer Servis','name'=>'kode_servis','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','readonly'=>'1'];
 			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'number','validation'=>'required','width'=>'col-sm-10'];	
+			$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Unit','name'=>'unit','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Garansi','name'=>'sgaransi_id','type'=>'radio','validation'=>'required','width'=>'col-sm-10','datatable'=>'sgaransi,nama'];
-			$this->form[] = ['label'=>'kelengkapan','name'=>'kelengkapan','type'=>'checkbox','dataenum'=>'DVD/CD/DVD-RW;Baterai;Carger/Adaptor;RAM/Memory;Hardisk;SSD;Tas;Lain-Lain'];
+			$this->form[] = ['label'=>'Garansi','name'=>'sgaransi_id','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'sgaransi,nama'];
+			$this->form[] = ['label'=>'kelengkapan','name'=>'kelengkapan','type'=>'checkbox','width'=>'col-sm-10','dataenum'=>'DVD/CD/DVD-RW;Baterai;Carger/Adaptor;RAM/Memory;Hardisk;SSD;Tas;Lain-Lain'];
 			$this->form[] = ['label'=>'Merk/Model','name'=>'model','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Snid','name'=>'snid','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Keluhan','name'=>'keluhan','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Teknisi','name'=>'team_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'team','datamodal_columns'=>'nama','datamodal_size'=>'small'];
-			$this->form[] = ['label'=>'Biaya','name'=>'jasa_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'jasa','datamodal_columns'=>'biaya,nama','datamodal_size'=>'small'];
-		//	$columns = [];
-		//	$columns[] = ['label'=>'Jasa','name'=>'jasa_id','type'=>'datamodal','datamodal_table'=>'jasa','datamodal_columns'=>'nama,biaya','datamodal_select_to'=>'biaya:jasa_biaya,nama:jasa_nama','required'=>true];
-		//	$columns[] = ['label'=>'Nama Jasa','name'=>'jasa_nama','type'=>'text','readonly'=>true,'required'=>true];
-		//	$columns[] = ['label'=>'Biaya','name'=>'jasa_biaya','type'=>'number','readonly'=>true,'required'=>true];
-		//	$this->form[] = ['label'=>'Servis Detail','name'=>'servis_detail','type'=>'child','columns'=>$columns,'table'=>'servis_detail','foreign_key'=>'servis_id'];	
+			$this->form[] = ['label'=>'Biaya','name'=>'biaya','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
-			//$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
-			//$this->form[] = ['label'=>'Nomer Ticket','name'=>'kode_servis','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$kode_servis,'readonly'=>true];
+			//$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Nomer Servis','name'=>'kode_servis','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','readonly'=>'1'];
+			//$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Unit','name'=>'unit','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			//$this->form[] = ['label'=>'Kategori','name'=>'k_servis_id','type'=>'radio','validation'=>'required','width'=>'col-sm-10','datatable'=>'k_servis,nama'];
-			//$this->form[] = ['label'=>'Garansi','name'=>'sgaransi_id','type'=>'radio','validation'=>'required','width'=>'col-sm-10','datatable'=>'sgaransi,nama'];
+			//$this->form[] = ['label'=>'Garansi','name'=>'sgaransi_id','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'sgaransi,nama'];
+			//$this->form[] = ['label'=>'kelengkapan','name'=>'kelengkapan','type'=>'checkbox','width'=>'col-sm-10','dataenum'=>'DVD/CD/DVD-RW;Baterai;Carger/Adaptor;RAM/Memory;Hardisk;SSD;Tas;Lain-Lain'];
+			//$this->form[] = ['label'=>'Merk/Model','name'=>'model','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Snid','name'=>'snid','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Keluhan','name'=>'keluhan','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'Teknisi','name'=>'team_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'team','datamodal_columns'=>'nama','datamodal_size'=>'small'];
@@ -107,7 +92,9 @@
 	        | 
 	        */
 	        $this->sub_module = array();
-
+		//	if(CRUDBooster::isSuperadmin()){
+			$this->sub_module[] = ['label'=>'Atur Stock','path'=>'biaya','button_color'=>'warning','button_icon'=>'fa fa-pencil-square-o','parent_columns'=>'id,kode_servis,biaya','foreign_key'=>'servis_id'];
+		//	}
 
 	        /* 
 	        | ---------------------------------------------------------------------- 
@@ -122,8 +109,8 @@
 	        */
 			$this->addaction = [];
 			if(CRUDBooster::isSuperadmin()){
-				$this->addaction[] = ['label'=>'Set dalam-pengecaken','url'=>CRUDBooster::mainpath('set-status/dalam-pengecaken/[id]'),'icon'=>'fa fa-search','color'=>'danger','showIf'=>"[status] == 'dalam-antiran'",'confirmation' => true];
-				$this->addaction[] = ['label'=>'Set dalam-pengerjaan','url'=>CRUDBooster::mainpath('set-status/dalam-pengerjaan/[id]'),'icon'=>'fa fa-refresh','color'=>'warning','showIf'=>"[status] == 'dalam-pengecaken'",'confirmation' => true];
+				$this->addaction[] = ['label'=>'Set dalam-pengecekan','url'=>CRUDBooster::mainpath('set-status/dalam-pengecekan/[id]'),'icon'=>'fa fa-search','color'=>'danger','showIf'=>"[status] == 'dalam-antiran'",'confirmation' => true];
+				$this->addaction[] = ['label'=>'Set dalam-pengerjaan','url'=>CRUDBooster::mainpath('set-status/dalam-pengerjaan/[id]'),'icon'=>'fa fa-refresh','color'=>'warning','showIf'=>"[status] == 'dalam-pengecekan'",'confirmation' => true];
 				$this->addaction[] = ['label'=>'Set menunggu-part','url'=>CRUDBooster::mainpath('set-status/menunggu-part/[id]'),'icon'=>'fa fa-gears','color'=>'info','showIf'=>"[status] == 'dalam-pengerjaan'",'confirmation' => true];
 				$this->addaction[] = ['label'=>'Set Selesai','url'=>CRUDBooster::mainpath('set-status/selesai/[id]'),'icon'=>'fa fa-sign-out','color'=>'success','showIf'=>"[status] == 'menunggu-part'",'confirmation' => true];
 				$this->addaction[] = ['label'=>'Set Diambil','url'=>CRUDBooster::mainpath('set-status/diambil/[id]'),'icon'=>'fa fa-check','color'=>'info','showIf'=>"[status] == 'selesai'",'confirmation' => true];
@@ -164,7 +151,7 @@
 	        | 
 	        */
 	        $this->index_button = array();
-
+		//	$this->index_button[] = ["label"=>"Tambah Servis","icon"=>"fa fa-plus","url"=>CRUDBooster::mainpath('add')];
 
 
 	        /* 
@@ -197,7 +184,19 @@
 	        | $this->script_js = "function() { ... }";
 	        |
 	        */
-	        $this->script_js = NULL;
+	        $this->script_js ="
+			$(function() {
+				
+				setInterval(function() {
+					var total = 0;
+					$('#table-orderdetail tbody .sub_total').each(function() {
+						total += parseInt($(this).text());
+					})
+					$('#total').val(total);
+
+				},500);
+			})
+		";
 
 
             /*
@@ -413,23 +412,29 @@
 
 			$data['servis'] = DB::table('servis')->where('id',$id)->first();
 			$data['kelengkapan'] = DB::table('servis')->where('id',$id)->first()->kelengkapan;
-			$data['biaya'] = DB::table('servis')
-									->join('jasa','jasa.id','=','jasa_id')
-									->select('jasa.*','jasa.nama as judul','jasa.biaya as jbiaya')
-									->where('servis.id',$data['servis']->id)
-									->first();
-			$data['statusgaransi'] = DB::table('servis')
-									->join('sgaransi','sgaransi.id','=','sgaransi_id')
-									->select('sgaransi.*','sgaransi.nama as status')
-									->where('servis.id',$data['servis']->id)
-									->first();
-			$data['team'] = DB::table('servis')
+			$data['steam'] = DB::table('servis')
 									->join('team','team.id','=','team_id')
-									->select('team.*','team.nama as tnama')
+									->select('servis.*','team.nama as tnama')
 									->where('servis.id',$data['servis']->id)
 									->first();
+			$data['serpis'] = DB::table('servis')
+									->select('servis.*','servis.unit as unt,servis.snid as sn,servis.keluhan as klh, team.nama as tnama')
+									->where('servis.id',$data['servis']->id)
+									->get();
 			//Please use cbView method instead view method from laravel
 			$this->cbView('dservis',$data);
 		  }
-
+	//	  public function getAdd() {
+	//		//Create an Auth
+	///		if(!CRUDBooster::isCreate() && $this->global_privilege==FALSE || $this->button_add==FALSE) {    
+		//	  CRUDBooster::redirect(CRUDBooster::adminPath(),trans("crudbooster.denied_access"));
+	//		}
+			
+	//		$data = [];
+	//		$data['page_title'] = 'Add Data';
+			
+			//Please use cbView method instead view method from laravel
+	//		$this->cbView('addservis',$data);
+	//	  }
+		  
 	}

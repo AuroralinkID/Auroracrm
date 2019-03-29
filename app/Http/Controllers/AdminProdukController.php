@@ -347,24 +347,24 @@
 	        //Your code here
 
 	    }
-		public function getIndex()
-		{
-			$myid = CRUDBooster::myId();
-			$data = [];
-			$data['export'] = true;
-			$data['page_title'] = 'Halaman Produk';  
-			$data['produk'] = $id;
-		 
-			$data['produk'] = DB::table('produk')
-			->join('kategori','kategori.id','=','kategori_id',)
-			->select('produk.*','produk.nama as judul','produk.deskripsi as pdesk','produk.harga_jual as harga','produk.gambar as pict')
-			->orderby('produk.id','DESC')
-			->take(6)
-			->get();
+//		public function getIndex()
+//		{
+//			$myid = CRUDBooster::myId();
+//			$data = [];
+//			$data['export'] = true;
+//			$data['page_title'] = 'Halaman Produk';  
+//			$data['produk'] = $id;
+//		 
+//			$data['produk'] = DB::table('produk')
+//			->join('kategori','kategori.id','=','kategori_id',)
+//			->select('produk.*','produk.nama as judul','produk.deskripsi as pdesk','produk.harga_jual as harga','produk.gambar as pict')
+//			->orderby('produk.id','DESC')
+//			->take(6)
+//			->get();
+///		
 		
-		
-			return view('produk',$data);
-		}
+//			return view('produk',$data);
+//		}
 
 	    //By the way, you can still create your own method in here... :) 
 

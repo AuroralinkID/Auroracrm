@@ -31,6 +31,7 @@
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
 			$this->col[] = ["label"=>"Judul","name"=>"judul"];
+			$this->col[] = ["label"=>"Gambar","name"=>"gambar","image"=>true];
 			$this->col[] = ["label"=>"Konten","name"=>"konten"];
 			$this->col[] = ["label"=>"Tags","name"=>"tags"];
 			$this->col[] = ["label"=>"User","name"=>"cms_users_id","join"=>"cms_users,name"];
@@ -42,6 +43,7 @@
 			$this->form[] = ['label'=>'Konten','name'=>'konten','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Tags','name'=>'tags','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'User','name'=>'cms_users_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'cms_users,name'];
+			$this->form[] = ['label'=>'Gambar','name'=>'gambar','type'=>'upload','validation'=>'required','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM

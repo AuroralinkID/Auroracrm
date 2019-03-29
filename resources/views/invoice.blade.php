@@ -94,26 +94,28 @@ th, td {
 
         </tbody>
         <tfoot >
+        @foreach($disc as $key => $disk)
         <tr>
             <th colspan="4"></th>
-            <th align="right">Biaya Servis Rp.</th>
-            <th align="right">{{ $ord->biaya_servis }}</th>
-        </tr>
-        <tr>
-            <th colspan="4"></th>
-            <th align="right">Pajak Rp.</th>
+            <th align="right">Pajak %</th>
             <th align="right">{{ $ord->pajak }}</th>
         </tr>
         <tr>
             <th colspan="4"></th>
+            <th align="right">Biaya Servis Rp.</th>
+            <th align="right">{{ $disk->biaya }}</th>
+        </tr>
+        <tr>
+            <th colspan="4"></th>
             <th align="right">Diskon Rp.</th>
-            <th align="right">{{ $ord->diskon }}</th>
+            <th align="right">{{ $disk->disc }}</th>
         </tr>
         <tr>
             <th colspan="4"></th>
             <th align="right">Grand Total Rp.</th>
             <th align="right" class="gray">{{ $ord->grand_total }}</th>
         </tr>
+        @endforeach
     </tfoot>
 </table>
 <div>

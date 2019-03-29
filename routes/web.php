@@ -15,8 +15,9 @@ Route::get('/pdf/{$idservis}','FrontController@getPdf');
 Route::get('/orderpdf/{$idorder}','FrontController@getOrderpdf');
 
 
-
 Route::get('/','FrontController@getIndex');
+Route::get('/portofolio','FrontController@postPortofolio');
+Route::get('/harga','FrontController@postHarga');
 //Route::get('/','FrontController@getShow');
  //   return view('home');
 //});

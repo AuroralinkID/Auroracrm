@@ -84,7 +84,6 @@ th, td {
 							<th>Snid</th>
 							<th>Status</th> 
 							<th>Keluhan</th>
-							<th>Biaya</th>
             </tr>
         </thead>
             <tbody>
@@ -94,9 +93,8 @@ th, td {
                 <th align="right">{{$usr->unit}}</th>
                 <th align="right">{{$usr->model}}</th>
                 <th align="right">{{$usr->snid}}</th>
-                <th align="right">{{$gars->status}}</th> 
+                <th align="right">{{$usr->status}}</th> 
                 <th align="right">{{$usr->keluhan}}</th>
-                <th align="right">{{$bias->jbay}}</th>
          </tr>
          
         </tbody>

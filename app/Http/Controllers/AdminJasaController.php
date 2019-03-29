@@ -355,20 +355,20 @@
 			//This will redirect back and gives a message
 			CRUDBooster::redirect($_SERVER['HTTP_REFERER'],"The status Order has been updated !","info");
 		}
-		public function getIndex()
-		{
-			$myid = CRUDBooster::myId();
-			$data = [];
-			$data['export'] = true;
-			$data['page_title'] = 'Halaman Harga';  
-			$data['jasa'] = $id;
-		 
-			$data['jasa'] = DB::table('jasa')
-			->join('jkategori','jkategori.id','=','jkategori_id',)
-			->select('jasa.*','jasa.nama as judul','jasa.jkategori_id as jid','jasa.biaya as jasah','jasa.deskripsi as jdesk','jasa.fitur as fitur','jasa.fitur1 as fitur1','jasa.fitur2 as fitur2','jasa.fitur3 as fitur3')
-			->orderby('jasa.id','DESC')
-			->take(20)
-			->get();
+	//	public function getIndex()
+	//	{
+	//		$myid = CRUDBooster::myId();
+	//		$data = [];
+	//		$data['export'] = true;
+	//		$data['page_title'] = 'Halaman Harga';  
+	//		$data['jasa'] = $id;
+	//	 
+	//		$data['jasa'] = DB::table('jasa')
+	//		->join('jkategori','jkategori.id','=','jkategori_id',)
+	//		->select('jasa.*','jasa.nama as judul','jasa.jkategori_id as jid','jasa.biaya as jasah','jasa.deskripsi as jdesk','jasa.fitur as fitur','jasa.fitur1 as fitur1','jasa.fitur2 as fitur2','jasa.fitur3 as fitur3')
+	///		->orderby('jasa.id','DESC')
+	//		->take(20)
+	//		->get();
 		
 		//	$data['jk'] = DB::table('jasa')
 		//	->join('jkategori','jkategori.id','=','jkategori_id',)
@@ -377,6 +377,6 @@
 		//	->first();
 		
 		
-			return view('jasa',$data);
-		}
+	//		return view('jasa',$data);
+	//	}
 	}
