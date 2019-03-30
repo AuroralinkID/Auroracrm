@@ -18,7 +18,7 @@
 			$this->button_bulk_action = true;
 			$this->button_action_style = "button_icon";
 			$this->button_add = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_add= true; } else { $this->button_add = false; }
+		//	if(CRUDBooster::isSuperadmin()){ $this->$button_add= true; } else { $this->button_add = false; }
 			$this->button_edit = true;
 			$this->button_delete = false;
 			$this->button_detail = true;

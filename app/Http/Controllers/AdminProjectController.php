@@ -18,20 +18,29 @@
 			$this->button_bulk_action = true;
 			$this->button_action_style = "button_text";
 			$this->button_add = true;
+		//	if(CRUDBooster::isSuperadmin()){ $this->$button_add = true; } else { $this->button_add = false; }
 			$this->button_edit = true;
-			$this->button_delete = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_edit = true; } else { $this->button_edit = false; }
+			$this->button_delete = false;
+		//	if(CRUDBooster::isSuperadmin()){ $this->$button_delete = true; } else { $this->button_delete = false; }
 			$this->button_detail = true;
+		//	if(CRUDBooster::isSuperadmin()){ $this->$button_detail = true; } else { $this->button_detail = false; }
 			$this->button_show = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_show = true; } else { $this->button_show = false; }
 			$this->button_filter = true;
-			$this->button_import = false;
-			$this->button_export = false;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_filter = true; } else { $this->button_filter = false; }
+			$this->button_import = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_import = true; } else { $this->button_import = false; }
+			$this->button_export = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_export = true; } else { $this->button_export = false; }
 			$this->table = "project";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
+			$this->col[] = ["label"=>"Nama Pelanggan","name"=>"cms_users_id","join"=>"cms_users,name"];
 			$this->col[] = ["label"=>"Nama","name"=>"nama"];
-			$this->col[] = ["label"=>"Deskripsi","name"=>"deskripsi"];
+		//	$this->col[] = ["label"=>"Deskripsi","name"=>"deskripsi"];
 			$this->col[] = ["label"=>"Kategori","name"=>"dkategori_id","join"=>"dkategori,nama"];
 			$this->col[] = ["label"=>"Tgl Mulai","name"=>"tgl_mulai"];
 			$this->col[] = ["label"=>"Status","name"=>"status"];
@@ -40,6 +49,7 @@
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
+			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
 			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
 			$this->form[] = ['label'=>'Deskripsi','name'=>'deskripsi','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Kategori','name'=>'dkategori_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'dkategori','datamodal_columns'=>'nama','datamodal_size'=>'small'];
@@ -91,12 +101,13 @@
 	        | 
 	        */
 			$this->addaction = [];
+			if(CRUDBooster::isSuperadmin()){
 			$this->addaction[] = ['label'=>'Set Mulai','url'=>CRUDBooster::mainpath('set-status/mulai/[id]'),'icon'=>'fa fa-sign-in','color'=>'warning','showIf'=>"[status] == 'rencana'"];
 			$this->addaction[] = ['label'=>'Set On progress','url'=>CRUDBooster::mainpath('set-status/progress/[id]'),'icon'=>'fa fa-refresh','color'=>'warning','showIf'=>"[status] == 'mulai'"];
 			$this->addaction[] = ['label'=>'Set Batal','url'=>CRUDBooster::mainpath('set-status/batal/[id]'),'icon'=>'fa fa-ban','color'=>'danger','showIf'=>"[status] =='progress'", 'confirmation' => true];
 	//		$this->addaction[] = ['label'=>'Set Batal','url'=>CRUDBooster::mainpath('set-status/batal/[id]'),'icon'=>'fa fa-money','color'=>'warning','showIf'=>"[status] == 'progress"];
 			$this->addaction[] = ['label'=>'Selesai','url'=>CRUDBooster::mainpath('set-status/selesai/[id]'),'icon'=>'fa fa-check','color'=>'success','showIf'=>"[status] == 'progress'", 'confirmation' => true];
-
+			}
 
 	        /* 
 	        | ---------------------------------------------------------------------- 
@@ -257,7 +268,10 @@
 	    */
 	    public function hook_query_index(&$query) {
 	        //Your code here
-	            
+			if(!CRUDBooster::isSuperadmin()){
+				$query->where('cms_users_id',CRUDBooster::myId());
+	
+			}
 	    }
 
 	    /*

@@ -148,7 +148,7 @@ public function getIndex()
 	->join('jkategori','jkategori.id','=','jkategori_id',)
 	->select('jasa.*','jasa.nama as judul','jkategori.nama as jid','jasa.biaya as jasah','jasa.deskripsi as jdesk','jasa.fitur as fitur','jasa.fitur1 as fitur1','jasa.fitur2 as fitur2','jasa.fitur3 as fitur3')
 	->orderby('jasa.id','DESC')
-	->take(8)
+	->take(4)
 	->get();
 
 	$data['porto'] = DB::table('post')
@@ -194,6 +194,17 @@ public function getIndex()
 //	$data = Fontawesome::getIcons();
 	return view('home',$data)->render();
 //	return view('crudbooster::components.list_icon', compact('data'))->render();
+}
+public function cart()
+{
+
+	return view('cart');
+}
+
+public function bayar()
+{
+
+	return view('bayar');
 }
 	public function postLogin() {		
 
