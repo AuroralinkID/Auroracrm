@@ -201,6 +201,12 @@ public function cart()
 	return view('cart');
 }
 
+public function addToCart($id)
+{
+	
+	return redirect()->back();
+}
+
 public function bayar()
 {
 

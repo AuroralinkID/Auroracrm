@@ -379,4 +379,21 @@
 		
 	//		return view('jasa',$data);
 	//	}
+				public function cart()
+			{
+
+				return view('cart');
+			}
+
+			public function addToCart()
+			{
+
+				return view('bayar');
+			}
+
+			public function bayar()
+			{
+
+				return view('bayar');
+			}
 	}
