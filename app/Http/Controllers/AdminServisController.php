@@ -20,7 +20,8 @@
 			$this->button_add = true;
 		//	if(CRUDBooster::isSuperadmin()){ $this->$button_add= true; } else { $this->button_add = false; }
 			$this->button_edit = true;
-			$this->button_delete = false;
+			$this->button_delete = true;
+			if(CRUDBooster::isSuperadmin()){ $this->$button_delete= true; } else { $this->button_delete = false; }
 			$this->button_detail = true;
 			$this->button_show = false;
 			$this->button_filter = true;
@@ -36,6 +37,7 @@
 			$this->col[] = ["label"=>"Unit","name"=>"unit"];
 			$this->col[] = ["label"=>"Merk/Model","name"=>"model"];
 			$this->col[] = ["label"=>"Garansi","name"=>"sgaransi_id","join"=>"sgaransi,nama"];
+//			$this->col[] = ["label"=>"Kelengkapan","name"=>"kelengkapan_id","join"=>"kelengkapan,nama"];
 			$this->col[] = ["label"=>"Teknisi","name"=>"team_id","join"=>"team,nama"];
 			$this->col[] = ["label"=>"Status","name"=>"status"];
 			$this->col[] = ["label"=>"Biaya","name"=>"biaya"];
@@ -46,8 +48,8 @@
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Nomer Servis','name'=>'kode_servis','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','readonly'=>'1'];
+			$this->form[] = ['label'=>'Nama Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
+			$this->form[] = ['label'=>'Nomer Order','name'=>'kode_servis','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$kode_servis,'readonly'=>true];
 			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
@@ -55,11 +57,12 @@
 			$this->form[] = ['label'=>'Unit','name'=>'unit','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Garansi','name'=>'sgaransi_id','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'sgaransi,nama'];
 			$this->form[] = ['label'=>'kelengkapan','name'=>'kelengkapan','type'=>'checkbox','width'=>'col-sm-10','dataenum'=>'DVD/CD/DVD-RW;Baterai;Carger/Adaptor;RAM/Memory;Hardisk;SSD;Tas;Lain-Lain'];
+		//	$this->form[] = ['label'=>'Kelengkapan','name'=>'kelengkapan_id','type'=>'checkbox','datatable'=>'kelengkapan,nama','relationship_table'=>'kelengkapan'];
 			$this->form[] = ['label'=>'Merk/Model','name'=>'model','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Snid','name'=>'snid','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Keluhan','name'=>'keluhan','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Teknisi','name'=>'team_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'team','datamodal_columns'=>'nama','datamodal_size'=>'small'];
-			$this->form[] = ['label'=>'Biaya','name'=>'biaya','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+		//	$this->form[] = ['label'=>'Biaya','name'=>'biaya','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
@@ -92,9 +95,9 @@
 	        | 
 	        */
 	        $this->sub_module = array();
-		//	if(CRUDBooster::isSuperadmin()){
-			$this->sub_module[] = ['label'=>'Atur Stock','path'=>'biaya','button_color'=>'warning','button_icon'=>'fa fa-pencil-square-o','parent_columns'=>'id,kode_servis,biaya','foreign_key'=>'servis_id'];
-		//	}
+			if(CRUDBooster::isSuperadmin()){
+			$this->sub_module[] = ['label'=>'Atur Biaya','path'=>'biaya','button_color'=>'success','button_icon'=>'fa fa-money','parent_columns'=>'id,kode_servis,biaya','foreign_key'=>'servis_id'];
+			}
 
 	        /* 
 	        | ---------------------------------------------------------------------- 
@@ -337,10 +340,14 @@
 			$data = ['name'=> $member->name,'idservis'=> $no_servis];
 			CRUDBooster::sendEmail(['to'=>$member->email,'data'=>$data,'template'=>'servis_baru']);
 
+			//Notifikasi
 			$config['content'] = "Ada Servis Baru";
                         $config['to'] = CRUDBooster::adminPath('servis');
                         $config['id_cms_users'] = [1]; //The Id of the user that is going to receive notification. This could be an array of id users [1,2,3,4,5]
-                        CRUDBooster::sendNotification($config);
+						CRUDBooster::sendNotification($config);
+						
+
+			
 	    }
 
 	    /* 

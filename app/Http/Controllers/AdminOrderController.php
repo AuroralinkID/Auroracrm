@@ -16,12 +16,12 @@
 			$this->orderby = "id,desc";
 			$this->global_privilege = true;
 			$this->button_table_action = true;
-		//	if(CRUDBooster::isSuperadmin()){ $this->$button_table_action = true; } else { $this->button_table_action = false; }
+			if(CRUDBooster::isSuperadmin()){ $this->$button_table_action = true; } else { $this->button_table_action = false; }
 			$this->button_bulk_action = true;
 			if(CRUDBooster::isSuperadmin()){ $this->$button_bulk_action = true; } else { $this->button_bulk_action = false; }
 			$this->button_action_style = "button_text";
 			$this->button_add = true;
-			if(CRUDBooster::isSuperadmin()){ $this->$button_add = true; } else { $this->button_add = false; }
+		//	if(CRUDBooster::isSuperadmin()){ $this->$button_add = true; } else { $this->button_add = false; }
 			$this->button_edit = true;
 			if(CRUDBooster::isSuperadmin()){ $this->$button_edit = true; } else { $this->button_edit = false; }
 			$this->button_delete = true;
@@ -132,8 +132,8 @@
 	        */
 			$this->addaction = [];
 			if(CRUDBooster::isSuperadmin()){
-			$this->addaction[] = ['label'=>'Belum Bayar','url'=>CRUDBooster::mainpath('set-status/lunas/[id]'),'icon'=>'fa fa-money','color'=>'warning','showIf'=>"[status] == 'pending'"];
-			$this->addaction[] = ['label'=>'Sudah Bayar','url'=>CRUDBooster::mainpath('set-status/pending/[id]'),'icon'=>'fa fa-money','color'=>'success','showIf'=>"[status] == 'lunas'", 'confirmation' => true];
+			$this->addaction[] = ['label'=>'Set Sudah Bayar','url'=>CRUDBooster::mainpath('set-status/lunas/[id]'),'icon'=>'fa fa-sign-in','color'=>'warning','showIf'=>"[status] == 'pending'"];
+			$this->addaction[] = ['label'=>'Set Selesai','url'=>CRUDBooster::mainpath('set-status/pending/[id]'),'icon'=>'fa fa-check','color'=>'success','showIf'=>"[status] == 'lunas'", 'confirmation' => true];
 			}
 			//$this->addaction[] = ['label'=>'Bayar','url'=>CRUDBooster::mainpath('pembayaran/detail/[id]'),'icon'=>'fa fa-money','color'=>'warning','showIf'=>"[status] == 'pending'"];
 	        /* 

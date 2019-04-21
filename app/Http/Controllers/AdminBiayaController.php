@@ -30,22 +30,25 @@
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Servis Id","name"=>"servis_id","join"=>"servis,nama"];
-			$this->col[] = ["label"=>"Biaya","name"=>"biaya"];
+			$this->col[] = ["label"=>"Servis","name"=>"servis_id","join"=>"servis,nama"];
+			$this->col[] = ["label"=>"Biaya Masuk","name"=>"biaya_in"];
+			$this->col[] = ["label"=>"Biaya Keluar","name"=>"biaya_out"];
 			$this->col[] = ["label"=>"Keterangan","name"=>"keterangan"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
 			$this->form[] = ['label'=>'Servis Id','name'=>'servis_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'servis,nama'];
-			$this->form[] = ['label'=>'Biaya','name'=>'biaya','type'=>'text','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Biaya In','name'=>'biaya_in','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Biaya Out','name'=>'biaya_out','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Keterangan','name'=>'keterangan','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
 			//$this->form[] = ["label"=>"Servis Id","name"=>"servis_id","type"=>"select2","required"=>TRUE,"validation"=>"required|integer|min:0","datatable"=>"servis,nama"];
-			//$this->form[] = ["label"=>"Biaya","name"=>"biaya","type"=>"number","required"=>TRUE,"validation"=>"required|integer|min:0"];
+			//$this->form[] = ["label"=>"Biaya In","name"=>"biaya_in","type"=>"number","required"=>TRUE,"validation"=>"required|integer|min:0"];
+			//$this->form[] = ["label"=>"Biaya Out","name"=>"biaya_out","type"=>"number","required"=>TRUE,"validation"=>"required|integer|min:0"];
 			//$this->form[] = ["label"=>"Keterangan","name"=>"keterangan","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
 			# OLD END FORM
 
@@ -267,7 +270,11 @@
 	    | 
 	    */
 	    public function hook_after_add($id) {        
-	        //Your code here
+			//Your code here
+			//Biaya
+			$servis = CRUDBooster::first('servis',Request::get('servis_id'));
+	    	$biaya = $servis->biaya + Request::get('biaya_in') - Request::get('biaya_out');
+	    	DB::table('servis')->where('id',Request::get('servis_id'))->update(['biaya'=>$biaya]);
 
 	    }
 

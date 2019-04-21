@@ -5,7 +5,7 @@
 	use DB;
 	use CRUDBooster;
 
-	class AdminServisDetailController extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminKelengkapanController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
@@ -25,40 +25,22 @@
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
-			$this->table = "servis_detail";
+			$this->table = "kelengkapan";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-		//	$this->col[] = ["label"=>"Nama","name"=>"nama"];
-		//	$this->col[] = ["label"=>"Servis Id","name"=>"servis_id","join"=>"servis,nama"];
-		//	$this->col[] = ["label"=>"Produk Id","name"=>"produk_id","join"=>"produk,nama"];
-		//	$this->col[] = ["label"=>"Produk Nama","name"=>"produk_nama"];
-		//	$this->col[] = ["label"=>"Harga","name"=>"harga"];
+			$this->col[] = ["label"=>"Nama","name"=>"nama"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-		//	$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
-		//	$this->form[] = ['label'=>'Servis Id','name'=>'servis_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'servis,nama'];
-		//	$this->form[] = ['label'=>'Produk Id','name'=>'produk_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'produk,nama'];
-		//	$this->form[] = ['label'=>'Produk Nama','name'=>'produk_nama','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-		//	$this->form[] = ['label'=>'Harga','name'=>'harga','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-		//	$this->form[] = ['label'=>'Qty','name'=>'qty','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Sub Total','name'=>'sub_total','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-		//	$this->form[] = ['label'=>'Produk Sku','name'=>'produk_sku','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
 			//$this->form[] = ["label"=>"Nama","name"=>"nama","type"=>"text","required"=>TRUE,"validation"=>"required|string|min:3|max:70","placeholder"=>"Anda hanya dapat memasukkan huruf saja"];
-			//$this->form[] = ["label"=>"Servis Id","name"=>"servis_id","type"=>"select2","required"=>TRUE,"validation"=>"required|integer|min:0","datatable"=>"servis,nama"];
-			//$this->form[] = ["label"=>"Produk Id","name"=>"produk_id","type"=>"select2","required"=>TRUE,"validation"=>"required|integer|min:0","datatable"=>"produk,nama"];
-			//$this->form[] = ["label"=>"Produk Nama","name"=>"produk_nama","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
-			//$this->form[] = ["label"=>"Harga","name"=>"harga","type"=>"money","required"=>TRUE,"validation"=>"required|integer|min:0"];
-			//$this->form[] = ["label"=>"Qty","name"=>"qty","type"=>"number","required"=>TRUE,"validation"=>"required|integer|min:0"];
-			//$this->form[] = ["label"=>"Sub Total","name"=>"sub_total","type"=>"money","required"=>TRUE,"validation"=>"required|integer|min:0"];
-			//$this->form[] = ["label"=>"Produk Sku","name"=>"produk_sku","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
 			# OLD END FORM
 
 			/* 

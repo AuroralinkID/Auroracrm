@@ -143,7 +143,7 @@
   <table>
      <label>Kelengkapan :</label>
     <tr>
-      <td style="padding: 1px;">{{ $kelengkapan }}</td>
+      <td style="padding: 1px;">{{$kelengkapan}}</td>
      </tr>
   </table>
 </div>
