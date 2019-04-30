@@ -1,5 +1,7 @@
 @extends('layout')
-
+@section('title')
+Selamat Datang Di Auroralink
+@endsection
 @section('content')
 
 <!--Header_section-->
@@ -188,7 +190,7 @@
                     <li>{{$row->fitur2}}</li>
                     <li>{{$row->fitur3}}</li>
                 </ul>
-                <a href="#">purchase</a>
+                <a href="{{ url('addtocart/'.$row->id) }}">purchase</a>
                
             </div>
         </div>

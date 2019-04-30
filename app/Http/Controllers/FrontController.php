@@ -145,7 +145,7 @@ public function getIndex()
 	$data['jasa'] = $id;
  
 	$data['jasa'] = DB::table('jasa')
-	->join('jkategori','jkategori.id','=','jkategori_id',)
+	->join('jkategori','jkategori.id','=','jkategori_id')
 	->select('jasa.*','jasa.nama as judul','jkategori.nama as jid','jasa.biaya as jasah','jasa.deskripsi as jdesk','jasa.fitur as fitur','jasa.fitur1 as fitur1','jasa.fitur2 as fitur2','jasa.fitur3 as fitur3')
 	->orderby('jasa.id','DESC')
 	->take(4)
@@ -195,23 +195,7 @@ public function getIndex()
 	return view('home',$data)->render();
 //	return view('crudbooster::components.list_icon', compact('data'))->render();
 }
-public function cart()
-{
 
-	return view('cart');
-}
-
-public function addToCart($id)
-{
-	
-	return redirect()->back();
-}
-
-public function bayar()
-{
-
-	return view('bayar');
-}
 	public function postLogin() {		
 
 			$validator = Validator::make(Request::all(),			

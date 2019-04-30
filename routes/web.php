@@ -16,8 +16,11 @@ Route::get('/orderpdf/{$idorder}','FrontController@getOrderpdf');
 
 
 Route::get('/','FrontController@getIndex');
-Route::get('/cart','FrontController@cart');
-Route::get('/bayar','FrontController@bayar');
+Route::get('/jasa','cartController@index');
+Route::get('/cart','cartController@cart');
+Route::get('addtocart/{id}','cartController@addTocart');
+Route::get('/charge','ChargeController@getIndex');
+Route::post('/charge','ChargeController@store');
 Route::get('/portofolio','FrontController@postPortofolio');
 Route::get('/harga','FrontController@postHarga');
 //Route::get('/','FrontController@getShow');

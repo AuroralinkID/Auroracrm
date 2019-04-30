@@ -1,6 +1,8 @@
 <!-- First, extends to the CRUDBooster Layout -->
 @extends('layout')
 @section('content')
+
+
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
@@ -73,5 +75,5 @@
             </table>
         </div>
     </div>
-</div>
+</div> 
 @endsection
