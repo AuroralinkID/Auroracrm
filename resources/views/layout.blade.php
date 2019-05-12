@@ -4,12 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, maximum-scale=1">
 <title>@yield('title')</title>
-<link rel="icon" href="pavicon.png" type="image/png">
-<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="css/style.css" rel="stylesheet" type="text/css"> 
-<link href="css/font-awesome.css" rel="stylesheet" type="text/css"> 
-<link href="css/animate.css" rel="stylesheet" type="text/css">
-<link href="summernote/summernote.css" rel="stylesheet" type="text/css"> 
+<link rel="shortcut icon"
+          href="{{ CRUDBooster::getSetting('favicon')?asset(CRUDBooster::getSetting('favicon')):asset('vendor/crudbooster/assets/logo_crudbooster.png') }}">
+<link href="{{url('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
+<link href="{{url('css/style.css')}}" rel="stylesheet" type="text/css"> 
+<link href="{{url('css/font-awesome.css')}}" rel="stylesheet" type="text/css"> 
+<link href="{{url('css/animate.css')}}" rel="stylesheet" type="text/css">
+<link href="{{url('summernote/summernote.css')}}" rel="stylesheet" type="text/css"> 
 
 
 
@@ -25,17 +26,17 @@
 
 @yield('content')
 
-<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery-scrolltofixed.js"></script>
-<script type="text/javascript" src="js/jquery.nav.js"></script> 
-<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="js/jquery.isotope.js"></script>
-<script type="text/javascript" src="js/lightbox.js"></script> 
-<script type="text/javascript" src="js/lightbox.min.js"></script> 
-<script type="text/javascript" src="js/wow.js"></script>  
-<script type="text/javascript" src="js/custom.js"></script>
-<script type="text/javascript" src="js/tinymce.min.js"></script>
-<script type="text/javascript" src="summernote/summernote.min.js"></script>
+<script type="text/javascript" src="{{url('js/jquery-1.11.0.min.js')}}"></script>
+<script type="text/javascript" src="{{url('js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{url('js/jquery-scrolltofixed.js')}}"></script>
+<script type="text/javascript" src="{{url('js/jquery.nav.js')}}"></script> 
+<script type="text/javascript" src="{{url('js/jquery.easing.1.3.js')}}"></script>
+<script type="text/javascript" src="{{url('js/jquery.isotope.js')}}"></script>
+<script type="text/javascript" src="{{url('js/lightbox.js')}}"></script> 
+<script type="text/javascript" src="{{url('js/lightbox.min.js')}}"></script> 
+<script type="text/javascript" src="{{url('js/wow.js')}}"></script>  
+<script type="text/javascript" src="{{url('js/custom.js')}}"></script>
+<script type="text/javascript" src="{{url('js/tinymce.min.js')}}"></script>
+<script type="text/javascript" src="{{url('summernote/summernote.min.js')}}"></script>
 </body>
 </html>

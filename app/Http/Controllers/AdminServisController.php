@@ -49,7 +49,7 @@
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
 			$this->form[] = ['label'=>'Nama Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
-			$this->form[] = ['label'=>'Nomer Order','name'=>'kode_servis','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$kode_servis,'readonly'=>true];
+			$this->form[] = ['label'=>'Kode Servis','name'=>'kode_servis','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$kode_servis,'readonly'=>true];
 			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
@@ -421,27 +421,17 @@
 			$data['kelengkapan'] = DB::table('servis')->where('id',$id)->first()->kelengkapan;
 			$data['steam'] = DB::table('servis')
 									->join('team','team.id','=','team_id')
+									->join('sgaransi', 'sgaransi.id', '=','sgaransi_id')
 									->select('servis.*','team.nama as tnama')
 									->where('servis.id',$data['servis']->id)
 									->first();
 			$data['serpis'] = DB::table('servis')
-									->select('servis.*','servis.unit as unt,servis.snid as sn,servis.keluhan as klh, team.nama as tnama')
+									->join('sgaransi', 'sgaransi.id', '=','sgaransi_id')
+									->select('servis.*','sgaransi.nama as garansi')
 									->where('servis.id',$data['servis']->id)
 									->get();
 			//Please use cbView method instead view method from laravel
 			$this->cbView('dservis',$data);
 		  }
-	//	  public function getAdd() {
-	//		//Create an Auth
-	///		if(!CRUDBooster::isCreate() && $this->global_privilege==FALSE || $this->button_add==FALSE) {    
-		//	  CRUDBooster::redirect(CRUDBooster::adminPath(),trans("crudbooster.denied_access"));
-	//		}
-			
-	//		$data = [];
-	//		$data['page_title'] = 'Add Data';
-			
-			//Please use cbView method instead view method from laravel
-	//		$this->cbView('addservis',$data);
-	//	  }
-		  
+
 	}

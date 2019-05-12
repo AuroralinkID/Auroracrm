@@ -77,18 +77,18 @@ Selamat Datang Di Auroralink
       <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right"><img src="{{asset('/' .$prow->papict)}}" class="img-circle delay-03s animated wow zoomIn" alt=""></div>
       	<div class=" col-lg-7 col-md-7 col-sm-7 col-xs-12 pull-left">
         	<div class=" delay-01s animated fadeInDown wow animated">
-         
-         <p>Auroralink.id adalah Sebuah Penyedia jasa layanan teknis yang bergerak dalam bidang informasi dan teknologi sejak tahun 2011, Mulai dari Jasa Pembuatan Sistem Aplikasi, Pemeliharaan Jaringan serta aset aset Komputer Perusahaan, Pembuatan Website, Instalasi CCTV dll.
+      <!--   <p>Auroralink.id adalah Sebuah Penyedia jasa layanan teknis yang bergerak dalam bidang informasi dan teknologi sejak tahun 2011, Mulai dari Jasa Pembuatan Sistem Aplikasi, Pemeliharaan Jaringan serta aset aset Komputer Perusahaan, Pembuatan Website, Instalasi CCTV dll. -->
+      <strong>Auroralink.ID </strong>adalah {{$prow->padesk}}
          <br>
-<br><strong>VISI :</strong> Didukung sumber daya manusia yang tangguh dan handal dibidangnya berupaya menjadi Partner yang terkemuka serta kreatif menciptakan inovasi dan pengembangan teknologi Informasi di Indonesia
+<br><strong>VISI :</strong>{{$prow->pvi}}
 <br>
 <br><strong>MISI :</strong>
 
-<br>#1 Menjalankan usaha secara profesional dengan memberikan pelayanan dan mutu yang terbaik.
+<br>#1 {{$prow->pm1}}
 
-<br>#2 Menjadi solusi untuk BISNIS anda di ERA DIGITAL
+<br>#2 {{$prow->pm2}}
 
-<br>#3 Penyedia layanan multi talent yang serbaBISA
+<br>#3 {{$prow->pm3}}
 </p>
 </div>
 <div class="work_bottom"> <span>Cari tahu lebih banyak</span> <a href="#contact" class="contact_btn">Kontak Kami</a> </div>       
@@ -105,7 +105,7 @@ Selamat Datang Di Auroralink
 <!--Aboutus--> 
 <!--Service-->
 <section  id="service" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); text-decoration:none;color:#000001;">
-@foreach($playanan as $key => $plow)
+
 
 <blockquote class="blockquote text-center">
   <p class="mb-0"><strong><h2>Layanan</h2></strong></p>
@@ -113,88 +113,163 @@ Selamat Datang Di Auroralink
 </blockquote>
 <div class="container" >
     <div class="row">
+    @foreach($webdev as  $web)
         <div class="col-md-3 col-sm-6" >
             <div class="serviceBox">
                 <div class="service-icon">
                     <i class="fa fa-code"></i>
                 </div>
-                <h3 class="title">{{$plow->pljud}}</h3>
-                <p class="description">
-                {{$plow->pldesk}}
+                <h3 class="title">{{$web->judul}}</h3>
+                
+                <p class="description" style="padding:9px;">
+                {{$web->webkon}}
                 </p>
+                <a href="{{url('project')}}" class="btn btn-outline-light btn-md box-shadow--2dp"><span class="fa fa-paper-plane-o"></span> Buka Project</a>
             </div>
         </div>
+      @endforeach
+
+      @foreach($postservis as  $po)
         <div class="col-md-3 col-sm-6 ">
             <div class="serviceBox red">
                 <div class="service-icon">
                     <i class="fa fa-wrench"></i>
                 </div>
-                <h3 class="title">{{$plow->pjsatu}}</h3>
-                <p class="description">
-                {{$plow->plsatu}}
+                <h3 class="title">{{$po->judul}}</h3>
+                
+                <p class="description" style="padding:9px;">
+                {{$po->webkon}}
                 </p>
+                <a href="{{url('pickup')}}" class="btn btn-outline-light btn-md box-shadow--2dp"><span class="fa fa-paper-plane-o"></span> Pickup Servis</a>
             </div>
         </div>
+      @endforeach
+
+      @foreach($postsupport as $ps)
         <div class="col-md-3 col-sm-6">
             <div class="serviceBox green">
                 <div class="service-icon">
                     <i class="fa fa-ticket"></i>
                 </div>
-                <h3 class="title">{{$plow->pjdua}}</h3>
-                <p class="description">
-                {{$plow->pldua}}
+                <h3 class="title">{{$ps->judul}}</h3>
+                
+                <p class="description" style="padding:9px;">
+                {{$ps->webkon}}
                 </p>
+                <a href="{{url('support')}}" class="btn btn-outline-light btn-md box-shadow--2dp"><span class="fa fa-paper-plane-o"></span> Join Sekarang</a>
             </div>
         </div>
+        @endforeach
+
+        @foreach($postsyadmin as $psys)
         <div class="col-md-3 col-sm-6">
             <div class="serviceBox blue">
                 <div class="service-icon">
-                    <i class="fa fa-rocket"></i>
+                    <i href="{{url('syadm')}}" class="fa fa-rocket"></i>
                 </div>
-                <h3 class="title">{{$plow->pjtiga}}</h3>
-                <p class="description">
-                {{$plow->pltiga}}
+                <h3 class="title">{{$psys->judul}}</h3>
+                
+                <p class="description" style="padding:9px;">
+                {{$psys->webkon}}
                 </p>
+                <a href="{{url('syadm')}}" class="btn btn-outline-light btn-md box-shadow--2dp"><span class="fa fa-paper-plane-o"></span> Selengkapnya</a>
             </div>
         </div>
+        @endforeach
     </div>
 </div>
-@endforeach
+
 </section>
-<!--Service-->
+<!--Service--> 
 
 
 <!--Harga-->
 <section  id="harga">
 <blockquote class="blockquote text-center">
-  <p class="mb-0"><strong><h2>HARGA</h2></strong></p>
-  <footer class="blockquote-footer">Berikut List <cite title="Source Title">Harga</cite></footer>
+  <p class="mb-0"><strong><h2>List Layanan</h2></strong></p>
+  <footer class="blockquote-footer">Berikut List <cite title="Source Title">Layanan</cite></footer>
 </blockquote>
 <div class="container">
 
 
     <div class="row row-flex">
-        @foreach($jasa as $key => $row)
+       
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
             <div class="price-table pt-bg-blue">
                 <div>
                 
-                 <span>{{$row->judul}}</span>
-                    <span><strong>{{$row->jid}}</strong></span> 
-                    <span>Rp. {{$row->jasah}} / Bulan</span>
+                 <span>{{$web->title}}</span>
+                    <span>{{$web->tags}}</span> 
+                    <span>{{$web->websat}}</span>
                 </div>
                 <ul>
-                    <li>{{$row->jdesk}}</li>
-                    <li>{{$row->fitur1}}</li>
-                    <li>{{$row->fitur}}</li>
-                    <li>{{$row->fitur2}}</li>
-                    <li>{{$row->fitur3}}</li>
+                    <li>{{$web->webdu}}</li>
+                    <li>{{$web->webtig}}</li>
+                    <li>{{$web->webpat}}</li>
+                    <li>{{$web->webli}}</li>
+                    <li>{{$web->webnam}}</li>
                 </ul>
-                <a href="{{ url('addtocart/'.$row->id) }}">purchase</a>
+                <a href="{{url('harga')}}">Selengkapnya</a>
                
             </div>
         </div>
-        @endforeach
+        
+        
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="price-table pt-bg-red">
+                <div>
+                <span>{{$po->title}}</span>
+                    <span>{{$po->webtag}}</span> 
+                    <span>{{$po->servsat}}</span>
+                </div>
+                <ul>
+                    <li>{{$po->servdu}}</li>
+                    <li>{{$po->servtig}}</li>
+                    <li>{{$po->servpat}}</li>
+                    <li>{{$po->servli}}</li>
+                    <li>{{$po->servnam}}</li>
+                </ul>
+                <a href="{{url('harga')}}">Selengkapnya</a>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="price-table pt-bg-green">
+                <div>
+                    <span>{{$ps->judul}}</span>
+                    <span>{{$ps->webtag}}</span>
+                    <span>{{$ps->kategori}}</span>
+                </div>
+                <ul>
+                    <li>{{$ps->sup_satu}}</li>
+                    <li>{{$ps->sup_dua}}</li>
+                    <li>{{$ps->sup_tiga}}</li>
+                    <li>{{$ps->sup_empat}}</li>
+                    <li>{{$ps->sup_lima}}</li>
+                </ul>
+                <a href="{{url('harga')}}">Selengkapnya</a>
+            </div>
+        </div> 
+
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <div class="price-table pt-bg-black">
+                <div>
+                
+                 <span>{{$psys->title}}</span>
+                 <span>{{$psys->webtag}}</span>
+                 <span>{{$psys->kategori}}</span>
+                </div>
+                <ul>
+                <li>{{$psys->sys_satu}}</li>
+                    <li>{{$psys->sys_dua}}</li>
+                    <li>{{$psys->sys_tiga}}</li>
+                    <li>{{$psys->sys_empat}}</li>
+                    <li>{{$psys->sys_lima}}</li>
+                </ul>
+                <a href="{{url('harga')}}">Selengkapnya</a>
+               
+            </div>
+        </div> 
     </div>
 </div>
 </section>
@@ -375,7 +450,28 @@ Selamat Datang Di Auroralink
         </div>
         <div class="col-lg-8 wow fadeInLeft delay-06s">
           <div class="form">
-          <script type="text/javascript" src="//mautic.auroralink.id/form/generate.js?id=1"></script>
+       <!--   <script type="text/javascript" src="//mautic.auroralink.id/form/generate.js?id=1"></script> -->
+       <form autocomplete='off' action="{{ action('FormController@postLeads') }}" method="post">
+       <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+            <div class="form-group has-feedback">
+                <input autocomplete='off' type="text" class="form-control " name='nama' required placeholder="Nama"/>
+            </div>
+            <div class="form-group has-feedback">
+                <input autocomplete='off' type="text" class="form-control" name='telepon' required placeholder="Telepon"/>
+            </div>
+            <div class="form-group has-feedback">
+                <input autocomplete='off' type="text" class="form-control" name='email' required placeholder="Email"/>
+            </div>
+            <div class="form-group has-feedback">
+                <input autocomplete='off' type="textarea" class="form-control" name='komentar' required placeholder="Masukan Pesan Anda"/>
+            </div>
+
+            <div style="margin-bottom:10px" class='row'>
+                <div class='col-xs-12'>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat"><i class='fa fa-sign-in' style="padding:0px 5px 0px 5px"></i>Kirim</button>
+                </div>
+            </div>
+        </form>
           </div>
         </div>
       </div>

@@ -119,7 +119,7 @@
         <th align="right">{{$serv->unit}}</th>
         <th align="right">{{$serv->model}}</th>
         <th align="right">{{$serv->snid}}</th>
-        <th align="right">{{$serv->status}}</th>
+        <th align="right">{{$serv->garansi}}</th>
         <th align="right">{{$serv->keluhan}}</th>
  
         

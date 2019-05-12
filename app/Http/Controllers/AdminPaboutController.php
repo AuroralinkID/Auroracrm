@@ -38,8 +38,11 @@
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
 			$this->form[] = ['label'=>'Judul','name'=>'judul','type'=>'text','validation'=>'required','width'=>'col-sm-10','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
-		//	$this->form[] = ['label'=>'Konten','name'=>'deskripsi','type'=>'wysiwyg','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
-			$this->form[] = ["label" => "Content", "name" => "deskripsi", "type" => "wysiwyg", "required" => true, "validation" => "required"];
+			$this->form[] = ['label'=>'Konten','name'=>'deskripsi','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label' => 'Visi', 'name' => 'visi', 'type' => 'text', 'required' => true, 'validation' => 'required'];
+			$this->form[] = ['label' => 'Misi 1', 'name' => 'misi_satu', 'type' => 'text', 'required' => true, 'validation' => 'required'];
+			$this->form[] = ['label' => 'Misi 2', 'name' => 'misi_dua', 'type' => 'text', 'required' => true, 'validation' => 'required'];
+			$this->form[] = ['label' => 'Misi 3', 'name' => 'misi_tiga', 'type' => 'text', 'required' => true, 'validation' => 'required'];
 			$this->form[] = ['label'=>'Gambar','name'=>'logo','type'=>'upload','validation'=>'required','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
