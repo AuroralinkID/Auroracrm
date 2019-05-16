@@ -16,38 +16,53 @@ Form Sysadmin
 		            <!--      Wizard container        -->
 		            <div class="wizard-container">
 		                <div class="card wizard-card" data-color="purple" id="wizard">
-						<form action="" method="">
+						<form action="{{ action('FormController@postSysadmin') }}" method="post">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 			                <!--        You can switch " data-color="rose" "  with one of the next bright colors: "blue", "green", "orange", "purple"        -->
 
 		                    	<div class="wizard-header">
 		                        	<h3 class="wizard-title">
 		                        		Request Project
 		                        	</h3>
+									<h4><i>@if ( Session::get('message') != '' )
+									<div class='alert alert-{{ Session::get("message_type") }}'>
+									<h4><i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}</h4>
+									<!--	<div class='alert alert-info'> -->
+											{{ Session::get('message') }}
+										</div>
+									@endif</i></h4>
 									<h5>Silahkan isi data kolom yang di sediakan</h5>
 		                    	</div>
 								<div class="wizard-navigation">
 									<ul>
 			                            <li><a href="#location" data-toggle="tab">Lokasi</a></li>
 			                            <li><a href="#type" data-toggle="tab">Kategori</a></li>
-			                            <li><a href="#facilities" data-toggle="tab">Deadline</a></li>
+			                          <!--  <li><a href="#facilities" data-toggle="tab">Deadline</a></li> -->
 			                            <li><a href="#description" data-toggle="tab">Keterangan</a></li>
 			                        </ul>
 								</div>
 
 		                        <div class="tab-content">
 		                            <div class="tab-pane" id="location">
-		                            	<div class="row">
-		                                	<div class="col-sm-12">
-		                                    	<h4 class="info-text"> Silahkan lengkapi data pribadi anda</h4>
-		                                	</div>
+									<div class="row">
+		                                	<h4 class="info-text"> Data detail</h4>
 		                                	<div class="col-sm-6">
+											<div class="input-group">
+													<span class="input-group-addon">
+														<i class="material-icons">account_balance</i>
+													</span>
+													<div class="form-group label-floating">
+			                                          <label class="control-label">Nama PT <small>(nama perusahaan / usaha anda)</small></label>
+			                                          <input name="pt" type="text" class="form-control">
+			                                        </div>
+												</div>
 												<div class="input-group">
 													<span class="input-group-addon">
 														<i class="material-icons">face</i>
 													</span>
 													<div class="form-group label-floating">
 			                                          <label class="control-label">Nama Lengkap <small>(required)</small></label>
-			                                          <input name="firstname" type="text" class="form-control">
+			                                          <input name="nama" type="text" class="form-control">
 			                                        </div>
 												</div>
 
@@ -72,16 +87,15 @@ Form Sysadmin
 												</div>
 
 		                                	</div>
-											<div class="col-sm-5">
+		                                	<div class="col-sm-6">
 											<div class="form-group label-floating">
-												<span><i class="material-icons">location_on</i></span>
-		                                        	<label class="control-label">Alamat <small>(required)</small></label>
-													<input name="alamat" type="text" class="form-control">
-		                                    	</div>
-		                                    	<div class="form-group label-floating">
 												<span><i class="material-icons">create</i></span>
-		                                        	<label class="control-label">Catatan</label>
-													<input name="catatan" type="text" class="form-control">
+		                                        	<label class="control-label">Deskripsi Project<small>(project yang anda inginkan)</small></label>
+													<input name="deskripsi" type="text" class="form-control">
+		                                    	</div>
+												<div class="form-group label-floating">
+												<span><i class="material-icons">location_on</i></span>
+													<textarea name="alamat" type="text" class="form-control" placeholder="Alamat" rows="5"></textarea>
 		                                    	</div>
 		                                	</div>
 		                            	</div>
@@ -130,7 +144,7 @@ Form Sysadmin
 		                                    </div>
 		                                </div>
 		                            </div>
-		                            <div class="tab-pane" id="facilities">
+		                     <!--       <div class="tab-pane" id="facilities">
 		                                <h4 class="info-text">Deadline </h4>
 		                                <div class="row">
 		                                    <div class="col-sm-5 col-sm-offset-1">
@@ -159,7 +173,7 @@ Form Sysadmin
 		                                    	</div>
 	                                    	</div>
 		                                </div>
-		                            </div>
+		                            </div> -->
 		                            <div class="tab-pane" id="description">
 		                                <div class="row">
 		                                    <h4 class="info-text"> Keterangan </h4>
@@ -181,8 +195,8 @@ Form Sysadmin
 		                        </div>
 		                        <div class="wizard-footer">
 	                            	<div class="pull-right">
-	                                    <input type='button' class='btn btn-next btn-fill btn-info btn-wd' name='next' value='Next' />
-	                                    <input type='submit' class='btn btn-finish btn-fill btn-info btn-wd' name='submit' value='Kirim' />
+	                                    <input type='button' class='btn btn-next btn-fill btn-primary btn-wd' name='next' value='Next' />
+	                                    <input type='submit' class='btn btn-finish btn-fill btn-primary btn-wd' name='submit' value='Kirim' />
 	                                </div>
 	                                <div class="pull-left">
 	                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />

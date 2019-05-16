@@ -16,13 +16,21 @@ Form Project
 		            <!--      Wizard container        -->
 		            <div class="wizard-container">
 		                <div class="card wizard-card" data-color="blue" id="wizard">
-			                <form action="" method="">
+			                <form action="{{ action('FormController@postProject') }}" method="post">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 			                <!--        You can switch " data-color="rose" "  with one of the next bright colors: "blue", "green", "orange", "purple"        -->
 
 		                    	<div class="wizard-header">
 		                        	<h3 class="wizard-title">
 		                        		Request Project
 		                        	</h3>
+									<h4><i>@if ( Session::get('message') != '' )
+									<div class='alert alert-{{ Session::get("message_type") }}'>
+									<h4><i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}</h4>
+									<!--	<div class='alert alert-info'> -->
+											{{ Session::get('message') }}
+										</div>
+									@endif</i></h4>
 									<h5>Silahkan isi data kolom yang di sediakan</h5>
 		                    	</div>
 								<div class="wizard-navigation">
@@ -41,13 +49,22 @@ Form Project
 		                                    	<h4 class="info-text"> Silahkan lengkapi data pribadi anda</h4>
 		                                	</div>
 		                                	<div class="col-sm-6">
+											<div class="input-group">
+													<span class="input-group-addon">
+														<i class="material-icons">account_balance</i>
+													</span>
+													<div class="form-group label-floating">
+			                                          <label class="control-label">Nama PT <small>(nama perusahaan / usaha anda)</small></label>
+			                                          <input name="pt" type="text" class="form-control">
+			                                        </div>
+												</div>
 												<div class="input-group">
 													<span class="input-group-addon">
 														<i class="material-icons">face</i>
 													</span>
 													<div class="form-group label-floating">
-			                                          <label class="control-label">Nama Lengkap <small>(required)</small></label>
-			                                          <input name="firstname" type="text" class="form-control">
+			                                          <label class="control-label">Nama Anda <small>(nama penanggung jawab)</small></label>
+			                                          <input name="nama" type="text" class="form-control">
 			                                        </div>
 												</div>
 
@@ -56,17 +73,17 @@ Form Project
 														<i class="material-icons">email</i>
 													</span>
 													<div class="form-group label-floating">
-			                                          <label class="control-label">Email <small>(required)</small></label>
+			                                          <label class="control-label">Email <small>(email aktif)</small></label>
 			                                          <input name="email" type="email" class="form-control">
 			                                        </div>
 												</div>
 
 												<div class="input-group">
 													<span class="input-group-addon">
-														<i class="material-icons">contacts</i>
+														<i class="material-icons">phone</i>
 													</span>
 													<div class="form-group label-floating">
-			                                          <label class="control-label">Telepon <small>(required)</small></label>
+			                                          <label class="control-label">Telepon <small>(telpon yang dapat di hubungi)</small></label>
 			                                          <input name="telepon" type="number" class="form-control">
 			                                        </div>
 												</div>
@@ -74,15 +91,15 @@ Form Project
 		                                	</div>
 											<div class="col-sm-5">
 											<div class="form-group label-floating">
-												<span><i class="material-icons">location_on</i></span>
-		                                        	<label class="control-label">Alamat <small>(required)</small></label>
-													<input name="alamat" type="text" class="form-control">
-		                                    	</div>
-		                                    	<div class="form-group label-floating">
 												<span><i class="material-icons">create</i></span>
-		                                        	<label class="control-label">Catatan</label>
-													<input name="catatan" type="text" class="form-control">
+		                                        	<label class="control-label">Deskripsi Project<small>(project yang anda inginkan)</small></label>
+													<input name="deskripsi" type="text" class="form-control">
 		                                    	</div>
+												<div class="form-group label-floating">
+												<span><i class="material-icons">location_on</i></span>
+													<textarea name="alamat" type="text" class="form-control" placeholder="Alamat" rows="5"></textarea>
+		                                    	</div>
+
 		                                	</div>
 		                            	</div>
 		                            </div>
@@ -135,26 +152,26 @@ Form Project
 		                                <div class="row">
 		                                    <div class="col-sm-5 col-sm-offset-1">
 		                                      <div class="form-group label-floating">
-											  <label class="control-label"> Tanggal Open Project</label>
-		                                        	<input type="date" class="form-control" id="">
+											  <label class="control-label"> Tanggal Start Project</label>
+		                                        	<input type="date" class="form-control" name="openp">
 		                                    	</div>
 		                                    </div>
 		                                    <div class="col-sm-5">
 		                                    	<div class="form-group label-floating">
-												<label class="control-label">Tanggal Start Project</label>
-		                                        	<input type="date" class="form-control" id="">
+												<label class="control-label">Tanggal Deadline Project</label>
+		                                        	<input type="date" class="form-control" name="finishp">
 		                                    	</div>
 		                                    </div>
 		                                    <div class="col-sm-5 col-sm-offset-1">
 		                                    	<div class="form-group label-floating">
-		                                        	<label class="control-label">Tanggal Selesai Project</label>
-		                                        	<input type="date" class="form-control" id="">
+		                                        	<label class="control-label">Harga Penawaran Kami</label>
+		                                        	<input type="number" class="form-control" name="hargap">
                                                 </div>
 		                                    </div>
 		                                    <div class="col-sm-5">
 		                                    	<div class="form-group label-floating">
-		                                        	<label class="control-label">Catatan</label>
-		                                        	<input type="tex" class="form-control" id="catatn">
+		                                        	<label class="control-label">Harga Penawaran Anda</label>
+		                                        	<input type="number" class="form-control" name="hargas">
 		                                            	
 		                                    	</div>
 	                                    	</div>

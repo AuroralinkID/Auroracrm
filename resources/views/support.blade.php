@@ -16,13 +16,21 @@ Form Support
 		            <!--      Wizard container        -->
 		            <div class="wizard-container">
 		                <div class="card wizard-card" data-color="green" id="wizardProfile">
-		                    <form action="" method="">
+		                    <form action="{{ action('FormController@postSupport') }}" method="post">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 		                <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
 
 		                    	<div class="wizard-header">
 		                        	<h3 class="wizard-title">
 		                        	  Layanan Support 
 		                        	</h3>
+									<h4><i>@if ( Session::get('message') != '' )
+									<div class='alert alert-{{ Session::get("message_type") }}'>
+									<h4><i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}</h4>
+									<!--	<div class='alert alert-info'> -->
+											{{ Session::get('message') }}
+										</div>
+									@endif</i></h4>
 									<h5>Silahkan isi form sesuai kolom yang ada</h5>
 		                    	</div>
 								<div class="wizard-navigation">
@@ -38,13 +46,22 @@ Form Support
 		                              <div class="row">
 		                                	<h4 class="info-text"> Data detail</h4>
 		                                	<div class="col-sm-6">
+											<div class="input-group">
+													<span class="input-group-addon">
+														<i class="material-icons">account_balance</i>
+													</span>
+													<div class="form-group label-floating">
+			                                          <label class="control-label">Nama PT <small>(nama perusahaan / usaha anda)</small></label>
+			                                          <input name="pt" type="text" class="form-control">
+			                                        </div>
+												</div>
 												<div class="input-group">
 													<span class="input-group-addon">
 														<i class="material-icons">face</i>
 													</span>
 													<div class="form-group label-floating">
 			                                          <label class="control-label">Nama Lengkap <small>(required)</small></label>
-			                                          <input name="firstname" type="text" class="form-control">
+			                                          <input name="nama" type="text" class="form-control">
 			                                        </div>
 												</div>
 
@@ -70,15 +87,14 @@ Form Support
 
 		                                	</div>
 		                                	<div class="col-sm-6">
-		                                    	<div class="form-group label-floating">
-												<span><i class="material-icons">location_on</i></span>
-		                                        	<label class="control-label">Alamat <small>(required)</small></label>
-													<input name="alamat" type="text" class="form-control">
-		                                    	</div>
-		                                    	<div class="form-group label-floating">
+											<div class="form-group label-floating">
 												<span><i class="material-icons">create</i></span>
-		                                        	<label class="control-label">Catatan</label>
-													<input name="catatan" type="text" class="form-control">
+		                                        	<label class="control-label">Deskripsi Project<small>(project yang anda inginkan)</small></label>
+													<input name="deskripsi" type="text" class="form-control">
+		                                    	</div>
+												<div class="form-group label-floating">
+												<span><i class="material-icons">location_on</i></span>
+													<textarea name="alamat" type="text" class="form-control" placeholder="Alamat" rows="5"></textarea>
 		                                    	</div>
 		                                	</div>
 		                            	</div>

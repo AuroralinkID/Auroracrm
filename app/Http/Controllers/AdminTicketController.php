@@ -40,7 +40,9 @@
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Pelanggan","name"=>"cms_users_id","join"=>"cms_users,name"];
+		//	$this->col[] = ["label"=>"Pelanggan","name"=>"cms_users_id","join"=>"cms_users,name"];
+			$this->col[] = ["label"=>"Nama","name"=>"pt"];
+			$this->col[] = ["label"=>"Nama","name"=>"nama"];
 			$this->col[] = ["label"=>"Nomer Ticket","name"=>"nomer_ticket"];
 			$this->col[] = ["label"=>"Judul","name"=>"judul"];
 //			$this->col[] = ["label"=>"Keterangan","name"=>"keterangan"];
@@ -58,6 +60,11 @@
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
+			$this->form[] = ['label'=>'Nama PT','name'=>'pt','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Nama PT'];
+			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Nama Pelanggan'];
+			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Judul','name'=>'judul','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
 			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
 			$this->form[] = ['label'=>'Nomer Ticket','name'=>'nomer_ticket','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$nomer_ticket,'readonly'=>true];

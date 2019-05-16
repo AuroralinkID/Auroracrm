@@ -29,7 +29,7 @@ th, td {
 </style>
 </head>
 <div class="center">
-<img src="https://app.auroralink.id/img/SiapPasangWeb.png"  alt="Logo" alt="Logo" style="border-bottom:1px solid black;text-decoration:none;color:#000001;">
+<img src="{url{(img/SiapPasangWeb.png)}}"  alt="Logo" alt="Logo" style="border-bottom:1px solid black;text-decoration:none;color:#000001;">
 <p>TANDA PEMBAYARAN NO: {{ $ord->nomer_order }}<p>
 </div>
 <div>

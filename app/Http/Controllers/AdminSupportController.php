@@ -5,12 +5,12 @@
 	use DB;
 	use CRUDBooster;
 
-	class AdminBiayaController extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminSupportController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
 			# START CONFIGURATION DO NOT REMOVE THIS LINE
-			$this->title_field = "id";
+			$this->title_field = "nama";
 			$this->limit = "20";
 			$this->orderby = "id,desc";
 			$this->global_privilege = true;
@@ -25,31 +25,43 @@
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
-			$this->table = "biaya";
+			$this->table = "support";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Servis","name"=>"servis_id","join"=>"servis,kode_servis"];
-			$this->col[] = ["label"=>"Biaya Masuk","name"=>"biaya_in"];
-			$this->col[] = ["label"=>"Biaya Keluar","name"=>"biaya_out"];
-			$this->col[] = ["label"=>"Keterangan","name"=>"keterangan"];
+			$this->col[] = ["label"=>"Kode Project","name"=>"kode_project"];
+			$this->col[] = ["label"=>"Pt","name"=>"pt"];
+			$this->col[] = ["label"=>"Nama","name"=>"nama"];
+			$this->col[] = ["label"=>"Alamat","name"=>"alamat"];
+			$this->col[] = ["label"=>"Jasa","name"=>"jasa_id","join"=>"jasa,nama"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
+
+			$nomer_project = DB::table('support')->max('id') + 1;
+			$nomer_project = str_pad('P-SUP#'.$nomer_project, 5, 0 , STR_PAD_LEFT);
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Servis Id','name'=>'servis_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'servis,nama'];
-			$this->form[] = ['label'=>'Biaya In','name'=>'biaya_in','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Biaya Out','name'=>'biaya_out','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Keterangan','name'=>'keterangan','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Kode Project','name'=>'kode_project','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>$nomer_project,'readonly'=>true];
+			$this->form[] = ['label'=>'Pt','name'=>'pt','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
+			$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required|min:1|max:255|email|unique:support','width'=>'col-sm-10','placeholder'=>'Mohon input alamat email dengan benar'];
+			$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Deskripsi','name'=>'deskripsi','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Jasa Id','name'=>'jasa_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'jasa,nama'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
-			//$this->form[] = ["label"=>"Servis Id","name"=>"servis_id","type"=>"select2","required"=>TRUE,"validation"=>"required|integer|min:0","datatable"=>"servis,nama"];
-			//$this->form[] = ["label"=>"Biaya In","name"=>"biaya_in","type"=>"number","required"=>TRUE,"validation"=>"required|integer|min:0"];
-			//$this->form[] = ["label"=>"Biaya Out","name"=>"biaya_out","type"=>"number","required"=>TRUE,"validation"=>"required|integer|min:0"];
-			//$this->form[] = ["label"=>"Keterangan","name"=>"keterangan","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Kode Project","name"=>"kode_project","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Pt","name"=>"pt","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Nama","name"=>"nama","type"=>"text","required"=>TRUE,"validation"=>"required|string|min:3|max:70","placeholder"=>"Anda hanya dapat memasukkan huruf saja"];
+			//$this->form[] = ["label"=>"Alamat","name"=>"alamat","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Email","name"=>"email","type"=>"email","required"=>TRUE,"validation"=>"required|min:1|max:255|email|unique:support","placeholder"=>"Mohon input alamat email dengan benar"];
+			//$this->form[] = ["label"=>"Telepon","name"=>"telepon","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Deskripsi","name"=>"deskripsi","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Jasa Id","name"=>"jasa_id","type"=>"select2","required"=>TRUE,"validation"=>"required|integer|min:0","datatable"=>"jasa,nama"];
 			# OLD END FORM
 
 			/* 
@@ -270,11 +282,7 @@
 	    | 
 	    */
 	    public function hook_after_add($id) {        
-			//Your code here
-			//Biaya
-			$servis = CRUDBooster::first('servis',Request::get('servis_id'));
-	    	$biaya = $servis->biaya + Request::get('biaya_in') - Request::get('biaya_out');
-	    	DB::table('servis')->where('id',Request::get('servis_id'))->update(['biaya'=>$biaya]);
+	        //Your code here
 
 	    }
 

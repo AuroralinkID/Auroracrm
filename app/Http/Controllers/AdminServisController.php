@@ -32,7 +32,7 @@
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Nama Pelanggan","name"=>"cms_users_id","join"=>"cms_users,name"];
+			$this->col[] = ["label"=>"Nama Pelanggan","name"=>"nama"];
 			$this->col[] = ["label"=>"Kode Servis","name"=>"kode_servis"];
 			$this->col[] = ["label"=>"Unit","name"=>"unit"];
 			$this->col[] = ["label"=>"Merk/Model","name"=>"model"];
@@ -112,6 +112,7 @@
 	        */
 			$this->addaction = [];
 			if(CRUDBooster::isSuperadmin()){
+				$this->addaction[] = ['label'=>'Set dalam-antiran','url'=>CRUDBooster::mainpath('set-status/dalam-antiran/[id]'),'icon'=>'fa fa-search','color'=>'danger','showIf'=>"[status] == 'request-pickup'",'confirmation' => true];
 				$this->addaction[] = ['label'=>'Set dalam-pengecekan','url'=>CRUDBooster::mainpath('set-status/dalam-pengecekan/[id]'),'icon'=>'fa fa-search','color'=>'danger','showIf'=>"[status] == 'dalam-antiran'",'confirmation' => true];
 				$this->addaction[] = ['label'=>'Set dalam-pengerjaan','url'=>CRUDBooster::mainpath('set-status/dalam-pengerjaan/[id]'),'icon'=>'fa fa-refresh','color'=>'warning','showIf'=>"[status] == 'dalam-pengecekan'",'confirmation' => true];
 				$this->addaction[] = ['label'=>'Set menunggu-part','url'=>CRUDBooster::mainpath('set-status/menunggu-part/[id]'),'icon'=>'fa fa-gears','color'=>'info','showIf'=>"[status] == 'dalam-pengerjaan'",'confirmation' => true];
@@ -119,7 +120,7 @@
 				$this->addaction[] = ['label'=>'Set Diambil','url'=>CRUDBooster::mainpath('set-status/diambil/[id]'),'icon'=>'fa fa-check','color'=>'info','showIf'=>"[status] == 'selesai'",'confirmation' => true];
 
 			}
-	        /* 
+	        /* request-pickup
 	        | ---------------------------------------------------------------------- 
 	        | Add More Button Selected
 	        | ----------------------------------------------------------------------     

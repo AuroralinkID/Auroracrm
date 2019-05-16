@@ -67,11 +67,10 @@
     <div class="login-box-body">
 
         @if ( Session::get('message') != '' )
-            <div class='alert alert-warning'>
+            <div class='alert alert-info'>
                 {{ Session::get('message') }}
             </div>
         @endif
-
         <p class='login-box-msg'>Silahkan Melakukan Pendaftaran</p>
         <form autocomplete='off' action="{{ action('FrontController@postDaftar') }}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
@@ -84,11 +83,11 @@
                 <span class="glyphicon glyphicon-home form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input autocomplete='off' type="text" class="form-control" name='telepon' required placeholder="Telepon"/>
+                <input autocomplete='off' type="number" class="form-control" name='telepon' required placeholder="Telepon"/>
                 <span class="glyphicon glyphicon-phone-alt form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input autocomplete='off' type="text" class="form-control" name='email' required placeholder="Email"/>
+                <input autocomplete='off' type="email" class="form-control" name='email' required placeholder="Email"/>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">

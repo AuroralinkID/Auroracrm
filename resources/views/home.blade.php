@@ -450,6 +450,11 @@ Selamat Datang Di Auroralink
         </div>
         <div class="col-lg-8 wow fadeInLeft delay-06s">
           <div class="form">
+          @if ( Session::get('message') != '' )
+            <div class='alert alert-info'>
+                {{ Session::get('message') }}
+            </div>
+        @endif
        <!--   <script type="text/javascript" src="//mautic.auroralink.id/form/generate.js?id=1"></script> -->
        <form autocomplete='off' action="{{ action('FormController@postLeads') }}" method="post">
        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
@@ -457,14 +462,15 @@ Selamat Datang Di Auroralink
                 <input autocomplete='off' type="text" class="form-control " name='nama' required placeholder="Nama"/>
             </div>
             <div class="form-group has-feedback">
-                <input autocomplete='off' type="text" class="form-control" name='telepon' required placeholder="Telepon"/>
+                <input autocomplete='off' type="number" class="form-control" name='telepon' required placeholder="Telepon"/>
             </div>
             <div class="form-group has-feedback">
-                <input autocomplete='off' type="text" class="form-control" name='email' required placeholder="Email"/>
+                <input autocomplete='off' type="email" class="form-control" name='email' required placeholder="Email"/>
             </div>
-            <div class="form-group has-feedback">
-                <input autocomplete='off' type="textarea" class="form-control" name='komentar' required placeholder="Masukan Pesan Anda"/>
+            <div class="md-form">
+              <textarea id="form7" class="md-textarea form-control" name='komentar' required placeholder="Masukan Pesan Anda" rows="3"></textarea>
             </div>
+              
 
             <div style="margin-bottom:10px" class='row'>
                 <div class='col-xs-12'>

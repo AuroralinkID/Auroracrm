@@ -21,7 +21,7 @@
 		//	if(CRUDBooster::isSuperadmin()){ $this->$button_add = true; } else { $this->button_add = false; }
 			$this->button_edit = true;
 			if(CRUDBooster::isSuperadmin()){ $this->$button_edit = true; } else { $this->button_edit = false; }
-			$this->button_delete = false;
+			$this->button_delete = true;
 		//	if(CRUDBooster::isSuperadmin()){ $this->$button_delete = true; } else { $this->button_delete = false; }
 			$this->button_detail = true;
 		//	if(CRUDBooster::isSuperadmin()){ $this->$button_detail = true; } else { $this->button_detail = false; }
@@ -38,11 +38,13 @@
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Nama Pelanggan","name"=>"cms_users_id","join"=>"cms_users,name"];
+		//	$this->col[] = ["label"=>"Nama Pelanggan","name"=>"cms_users_id","join"=>"cms_users,name"];
+			$this->col[] = ["label"=>"Nama","name"=>"pt"];
 			$this->col[] = ["label"=>"Nama","name"=>"nama"];
 		//	$this->col[] = ["label"=>"Deskripsi","name"=>"deskripsi"];
 			$this->col[] = ["label"=>"Kategori","name"=>"dkategori_id","join"=>"dkategori,nama"];
 			$this->col[] = ["label"=>"Tgl Mulai","name"=>"tgl_mulai"];
+			$this->col[] = ["label"=>"Tgl Mulai","name"=>"tgl_selesai"];
 			$this->col[] = ["label"=>"Status","name"=>"status"];
 			$this->col[] = ["label"=>"Pelaksana","name"=>"team_id","join"=>"team,nama"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
@@ -50,12 +52,16 @@
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
 			$this->form[] = ['label'=>'Kode Pelanggan','name'=>'cms_users_id','type'=>'hidden','validation'=>'required|min:1|max:255','width'=>'col-sm-10','value'=>CRUDBooster::myId(),'readonly'=>true];
-			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
+			$this->form[] = ['label'=>'Nama PT','name'=>'pt','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Nama PT'];
+			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Nama Pelanggan'];
+			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Deskripsi','name'=>'deskripsi','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Kategori','name'=>'dkategori_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'dkategori','datamodal_columns'=>'nama','datamodal_size'=>'small'];
 			$this->form[] = ['label'=>'Tgl Mulai','name'=>'tgl_mulai','type'=>'date','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Tgl Selesai','name'=>'tgl_selesai','type'=>'date','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Status','name'=>'status','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+		//	$this->form[] = ['label'=>'Status','name'=>'status','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Harga Penawaran','name'=>'harga_penawaran','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Harga Kesepakatan','name'=>'harga_kesepakatan','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Pelaksana','name'=>'team_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'team','datamodal_columns'=>'nama','datamodal_size'=>'small'];

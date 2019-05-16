@@ -107,18 +107,49 @@ class FormController extends Controller
      
         return view('form',$data);
     } 
-    public function getAdd(){
+    public function getServis(){
 
         $data['page_title'] = 'Pickup |';		
 
         return view('pickup',$data);
     }
 
-    public function postPickup(){
+    public function postServis(\Illuminate\Http\Request $req){
+        $validator = Validator::make(Request::all(),			
+        [
+        'email'=>'required|unique:cms_users|max:255',
+      //  'nama' => 'required|string|min:3|max:255',
+       // 'telepon' => 'required',
+       // 'deskripsi' => 'required|string|min:3|max:255',
+        //'alamat' => 'required|string|min:3|max:255',
+        //'keluhan' => 'required|string|min:3|max:255',			
+        ]
+    );
+        if ($validator->fails()) 
+        {
+            $message = $validator->errors()->all('Tolong Masukan Data Dengan Benar !!!!');
+            return redirect()->back()->with(['message'=>implode(', ',$message),'message_type'=>'danger']);
+        }
 
-
-            return view('pickup');
-        
+        $kode_servis = DB::table('servis')->max('id') + 1;
+        $kode_servis = str_pad('SRVS#'.$kode_servis, 5, 0 , STR_PAD_LEFT);
+        $save['kode_servis'] = $kode_servis;
+		$save['created_at'] = Carbon::now();
+        $save['nama'] = htmlentities(Request::get('nama'));
+        $save['unit'] = 'laptop';
+        $save['email'] = htmlentities(Request::get('email'));
+        $save['telepon'] = htmlentities(Request::get('telp'));
+		$save['alamat'] = htmlentities(Request::get('alamat'));
+		$save['kelengkapan'] = htmlentities(Request::get('kelengkapan'));
+        $save['keluhan'] = htmlentities(Request::get('keluhan'));
+        $save['team_id'] = '2';
+        $save['sgaransi_id'] = '2';
+        $save['status'] = 'request-pickup';
+        $save['snid'] = htmlentities(Request::get('snid'));
+        $save['model'] = htmlentities(Request::get('model'));
+		DB::table('servis')->insert($save);
+        $pesan = $kode_servis;
+		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);   
         
     }
 
@@ -128,44 +159,118 @@ class FormController extends Controller
 
         return view('project',$data);
     }
+    public function postProject(\Illuminate\Http\Request $req){
+       
+        $validator = Validator::make(Request::all(),			
+        [
+        'email'=>'required|unique:cms_users|max:255',
+        'nama' => 'required|string|min:3|max:255',
+        'telepon' => 'required',
+        'deskripsi' => 'required|string|min:3|max:255',
+        'alamat' => 'required|string|min:3|max:255',			
+        ]
+    );
+        if ($validator->fails()) 
+        {
+            $message = $validator->errors()->all('Tolong Masukan Data Dengan Benar !!!!');
+            return redirect()->back()->with(['message'=>implode(', ',$message),'message_type'=>'danger']);
+        }
+
+        $save['pt'] = Request::get('pt');
+        $save['nama'] = Request::get('nama');
+        $save['alamat'] = Request::get('alamat');
+        $save['email'] = Request::get('email');
+        $save['telepon'] = Request::get('telepon');
+		$save['deskripsi'] = Request::get('deskripsi');
+		$save['dkategori_id'] = '3';
+		$save['tgl_mulai'] = Request::get('openp');
+		$save['tgl_selesai'] = Request::get('finishp');
+		$save['status'] = 'mulai';
+		$save['harga_penawaran'] = Request::get('hargap');
+		$save['harga_kesepakatan'] = Request::get('hargas');
+		$save['team_id'] = '2';
+		DB::table('project')->insert($save);
+        $pesan = 'Data Berhasil Di Simpan Silahkan Check Email Anda';
+		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
+
+    }
     public function getSupport(){
 
         $data['page_title'] = 'Register |';		
 
         return view('support',$data);
     }
+    public function postSupport(\Illuminate\Http\Request $req){
+
+        $kode_support = DB::table('support')->max('id') + 1;
+        $kode_support = str_pad('P-SUP#'.$kode_support, 5, 0 , STR_PAD_LEFT);
+        $save['kode_project'] = $kode_support;
+        $save['pt'] = htmlentities(Request::get('pt'));
+        $save['nama'] = htmlentities(Request::get('nama'));
+        $save['alamat'] = htmlentities(Request::get('alamat'));
+        $save['email'] = htmlentities(Request::get('email'));
+        $save['telepon'] = htmlentities(Request::get('telepon'));
+        $save['deskripsi'] = htmlentities(Request::get('deskripsi'));
+        $save['jasa_id'] = '1';
+		DB::table('support')->insert($save);
+        $pesan = $kode_support;
+		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
+
+    }
+    
     public function getSyadm(){
 
         $data['page_title'] = 'Register |';		
 
         return view('syadm',$data);
     }
+    public function postSysadmin(\Illuminate\Http\Request $req){
+
+        $kode_sys = DB::table('sysadmin')->max('id') + 1;
+        $kode_sys = str_pad('P-SYS#'.$kode_sys, 5, 0 , STR_PAD_LEFT);
+        $save['kode_project'] = $kode_sys;
+        $save['pt'] = Request::get('pt');
+        $save['nama'] = Request::get('nama');
+        $save['alamat'] = Request::get('alamat');
+        $save['email'] = Request::get('email');
+        $save['telepon'] = Request::get('telepon');
+        $save['deskripsi'] = Request::get('deskripsi');
+        $save['jasa_sysadmin_id'] = '1';
+		DB::table('sysadmin')->insert($save);
+        $pesan = $kode_sys;
+		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
+
+    }
     public function getLeads(\Illuminate\Http\Request $request){
 
         $data['page_title'] = 'Home';
 
         Session::flash('success', 'Pesan berhasil di kirim');
-        return view('home');
+        return view('success');
     }
     public function postLeads(\Illuminate\Http\Request $req){
 
-        $this->validate($req, [
-            'email' => 'required|unique:cms_users|max:255',
-            'nama' => 'required',
-            'alamat' => 'required',
-            'telepon' => 'required',
-
-        ]);
-
-
-		$save['name'] = Request::get('nama');
-		$save['email'] = Request::get('email');
-		$save['telepon'] = Request::get('telepon');
+        $validator = Validator::make(Request::all(),			
+        [
+        'email'=>'required|unique:cms_users|max:255',
+        'nama' => 'required|string|min:3|max:255',
+        'telepon' => 'required',
+        'komentar' => 'required|string|min:3|max:255',			
+        ]
+    );
+        if ($validator->fails()) 
+        {
+            $message = $validator->errors()->all('"Tolong Masukan Data Dengan Benar !!!!"');
+            return redirect()->back()->with(['message'=>implode(', ',$message),'message_type'=>'danger']);
+        }
+		$save['nama'] = htmlentities(Request::get('nama'));
+		$save['email'] = htmlentities(Request::get('email'));
+        $save['telepon'] = htmlentities(Request::get('telepon'));
+        $save['komentar'] = htmlentities(Request::get('komentar'));
 		$save['created_at'] = Carbon::now();
         DB::table('lead')->insert($save);
-        
-        Session::flash('success', 'Pesan berhasil di kirim');
-		return redirect()->back();
+        $pesan = '"Pesan berhasil di kirim"';
+		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
 
     }
 }
