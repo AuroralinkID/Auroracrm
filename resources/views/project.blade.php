@@ -110,7 +110,7 @@ Form Project
 		                                    <div class="col-sm-10 col-sm-offset-1">
 		                                        <div class="col-sm-4 col-sm-offset-2">
 		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have a house.">
-		                                                <input type="radio" name="type" value="webapp">
+		                                                <input type="radio" name="dkategori" value="1">
 		                                                <div class="icon">
 		                                                    <i class="material-icons">code</i>
 		                                                </div>
@@ -119,7 +119,7 @@ Form Project
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="type" value="desktop">
+		                                                <input type="radio" name="dkategori" value="2">
 		                                                <div class="icon">
 		                                                    <i class="material-icons">desktop_windows</i>
 		                                                </div>
@@ -128,7 +128,7 @@ Form Project
 		                                        </div>
 												<div class="col-sm-4 col-sm-offset-2">
 		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="type" value="android">
+		                                                <input type="radio" name="dkategori" value="3">
 		                                                <div class="icon">
 		                                                    <i class="material-icons">android</i>
 		                                                </div>
@@ -137,7 +137,7 @@ Form Project
 		                                        </div>
 												<div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="type" value="rebuild">
+		                                                <input type="radio" name="dkategori" value="4">
 		                                                <div class="icon">
 		                                                    <i class="material-icons">refresh</i>
 		                                                </div>
@@ -147,6 +147,7 @@ Form Project
 		                                    </div>
 		                                </div>
 		                            </div>
+
 		                            <div class="tab-pane" id="facilities">
 		                                <h4 class="info-text">Deadline </h4>
 		                                <div class="row">

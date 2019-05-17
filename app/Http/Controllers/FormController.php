@@ -176,18 +176,18 @@ class FormController extends Controller
             return redirect()->back()->with(['message'=>implode(', ',$message),'message_type'=>'danger']);
         }
 
-        $save['pt'] = Request::get('pt');
-        $save['nama'] = Request::get('nama');
-        $save['alamat'] = Request::get('alamat');
-        $save['email'] = Request::get('email');
-        $save['telepon'] = Request::get('telepon');
-		$save['deskripsi'] = Request::get('deskripsi');
-		$save['dkategori_id'] = '3';
-		$save['tgl_mulai'] = Request::get('openp');
-		$save['tgl_selesai'] = Request::get('finishp');
+        $save['pt'] = htmlentities(Request::get('pt'));
+        $save['nama'] = htmlentities(Request::get('nama'));
+        $save['alamat'] = htmlentities(Request::get('alamat'));
+        $save['email'] = htmlentities(Request::get('email'));
+        $save['telepon'] = htmlentities(Request::get('telepon'));
+		$save['deskripsi'] = htmlentities(Request::get('deskripsi'));
+        $save['dkategori_id'] = '1'; 
+		$save['tgl_mulai'] = htmlentities(Request::get('openp'));
+		$save['tgl_selesai'] = htmlentities(Request::get('finishp'));
 		$save['status'] = 'mulai';
-		$save['harga_penawaran'] = Request::get('hargap');
-		$save['harga_kesepakatan'] = Request::get('hargas');
+		$save['harga_penawaran'] = htmlentities(Request::get('hargap'));
+		$save['harga_kesepakatan'] = htmlentities(Request::get('hargas'));
 		$save['team_id'] = '2';
 		DB::table('project')->insert($save);
         $pesan = 'Data Berhasil Di Simpan Silahkan Check Email Anda';
@@ -229,12 +229,12 @@ class FormController extends Controller
         $kode_sys = DB::table('sysadmin')->max('id') + 1;
         $kode_sys = str_pad('P-SYS#'.$kode_sys, 5, 0 , STR_PAD_LEFT);
         $save['kode_project'] = $kode_sys;
-        $save['pt'] = Request::get('pt');
-        $save['nama'] = Request::get('nama');
-        $save['alamat'] = Request::get('alamat');
-        $save['email'] = Request::get('email');
-        $save['telepon'] = Request::get('telepon');
-        $save['deskripsi'] = Request::get('deskripsi');
+        $save['pt'] = htmlentities(Request::get('pt'));
+        $save['nama'] = htmlentities(Request::get('nama'));
+        $save['alamat'] = htmlentities(Request::get('alamat'));
+        $save['email'] = htmlentities(Request::get('email'));
+        $save['telepon'] = htmlentities(Request::get('telepon'));
+        $save['deskripsi'] = htmlentities(Request::get('deskripsi'));
         $save['jasa_sysadmin_id'] = '1';
 		DB::table('sysadmin')->insert($save);
         $pesan = $kode_sys;
