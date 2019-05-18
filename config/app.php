@@ -161,9 +161,10 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-	    crocodicstudio\crudbooster\CRUDBoosterServiceProvider::class,
+	crocodicstudio\crudbooster\CRUDBoosterServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+	Ken\FlashMe\FlashMeServiceProvider::class,
 	   // Darryldecode\Cart\CartServiceProvider::class,
         /*
          * Package Service Providers...

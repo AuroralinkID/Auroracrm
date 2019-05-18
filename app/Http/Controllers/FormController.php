@@ -136,14 +136,14 @@ class FormController extends Controller
         $save['kode_servis'] = $kode_servis;
 		$save['created_at'] = Carbon::now();
         $save['nama'] = htmlentities(Request::get('nama'));
-        $save['unit'] = 'laptop';
+        $save['unit_id'] = Request::get('unit');
         $save['email'] = htmlentities(Request::get('email'));
         $save['telepon'] = htmlentities(Request::get('telp'));
 		$save['alamat'] = htmlentities(Request::get('alamat'));
-		$save['kelengkapan'] = htmlentities(Request::get('kelengkapan'));
+		$save['kelengkapan'] = Request::get('kelengkapan');
         $save['keluhan'] = htmlentities(Request::get('keluhan'));
-        $save['team_id'] = '2';
-        $save['sgaransi_id'] = '2';
+        $save['team_id'] = '4';
+        $save['sgaransi_id'] = Request::get('garansi');
         $save['status'] = 'request-pickup';
         $save['snid'] = htmlentities(Request::get('snid'));
         $save['model'] = htmlentities(Request::get('model'));
@@ -182,13 +182,14 @@ class FormController extends Controller
         $save['email'] = htmlentities(Request::get('email'));
         $save['telepon'] = htmlentities(Request::get('telepon'));
 		$save['deskripsi'] = htmlentities(Request::get('deskripsi'));
-        $save['dkategori_id'] = '1'; 
+        $save['dkategori_id'] = Request::get('kategori');
+        $save['produk_id'] = Request::get('produk'); 
 		$save['tgl_mulai'] = htmlentities(Request::get('openp'));
 		$save['tgl_selesai'] = htmlentities(Request::get('finishp'));
 		$save['status'] = 'mulai';
 		$save['harga_penawaran'] = htmlentities(Request::get('hargap'));
 		$save['harga_kesepakatan'] = htmlentities(Request::get('hargas'));
-		$save['team_id'] = '2';
+		$save['team_id'] = '4';
 		DB::table('project')->insert($save);
         $pesan = 'Data Berhasil Di Simpan Silahkan Check Email Anda';
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
@@ -211,7 +212,7 @@ class FormController extends Controller
         $save['email'] = htmlentities(Request::get('email'));
         $save['telepon'] = htmlentities(Request::get('telepon'));
         $save['deskripsi'] = htmlentities(Request::get('deskripsi'));
-        $save['jasa_id'] = '1';
+        $save['jasa_id'] = Request::get('jasa');
 		DB::table('support')->insert($save);
         $pesan = $kode_support;
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
@@ -221,7 +222,8 @@ class FormController extends Controller
     public function getSyadm(){
 
         $data['page_title'] = 'Register |';		
-
+        //flashMe()->success(); 
+        //dd(session()->all()); // dump
         return view('syadm',$data);
     }
     public function postSysadmin(\Illuminate\Http\Request $req){
@@ -235,7 +237,7 @@ class FormController extends Controller
         $save['email'] = htmlentities(Request::get('email'));
         $save['telepon'] = htmlentities(Request::get('telepon'));
         $save['deskripsi'] = htmlentities(Request::get('deskripsi'));
-        $save['jasa_sysadmin_id'] = '1';
+        $save['jasa_sysadmin_id'] = Request::get('jasa');
 		DB::table('sysadmin')->insert($save);
         $pesan = $kode_sys;
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
@@ -273,4 +275,11 @@ class FormController extends Controller
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
 
     }
+
+   // public function flash(){ 
+    //    flashMe()->success(); 
+        //dd(session()->all()); // dump 
+      //  return redirect()->to('/flash'); 
+    //}
+
 }

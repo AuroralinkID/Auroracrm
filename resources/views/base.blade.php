@@ -41,10 +41,6 @@
 	
 	<script type="text/javascript">
     $(function () {
-        $('#datetimepicker6').datetimepicker();
-        $('#datetimepicker7').datetimepicker({
-            useCurrent: false //Important! See issue #1075
-        });
         $("#datetimepicker6").on("dp.change", function (e) {
             $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
         });
@@ -53,6 +49,14 @@
         });
     });
 </script>
-	
-
+	<script>
+	$('[data-toggle="tooltip"]').tooltip();
+	</script>
+	<script>
+	$(document).ready(function(){
+        $('#type').change(function(){
+            selected_value = $("input[name='kategori']:checked").val();
+        });
+    });
+	</script>
     </html>

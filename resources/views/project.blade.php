@@ -19,24 +19,24 @@ Form Project
 			                <form action="{{ action('FormController@postProject') }}" method="post">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 			                <!--        You can switch " data-color="rose" "  with one of the next bright colors: "blue", "green", "orange", "purple"        -->
-
+							@if ( Session::get('message') != '' )
+									<div class='alert alert-{{ Session::get("message_type") }}'>
+									<i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}
+									<!--	<div class='alert alert-info'> -->
+											{{ Session::get('message') }}
+										</div>
+									@endif
 		                    	<div class="wizard-header">
 		                        	<h3 class="wizard-title">
 		                        		Request Project
 		                        	</h3>
-									<h4><i>@if ( Session::get('message') != '' )
-									<div class='alert alert-{{ Session::get("message_type") }}'>
-									<h4><i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}</h4>
-									<!--	<div class='alert alert-info'> -->
-											{{ Session::get('message') }}
-										</div>
-									@endif</i></h4>
 									<h5>Silahkan isi data kolom yang di sediakan</h5>
 		                    	</div>
 								<div class="wizard-navigation">
 									<ul>
 			                            <li><a href="#location" data-toggle="tab">Lokasi</a></li>
 			                            <li><a href="#type" data-toggle="tab">Kategori</a></li>
+										<li><a href="#produk" data-toggle="tab">Project</a></li>
 			                            <li><a href="#facilities" data-toggle="tab">Deadline</a></li>
 			                            <li><a href="#description" data-toggle="tab">Keterangan</a></li>
 			                        </ul>
@@ -109,45 +109,63 @@ Form Project
 		                                <div class="row">
 		                                    <div class="col-sm-10 col-sm-offset-1">
 		                                        <div class="col-sm-4 col-sm-offset-2">
-		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have a house.">
-		                                                <input type="radio" name="dkategori" value="1">
-		                                                <div class="icon">
-		                                                    <i class="material-icons">code</i>
-		                                                </div>
-		                                                <h6>Web Develop</h6>
-		                                            </div>
-		                                        </div>
-		                                        <div class="col-sm-4">
-		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="dkategori" value="2">
-		                                                <div class="icon">
-		                                                    <i class="material-icons">desktop_windows</i>
-		                                                </div>
-		                                                <h6>Desktop App</h6>
-		                                            </div>
-		                                        </div>
-												<div class="col-sm-4 col-sm-offset-2">
-		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="dkategori" value="3">
-		                                                <div class="icon">
-		                                                    <i class="material-icons">android</i>
-		                                                </div>
-		                                                <h6>Mobile App</h6>
-		                                            </div>
-		                                        </div>
-												<div class="col-sm-4">
-		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="dkategori" value="4">
-		                                                <div class="icon">
-		                                                    <i class="material-icons">refresh</i>
-		                                                </div>
-		                                                <h6>Rebuild App</h6>
-		                                            </div>
-		                                        </div>
+															<div class="radio">
+																<label>
+																	<input type="radio" name="kategori" value="1">
+																	Web App
+																</label>
+															</div><div class="radio">
+																<label>
+																	<input type="radio" name="kategori" value="2">
+																	Desktop App
+																</label>
+															</div>
+															<div class="radio">
+																<label>
+																	<input type="radio" name="kategori" value="3">
+																	Mobile App
+																</label>
+															</div><div class="radio">
+																<label>
+																	<input type="radio" name="kategori" value="4">
+																	Custom App
+																</label>
+															</div>
+															</div>
 		                                    </div>
 		                                </div>
 		                            </div>
-
+		                            <div class="tab-pane" id="produk">
+		                                <h4 class="info-text">Project </h4>
+		                                <div class="row">
+		                                    <div class="col-sm-10 col-sm-offset-1">
+		                                        <div class="col-sm-4 col-sm-offset-2">
+															<div class="radio">
+																<label>
+																	<input type="radio" name="produk" value="10">
+																	1. Web Profile
+																</label>
+															</div><div class="radio">
+																<label>
+																	<input type="radio" name="produk" value="11">
+																	2. Ecommerce
+																</label>
+															</div>
+															<div class="radio">
+																<label>
+																	<input type="radio" name="produk" value="12">
+																	3. HRIS
+																</label>
+															</div><div class="radio">
+																<label>
+																	<input type="radio" name="produk" value="13">
+																	4. SIS
+																</label>
+															</div>
+															</div>
+		                                    </div>
+		                                </div>
+		                            </div>
 		                            <div class="tab-pane" id="facilities">
 		                                <h4 class="info-text">Deadline </h4>
 		                                <div class="row">
@@ -207,11 +225,12 @@ Form Project
 	                                </div>
 		                            <div class="clearfix"></div>
                                 </div>
+								<!-- Javascript -->
+
 			                </form>
 		                </div>
 		            </div> <!-- wizard container -->
 		        </div>
 	        </div> <!-- row -->
 	    </div> <!--  big container -->
-
 @endsection

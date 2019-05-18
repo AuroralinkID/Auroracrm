@@ -8,7 +8,7 @@ Form Sysadmin
 
 
 		<!--  Made With Material Kit  -->
-
+									
 	    <!--   Big container   -->
 	    <div class="container">
 	        <div class="row">
@@ -19,24 +19,23 @@ Form Sysadmin
 						<form action="{{ action('FormController@postSysadmin') }}" method="post">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 			                <!--        You can switch " data-color="rose" "  with one of the next bright colors: "blue", "green", "orange", "purple"        -->
-
+							@if ( Session::get('message') != '' )
+									<div class='alert alert-{{ Session::get("message_type") }}'>
+									<i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}
+									<!--	<div class='alert alert-info'> -->
+											{{ Session::get('message') }}
+										</div>
+									@endif
 		                    	<div class="wizard-header">
 		                        	<h3 class="wizard-title">
 		                        		Request Project
 		                        	</h3>
-									<h4><i>@if ( Session::get('message') != '' )
-									<div class='alert alert-{{ Session::get("message_type") }}'>
-									<h4><i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}</h4>
-									<!--	<div class='alert alert-info'> -->
-											{{ Session::get('message') }}
-										</div>
-									@endif</i></h4>
 									<h5>Silahkan isi data kolom yang di sediakan</h5>
 		                    	</div>
 								<div class="wizard-navigation">
 									<ul>
 			                            <li><a href="#location" data-toggle="tab">Lokasi</a></li>
-			                            <li><a href="#type" data-toggle="tab">Kategori</a></li>
+			                            <li><a href="#type" data-toggle="tab">Project</a></li>
 			                          <!--  <li><a href="#facilities" data-toggle="tab">Deadline</a></li> -->
 			                            <li><a href="#description" data-toggle="tab">Keterangan</a></li>
 			                        </ul>
@@ -103,11 +102,11 @@ Form Sysadmin
 
 		                            <div class="tab-pane" id="type">
 		                                <h4 class="info-text">Tipe Project </h4>
-		                                <div class="row">
+		                            <!--    <div class="row">
 		                                    <div class="col-sm-10 col-sm-offset-1">
 		                                        <div class="col-sm-4 col-sm-offset-2">
 		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have a house.">
-		                                                <input type="radio" name="type" value="webapp">
+		                                                <input type="radio" name="jasa" value="1">
 		                                                <div class="icon">
 		                                                    <i class="material-icons">code</i>
 		                                                </div>
@@ -116,7 +115,7 @@ Form Sysadmin
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="type" value="desktop">
+		                                                <input type="radio" name="type"  value="2">
 		                                                <div class="icon">
 		                                                    <i class="material-icons">desktop_windows</i>
 		                                                </div>
@@ -125,7 +124,7 @@ Form Sysadmin
 		                                        </div>
 												<div class="col-sm-4 col-sm-offset-2">
 		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="type" value="android">
+		                                                <input type="radio" name="jasa" value="3">
 		                                                <div class="icon">
 		                                                    <i class="material-icons">android</i>
 		                                                </div>
@@ -134,13 +133,41 @@ Form Sysadmin
 		                                        </div>
 												<div class="col-sm-4">
 		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="type" value="rebuild">
+		                                                <input type="radio" name="jasa" value="4">
 		                                                <div class="icon">
 		                                                    <i class="material-icons">refresh</i>
 		                                                </div>
 		                                                <h6>Backup / Migrate Database</h6>
 		                                            </div>
 		                                        </div>
+		                                    </div>
+		                                </div> -->
+										<div class="row">
+		                                    <div class="col-sm-10 col-sm-offset-1">
+		                                        <div class="col-sm-4 col-sm-offset-2">
+															<div class="radio">
+																<label>
+																	<input type="radio" name="jasa" value="1">
+																	Setup VPS
+																</label>
+															</div><div class="radio">
+																<label>
+																	<input type="radio" name="jasa" value="2">
+																	Migrate Database
+																</label>
+															</div>
+															<div class="radio">
+																<label>
+																	<input type="radio" name="jasa" value="3">
+																	Scripting
+																</label>
+															</div><div class="radio">
+																<label>
+																	<input type="radio" name="jasa" value="4">
+																	Bug Bougty
+																</label>
+															</div>
+															</div>
 		                                    </div>
 		                                </div>
 		                            </div>

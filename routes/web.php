@@ -28,6 +28,7 @@ Route::get('/project','FormController@getProject');
 Route::get('/support','FormController@getSupport');
 Route::get('/syadm','FormController@getSyadm');
 Route::get('/portofolio','FrontController@postPortofolio');
+Route::get('/flash', 'FormController@flash');
 //Route::get('/harga','SectionController@getIndex');
 //Route::get('/','FrontController@getShow');
  //   return view('home');

@@ -93,6 +93,7 @@ public function getPdf($idservis)
 	$usr = DB::table('servis')->where('id',$idservis)->first();
 	
 	$gars= DB::table('servis')
+	->join('unit','unit.id','=','unit_id')
 	->join('sgaransi','sgaransi.id','=','sgaransi_id')
 	->select('sgaransi.*','sgaransi.nama as status')
 	->where('servis.id',$usr->id)

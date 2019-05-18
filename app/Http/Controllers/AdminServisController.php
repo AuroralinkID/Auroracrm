@@ -34,7 +34,7 @@
 			$this->col = [];
 			$this->col[] = ["label"=>"Nama Pelanggan","name"=>"nama"];
 			$this->col[] = ["label"=>"Kode Servis","name"=>"kode_servis"];
-			$this->col[] = ["label"=>"Unit","name"=>"unit"];
+			$this->col[] = ["label"=>"Unit","name"=>"unit_id","join"=>"unit,nama"];
 			$this->col[] = ["label"=>"Merk/Model","name"=>"model"];
 			$this->col[] = ["label"=>"Garansi","name"=>"sgaransi_id","join"=>"sgaransi,nama"];
 //			$this->col[] = ["label"=>"Kelengkapan","name"=>"kelengkapan_id","join"=>"kelengkapan,nama"];
@@ -54,10 +54,10 @@
 			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Unit','name'=>'unit','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Unit','name'=>'unit_id','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'unit,nama'];
 			$this->form[] = ['label'=>'Garansi','name'=>'sgaransi_id','type'=>'select','validation'=>'required','width'=>'col-sm-10','datatable'=>'sgaransi,nama'];
 			$this->form[] = ['label'=>'kelengkapan','name'=>'kelengkapan','type'=>'checkbox','width'=>'col-sm-10','dataenum'=>'DVD/CD/DVD-RW;Baterai;Carger/Adaptor;RAM/Memory;Hardisk;SSD;Tas;Lain-Lain'];
-		//	$this->form[] = ['label'=>'Kelengkapan','name'=>'kelengkapan_id','type'=>'checkbox','datatable'=>'kelengkapan,nama','relationship_table'=>'kelengkapan'];
+		//	$this->form[] = ['label'=>'Platform','name'=>'kelengkapan_id','type'=>'checkbox','validation'=>'required','width'=>'col-sm-10','datatable'=>'kelengkapan,nama'];
 			$this->form[] = ['label'=>'Merk/Model','name'=>'model','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Snid','name'=>'snid','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Keluhan','name'=>'keluhan','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
@@ -427,8 +427,9 @@
 									->where('servis.id',$data['servis']->id)
 									->first();
 			$data['serpis'] = DB::table('servis')
+									->join('unit', 'unit.id', '=','unit_id')
 									->join('sgaransi', 'sgaransi.id', '=','sgaransi_id')
-									->select('servis.*','sgaransi.nama as garansi')
+									->select('servis.*','unit.nama as unit','sgaransi.nama as garansi')
 									->where('servis.id',$data['servis']->id)
 									->get();
 			//Please use cbView method instead view method from laravel

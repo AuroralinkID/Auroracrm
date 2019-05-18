@@ -19,19 +19,18 @@ Form Pickup
 		                    <form action="{{ action('FormController@postServis') }}" method="post">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 		                <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
-
+						@if ( Session::get('message') != '' )
+									<div class='alert alert-{{ Session::get("message_type") }}'>
+									<i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}
+									<!--	<div class='alert alert-info'> -->
+											{{ Session::get('message') }}
+										</div>
+									@endif
 		                    	<div class="wizard-header">
 								
 		                        	<h3 class="wizard-title">
 		                        		Form Pickup Servis
 		                        	</h3>
-									<h4><i>@if ( Session::get('message') != '' )
-									<div class='alert alert-{{ Session::get("message_type") }}'>
-									<h4><i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}</h4>
-									<!--	<div class='alert alert-info'> -->
-											{{ Session::get('message') }}
-										</div>
-									@endif</i></h4>
 									<h5>
 									Silahkan isi data informasi anda sesuai alamat pickup </h5>
 		                    	</div>
@@ -40,6 +39,7 @@ Form Pickup
 			                            <li><a href="#details" data-toggle="tab">Nama dan Alamat</a></li>
 										<li><a href="#unit" data-toggle="tab">Unit</a></li>
 			                            <li><a href="#captain" data-toggle="tab">Kelengkapan</a></li>
+										<li><a href="#garansi" data-toggle="tab">Garansi</a></li>
 			                            <li><a href="#description" data-toggle="tab">Keluhan</a></li>
 			                        </ul>
 								</div>
@@ -115,41 +115,29 @@ Form Pickup
 		                                <div class="row">
 		                                    <div class="col-sm-10 col-sm-offset-1">
 		                                        <div class="col-sm-4 col-sm-offset-2">
-		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have a house.">
-		                                                <input type="radio" name="unit" value="webapp">
-		                                                <div class="icon">
-		                                                    <i class="material-icons">laptop</i>
-		                                                </div>
-		                                                <h6>Laptop</h6>
-		                                            </div>
-		                                        </div>
-		                                        <div class="col-sm-4">
-		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="unit" value="desktop">
-		                                                <div class="icon">
-		                                                    <i class="material-icons">desktop_windows</i>
-		                                                </div>
-		                                                <h6>PC-Desktop</h6>
-		                                            </div>
-		                                        </div>
-												<div class="col-sm-4 col-sm-offset-2">
-		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="unit" value="android">
-		                                                <div class="icon">
-		                                                    <i class="material-icons">smartphone</i>
-		                                                </div>
-		                                                <h6>Smartphone</h6>
-		                                            </div>
-		                                        </div>
-												<div class="col-sm-4">
-		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
-		                                                <input type="radio" name="unit" value="rebuild">
-		                                                <div class="icon">
-		                                                    <i class="material-icons">local_printshop</i>
-		                                                </div>
-		                                                <h6>Printer</h6>
-		                                            </div>
-		                                        </div>
+														<div class="radio">
+																<label>
+																	<input type="radio" name="unit" value="1">
+																	Laptop
+																</label>
+														</div><div class="radio">
+																<label>
+																	<input type="radio" name="unit" value="2">
+																	PC-Desktop
+																</label>
+														</div>
+														<div class="radio">
+																<label>
+																	<input type="radio" name="unit" value="3">
+																	Smartphone
+																</label>
+														</div><div class="radio">
+																<label>
+																	<input type="radio" name="unit" value="4">
+																	Printer
+																</label>
+														</div>
+												</div>
 		                                    </div>
 		                                </div>
 		                            </div>
@@ -159,80 +147,87 @@ Form Pickup
 		                                <div class="row">
 		                                    <div class="col-sm-10 col-sm-offset-1">
 		                                        <div class="col-sm-3">
-		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="kelengkapan" value="adaptor">
-		                                                <div class="icon">
-		                                                    <i class="fa fa-plug"></i>
-		                                                </div>
-		                                                <h6>Adaptor</h6>
-		                                            </div>
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" name="kelengkapan" value="Adaptor" checked>
+															Adaptor
+														</label>
+													</div>
 		                                        </div>
 		                                        <div class="col-sm-3">
-		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="kelengkapan" value="hardisk">
-		                                                <div class="icon">
-		                                                    <i class="fa fa-hdd-o"></i>
-		                                                </div>
-		                                                <h6>Hardisk</h6>
-		                                            </div>
+												<div class="checkbox">
+														<label>
+															<input type="checkbox" name="kelengkapan" value="Baterai" checked>
+															Baterai
+														</label>
+													</div>
 		                                        </div>
 		                                        <div class="col-sm-3">
-		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="kelengkapan" value="memory/ram">
-		                                                <div class="icon">
-		                                                    <i class="fa fa-simplybuilt"></i>
-		                                                </div>
-		                                                <h6>Memory / Ram</h6>
-		                                            </div>
+												<div class="checkbox">
+														<label>
+															<input type="checkbox" name="kelengkapan" value="RAM" checked>
+															RAM
+														</label>
+													</div>
 		                                        </div>
 												<div class="col-sm-3">
-		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="kelengkapan" value="DVD/DRW">
-		                                                <div class="icon">
-		                                                    <i class="fa fa-glass"></i>
-		                                                </div>
-		                                                <h6>DVD/DRW</h6>
-		                                            </div>
+												<div class="checkbox">
+														<label>
+															<input type="checkbox" name="kelengkapan" value="Hardisk" checked>
+															Hardisk
+														</label>
+													</div>
 		                                        </div>
 												<div class="col-sm-3">
-		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="kelengkapan" value="tas">
-		                                                <div class="icon">
-		                                                    <i class="fa fa-briefcase"></i>
-		                                                </div>
-		                                                <h6>Tas</h6>
-		                                            </div>
+												<div class="checkbox">
+														<label>
+															<input type="checkbox" name="kelengkapan" value="Tas" checked>
+															Tas
+														</label>
+													</div>
 		                                        </div>
 												<div class="col-sm-3">
-		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="kelengkapan" value="mouse">
-		                                                <div class="icon">
-		                                                    <i class="fa fa-mouse-pointer"></i>
-		                                                </div>
-		                                                <h6>Mouse</h6>
-		                                            </div>
+												<div class="checkbox">
+														<label>
+															<input type="checkbox" name="kelengkapan" checked>
+															Mouse
+														</label>
+													</div>
 		                                        </div>
 												<div class="col-sm-3">
-		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="kelengkapan" value="flashdisk">
-		                                                <div class="icon">
-		                                                    <i class="fa fa-dropbox"></i>
-		                                                </div>
-		                                                <h6>Flashdisk</h6>
-		                                            </div>
-		                                        </div>
-												<div class="col-sm-3">
-		                                            <div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="kelengkapan" value="Develop">
-		                                                <div class="icon">
-		                                                    <i class="fa fa-tag"></i>
-		                                                </div>
-		                                                <h6>Lainya</h6>
-		                                            </div>
+												<div class="checkbox">
+														<label>
+															<input type="checkbox" name="kelengkapan" checked>
+															Flashdisk
+														</label>
+													</div>
 		                                        </div>
 		                                    </div>
 		                                </div>
 		                            </div>
+
+
+									<div class="tab-pane" id="garansi">
+		                                <h4 class="info-text">Status Garansi </h4>
+		                                <div class="row">
+		                                    <div class="col-sm-10 col-sm-offset-1">
+		                                        <div class="col-sm-4 col-sm-offset-2">
+															<div class="radio">
+																<label>
+																	<input type="radio" name="garansi" value="1">
+																	Bergaransi
+																</label>
+															</div><div class="radio">
+																<label>
+																	<input type="radio" name="garansi" value="2">
+																	Tidak Bergaransi
+																</label>
+															</div>
+															</div>
+		                                    </div>
+		                                </div>
+		                            </div>
+
 		                            <div class="tab-pane" id="description">
 		                                <div class="row">
 		                                    <h4 class="info-text"> Jelaskan keluhan anda</h4>
