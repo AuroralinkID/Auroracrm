@@ -18,7 +18,7 @@ Selamat Datang Di Auroralink
 			  <li class="active"><a href="#hero_section" class="scroll-link"><span class="fa fa-home"></span> Beranda</a></li>
 			  <li><a href="#aboutUs" class="scroll-link"><span class="fa fa-info-circle"></span> Tentang Kami</a></li>
 			  <li><a href="#service" class="scroll-link"><span class="fa fa-wrench"></span> Layanan</a></li>
-        <li><a href="#harga" class="scroll-link"><span class="fa fa-money"></span> Harga</a></li>
+        <li><a href="{{url('')}}/harga" class="scroll-link"><span class="fa fa-money"></span> Harga</a></li>
         <li><a href="#contact" class="scroll-link"><span class="fa fa-paper-plane-o"></span> Kontak</a></li>
         </ul>
           <!--      <li><a href="#Portfolio" class="scroll-link">Portfolio</a></li> -->

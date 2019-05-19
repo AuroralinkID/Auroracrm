@@ -184,7 +184,7 @@ Form Project
 		                                    <div class="col-sm-5 col-sm-offset-1">
 		                                    	<div class="form-group label-floating">
 		                                        	<label class="control-label">Harga Penawaran Kami</label>
-		                                        	<input type="number" class="form-control" name="hargap">
+		                                        	<input type="number" class="form-control" name="hargap" value="5000000" readonly>
                                                 </div>
 		                                    </div>
 		                                    <div class="col-sm-5">

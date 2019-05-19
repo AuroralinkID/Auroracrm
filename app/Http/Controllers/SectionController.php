@@ -42,7 +42,7 @@ class SectionController extends Controller
         $data['team'] = DB::table('team')
         ->join('dev','dev.id','=','dev_id',)
         ->select('team.*','team.nama as tnam','dev.nama as tid','team.profil as tdesk','team.foto as tfot')
-        ->orderby('team.id','DESC')
+        ->orderby('team.id')
         ->take(3)
         ->get();
     

@@ -67,7 +67,7 @@ Form Pickup
 													<span class="input-group-addon">
 														<i class="material-icons">phone</i>
 													</span>
-													<div class="form-group label-floating">
+													<div class="form-group label-floating has-feedback">
 			                                          <label class="control-label">Telepon <small>(required)</small></label>
 			                                          <input name="telp" type="number" class="form-control">
 			                                        </div>
@@ -76,7 +76,7 @@ Form Pickup
 													<span class="input-group-addon">
 														<i class="material-icons">calendar_view_day</i>
 													</span>
-													<div class="form-group label-floating">
+													<div class="form-group label-floating has-feedback">
 			                                          <label class="control-label">Serial Number<small>(required)</small></label>
 			                                          <input name="snid" type="text" class="form-control">
 			                                        </div>
@@ -85,7 +85,7 @@ Form Pickup
 													<span class="input-group-addon">
 														<i class="material-icons">local_offer</i>
 													</span>
-													<div class="form-group label-floating">
+													<div class="form-group label-floating has-feedback">
 			                                          <label class="control-label">Merk / Model<small>(required)</small></label>
 			                                          <input name="model" type="text" class="form-control">
 			                                        </div>
@@ -93,14 +93,14 @@ Form Pickup
 
 		                                	</div>
 		                                	<div class="col-sm-6">
-		                                    	<div class="form-group label-floating">
+		                                    	<div class="form-group label-floating has-feedback">
 												<span><i class="material-icons">email</i></span>
 		                                        	<label class="control-label">Email <small>(required)</small></label>
 													<input name="email" type="email" class="form-control">
 		                                    	</div>
 		                                	</div>
 											<div class="col-sm-6">
-		                                    	<div class="form-group label-floating">
+		                                    	<div class="form-group label-floating has-feedback">
 												<span><i class="material-icons">location_on</i></span>
 													<textarea name="alamat" type="text" class="form-control" placeholder="Alamat" rows="5"></textarea>
 		                                    	</div>
@@ -189,7 +189,7 @@ Form Pickup
 												<div class="col-sm-3">
 												<div class="checkbox">
 														<label>
-															<input type="checkbox" name="kelengkapan" checked>
+															<input type="checkbox" name="kelengkapan" value="Mouse" checked>
 															Mouse
 														</label>
 													</div>
@@ -197,7 +197,7 @@ Form Pickup
 												<div class="col-sm-3">
 												<div class="checkbox">
 														<label>
-															<input type="checkbox" name="kelengkapan" checked>
+															<input type="checkbox" name="kelengkapan" value="Flashdisk" checked>
 															Flashdisk
 														</label>
 													</div>
@@ -232,7 +232,7 @@ Form Pickup
 		                                <div class="row">
 		                                    <h4 class="info-text"> Jelaskan keluhan anda</h4>
 		                                    <div class="col-sm-6 col-sm-offset-1">
-	                                    		<div class="form-group">
+	                                    		<div class="form-group has-feedback">
 		                                            <label>Jelaskan keluhan disni</label>
 		                                            <textarea name='keluhan' class="form-control" placeholder="" rows="6"></textarea>
 		                                        </div>

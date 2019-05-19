@@ -117,7 +117,7 @@ class FormController extends Controller
     public function postServis(\Illuminate\Http\Request $req){
         $validator = Validator::make(Request::all(),			
         [
-        'email'=>'required|unique:cms_users|max:255',
+        //'email'=>'required|unique:cms_users|max:255',
       //  'nama' => 'required|string|min:3|max:255',
        // 'telepon' => 'required',
        // 'deskripsi' => 'required|string|min:3|max:255',
@@ -147,9 +147,13 @@ class FormController extends Controller
         $save['status'] = 'request-pickup';
         $save['snid'] = htmlentities(Request::get('snid'));
         $save['model'] = htmlentities(Request::get('model'));
-		DB::table('servis')->insert($save);
+        DB::table('servis')->insert($save);
+        $serv= ['name'=> $save['nama'],'noserv'=> $save['kode_servis'],'model'=> $save['model'],'telp'=> $save['telepon'],'sn'=> $save['snid']];
+        CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$serv,'template'=>'pickup_servis']); 
         $pesan = $kode_servis;
-		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);   
+        return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);   
+        
+        
         
     }
 
@@ -190,9 +194,13 @@ class FormController extends Controller
 		$save['harga_penawaran'] = htmlentities(Request::get('hargap'));
 		$save['harga_kesepakatan'] = htmlentities(Request::get('hargas'));
 		$save['team_id'] = '4';
-		DB::table('project')->insert($save);
+        DB::table('project')->insert($save);
+        $project= ['name'=> $save['nama'],'desk'=> $save['deskripsi'],'start'=> $save['tgl_mulai'],'end'=> $save['tgl_selesai'],'telp'=> $save['telepon'],'buy'=> $save['harga_penawaran'],'pay'=> $save['harga_kesepakatan']];
+        CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$project,'template'=>'project_id']);
+
         $pesan = 'Data Berhasil Di Simpan Silahkan Check Email Anda';
-		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
+        return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
+        
 
     }
     public function getSupport(){
@@ -213,7 +221,10 @@ class FormController extends Controller
         $save['telepon'] = htmlentities(Request::get('telepon'));
         $save['deskripsi'] = htmlentities(Request::get('deskripsi'));
         $save['jasa_id'] = Request::get('jasa');
-		DB::table('support')->insert($save);
+        DB::table('support')->insert($save);
+        
+        $support= ['name'=> $save['nama'],'desk'=> $save['deskripsi'],'kode'=> $save['kode_project'],'telp'=> $save['telepon']];
+        CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$support,'template'=>'support']);
         $pesan = $kode_support;
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
 
@@ -238,7 +249,10 @@ class FormController extends Controller
         $save['telepon'] = htmlentities(Request::get('telepon'));
         $save['deskripsi'] = htmlentities(Request::get('deskripsi'));
         $save['jasa_sysadmin_id'] = Request::get('jasa');
-		DB::table('sysadmin')->insert($save);
+        DB::table('sysadmin')->insert($save);
+        
+        $sys= ['name'=> $save['nama'],'desk'=> $save['deskripsi'],'kode'=> $save['kode_project'],'telp'=> $save['telepon']];
+        CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$sys,'template'=>'sysadmin']);
         $pesan = $kode_sys;
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
 
@@ -271,6 +285,8 @@ class FormController extends Controller
         $save['komentar'] = htmlentities(Request::get('komentar'));
 		$save['created_at'] = Carbon::now();
         DB::table('lead')->insert($save);
+
+
         $pesan = '"Pesan berhasil di kirim"';
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
 
