@@ -15,16 +15,20 @@ CRUDBooster::routeController('/','FormController');
 Route::get('/pdf/{$idservis}','FrontController@getPdf');
 Route::get('/orderpdf/{$idorder}','FrontController@getOrderpdf');
 
+Route::resource('produk', 'PostprodukController');
+
+
 Route::get('/','FormController@postLeads');
 Route::get('/','SectionController@getIndex');
-Route::get('/harga','FormController@getIndex');
+Route::get('/produk','PostprodukController@getIndex');
+Route::get('/produk/{id}','PostprodukController@show');
 Route::get('/harga/web','FormController@webIndex');
 Route::get('/harga/servis','FormController@servis');
 Route::get('/harga/itsupport','FormController@support');
 Route::get('/harga/sysadmin','FormController@sysadmin');
 Route::get('/form','FormController@formIndex');
 Route::get('/pickup','FormController@getServis');
-Route::get('/project','FormController@getProject');
+Route::get('form/project','FormController@getProject');
 Route::get('/support','FormController@getSupport');
 Route::get('/syadm','FormController@getSyadm');
 Route::get('/portofolio','FrontController@postPortofolio');

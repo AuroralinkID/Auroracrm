@@ -186,8 +186,8 @@ class FormController extends Controller
         $save['email'] = htmlentities(Request::get('email'));
         $save['telepon'] = htmlentities(Request::get('telepon'));
 		$save['deskripsi'] = htmlentities(Request::get('deskripsi'));
-        $save['dkategori_id'] = Request::get('kategori');
-        $save['produk_id'] = Request::get('produk'); 
+        $save['kategori_id'] = Request::get('kategori');
+        $save['aplikasi_id'] = Request::get('produk'); 
 		$save['tgl_mulai'] = htmlentities(Request::get('openp'));
 		$save['tgl_selesai'] = htmlentities(Request::get('finishp'));
 		$save['status'] = 'mulai';

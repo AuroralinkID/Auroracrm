@@ -1,4 +1,4 @@
-<section id="aboutUs">
+<!-- <section id="aboutUs">
 <div class="inner_wrapper">
   <div class="container">
     <h2>Tentang Kami</h2>
@@ -24,5 +24,11 @@
     </div>
   </div> 
   </div>
-</section>
-<!--Aboutus--> 
+</section> -->
+<!--Aboutus-->
+
+@extends('layout')
+@section('content')
+
+
+@endsection
