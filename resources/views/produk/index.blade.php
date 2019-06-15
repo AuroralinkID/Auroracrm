@@ -43,7 +43,7 @@
     @endforeach
   </tbody>
 </table>
-</div>
+{{$aplikasi->links}}
 </div>
 </div>
 <br>

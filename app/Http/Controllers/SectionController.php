@@ -40,7 +40,7 @@ class SectionController extends Controller
         ->get();
     
         $data['team'] = DB::table('team')
-        ->join('dev','dev.id','=','dev_id',)
+        ->join('dev','dev.id','=','dev_id')
         ->select('team.*','team.nama as tnam','dev.nama as tid','team.profil as tdesk','team.foto as tfot')
         ->orderby('team.id')
         ->take(3)
@@ -89,7 +89,13 @@ class SectionController extends Controller
         ->get();
         
         $data['Fontawesome'] = Fontawesome::getIcons();
-    
+        $data['aplikasi'] = DB::table('aplikasi')
+        ->join('kategori','kategori.id','=','kategori_id')
+        ->join('dev','dev.id','=','dev_id')
+        ->select('aplikasi.*','kategori.nama as katnam','dev.nama as sunam','aplikasi.nama as judul','aplikasi.deskripsi as pdesk','aplikasi.hargap as harga')
+        ->orderby('aplikasi.id','DESC')
+        ->paginate(10);
+
     
     //	$data = Fontawesome::getIcons();
         return view('home',$data)->render();

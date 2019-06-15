@@ -31,11 +31,11 @@ class PostprodukController extends Controller
 			$data['page_title'] = 'Halaman Produk';  
 			$data['aplikasi'] = $id;
 			$data['aplikasi'] = DB::table('aplikasi')
-            ->join('kategori','kategori.id','=','kategori_id',)
-            ->join('dev','dev.id','=','dev_id',)
+            ->join('kategori','kategori.id','=','kategori_id')
+            ->join('dev','dev.id','=','dev_id')
 			->select('aplikasi.*','kategori.nama as katnam','dev.nama as sunam','aplikasi.nama as judul','aplikasi.deskripsi as pdesk','aplikasi.hargap as harga')
 			->orderby('aplikasi.id','DESC')
-			->paginate(10);
+            ->paginate('10');
             
             return view('produk.index',$data);
     }

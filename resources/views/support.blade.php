@@ -1,4 +1,4 @@
-@extends('base')
+@extends('layout.base')
 @section('title')
 Form Support
 @endsection

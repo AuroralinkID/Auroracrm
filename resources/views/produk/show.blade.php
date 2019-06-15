@@ -1,4 +1,4 @@
-@extends('layout.base')
+@extends('layout.master')
 @section('header')
 @endsection
 @section('content')
@@ -8,10 +8,7 @@
   <footer class="blockquote-footer">Berikut adalah detail<cite title="Source Title"> {{$app->nama}}</cite></footer>
 </blockquote>
 
-<main class="mt-5 pt-4">
-<!--                  <a href="{{ url()->previous() }}" target="_blank" class="btn btn-dtc btn-rounded btn-md waves-effect waves-light">
-                    <i class="fas fa-chevron-circle-left ml-2"> <u>Kembali ke list produk</u></i>
-                  </a> -->
+
   <hr class="mb-5">
     <div class="container dark-grey-text mt-5">
     

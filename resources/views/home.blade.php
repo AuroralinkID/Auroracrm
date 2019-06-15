@@ -94,7 +94,7 @@ Selamat Datang Di Auroralink
                 <p class="description" style="padding:9px;">
                 {{$web->webkon}}
                 </p>
-                <a href="{{url('project')}}" class="btn btn-outline-light btn-md box-shadow--2dp"><span class="fa fa-paper-plane-o"></span> Buka Project</a>
+                
             </div>
         </div>
       @endforeach
@@ -110,7 +110,7 @@ Selamat Datang Di Auroralink
                 <p class="description" style="padding:9px;">
                 {{$po->webkon}}
                 </p>
-                <a href="{{url('pickup')}}" class="btn btn-outline-light btn-md box-shadow--2dp"><span class="fa fa-paper-plane-o"></span> Pickup Servis</a>
+                
             </div>
         </div>
       @endforeach
@@ -126,7 +126,7 @@ Selamat Datang Di Auroralink
                 <p class="description" style="padding:9px;">
                 {{$ps->webkon}}
                 </p>
-                <a href="{{url('support')}}" class="btn btn-outline-light btn-md box-shadow--2dp"><span class="fa fa-paper-plane-o"></span> Join Sekarang</a>
+                
             </div>
         </div>
         @endforeach
@@ -142,7 +142,7 @@ Selamat Datang Di Auroralink
                 <p class="description" style="padding:9px;">
                 {{$psys->webkon}}
                 </p>
-                <a href="{{url('syadm')}}" class="btn btn-outline-light btn-md box-shadow--2dp"><span class="fa fa-paper-plane-o"></span> Selengkapnya</a>
+                
             </div>
         </div>
         @endforeach
@@ -151,8 +151,6 @@ Selamat Datang Di Auroralink
 
 </section>
 <!--Service--> 
-
-
 <!--Harga-->
 <section  id="harga">
 <blockquote class="blockquote text-center">
@@ -179,7 +177,7 @@ Selamat Datang Di Auroralink
                     <li>{{$web->webli}}</li>
                     <li>{{$web->webnam}}</li>
                 </ul>
-                <a href="{{url('harga')}}">Selengkapnya</a>
+                <a href="{{url('project')}}">Buka Project</a>
                
             </div>
         </div>
@@ -199,7 +197,7 @@ Selamat Datang Di Auroralink
                     <li>{{$po->servli}}</li>
                     <li>{{$po->servnam}}</li>
                 </ul>
-                <a href="{{url('harga')}}">Selengkapnya</a>
+                <a href="{{url('pickup')}}">Pickup Servis</a>
             </div>
         </div>
 
@@ -217,7 +215,7 @@ Selamat Datang Di Auroralink
                     <li>{{$ps->sup_empat}}</li>
                     <li>{{$ps->sup_lima}}</li>
                 </ul>
-                <a href="{{url('harga')}}">Selengkapnya</a>
+                <a href="{{url('support')}}">Buka Support</a>
             </div>
         </div> 
 
@@ -236,7 +234,7 @@ Selamat Datang Di Auroralink
                     <li>{{$psys->sys_empat}}</li>
                     <li>{{$psys->sys_lima}}</li>
                 </ul>
-                <a href="{{url('harga')}}">Selengkapnya</a>
+                <a href="{{url('syadm')}}">Buka Project</a>
                
             </div>
         </div> 
@@ -244,8 +242,60 @@ Selamat Datang Di Auroralink
 </div>
 </section>
 <!--/Harga-->
+<hr class="mb-5">
+<!--Harga-->
+<section  id="produk">
+<blockquote class="blockquote text-center">
+  <p class="mb-0"><strong><h2> List Produk</h2></strong></p>
+  <footer class="blockquote-footer">Berikut Adalah List Produk<cite title="Source Title"> beserta harga penawaran</cite></footer>
+</blockquote>
+        <div class="container">
+        <div class="col 6">
+        </div>
+        </div>
+        <div class="container">
+        <div class="inner_wrapper">
+        <div class="col 6">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Nama</th>
+              <th scope="col">Kategori</th>
+              <th scope="col">Devisi</th>
+              <th scope="col">Deadline</th>
+              <th scope="col">Harga Penawaran</th>
+              <th scope="col">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+          @foreach($aplikasi as $key => $prod)
+            <tr>
+              <th scope="row">{{++$key}}</th>
+              <td>{{$prod->nama}}</td>
+              <td>{{$prod->katnam}}</td>
+              <td>{{$prod->sunam}}</td>
+              <td>{{$prod->deadline}}</td>
+              <td>Rp {{number_format($prod->hargap)}}</td>
+              <td>
+                <a href="{{ url('produk', $prod->id) }}" class="btn btn-danger btn-md box-shadow--2dp"><span class="fa fa-info"></span> Detail</a>
+                <a href="{{$prod->demo}}" class="btn btn-warning btn-md box-shadow--2dp"><span class="fa fa-link"></span> Demo</a>
+                <a href="{{$prod->proposal}}" class="btn btn-primary btn-md box-shadow--2dp"><span class="fa fa-file-pdf-o"></span> Proposal</a>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+    </div>
+        </table>
+        </div>
+        <ul class="pagination pull-right">
+                    <li><a href="{{url('produk')}}">Selengkapnya &raquo;</a></li>
+                  </ul>
+        </div>
+</section>
+<!--/Harga-->
 <!-- Portfolio -->
-
+<hr class="mb-5">
 <section id="Portfolio" class="content"> 
 <blockquote class="blockquote text-center">
   <p class="mb-0"><strong><h2>Portfolio</h2></strong></p>
