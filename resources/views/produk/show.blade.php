@@ -1,4 +1,7 @@
 @extends('layout.master')
+@section('title')
+Produk Detail
+@endsection
 @section('header')
 @endsection
 @section('content')
@@ -26,7 +29,7 @@
                 <div class="card-body card-body-cascade text-center">
 
                   <!--Title-->
-                  <h4 class="card-title"><strong><u>{{$app->nama}}</u></strong></h4>
+                  <h4 class="card-title"><strong><u>Keterangan</u></strong></h4>
 
 
                   <!--Grid row-->
@@ -392,8 +395,11 @@
             </div>
             <!--/Grid column-->
             <div class="card-body card-body-cascade text-center">
-            <a href="{{$app->addto}}" target="_blank" class="btn btn-info btn-rounded btn-md waves-effect waves-light">Tambahkan Ke Project
-                    <i class="fa fa-sign-in ml-2"></i>
+            <a href="{{$app->proposal}}" target="_blank" class="btn btn-info btn-rounded btn-md waves-effect waves-light">Download Proposal
+                    <i class="fa fa-download ml-2"></i>
+            </a>
+            <a href="{{url('project')}}" target="_blank" class="btn btn-info btn-rounded btn-md waves-effect waves-light">Tambahkan Ke Project
+                    <i class="fa fa-briefcase ml-2"></i>
                   </a>
             </div>
           </div>

@@ -179,7 +179,6 @@ class FormController extends Controller
             $message = $validator->errors()->all('Tolong Masukan Data Dengan Benar !!!!');
             return redirect()->back()->with(['message'=>implode(', ',$message),'message_type'=>'danger']);
         }
-
         $save['pt'] = htmlentities(Request::get('pt'));
         $save['nama'] = htmlentities(Request::get('nama'));
         $save['alamat'] = htmlentities(Request::get('alamat'));
@@ -291,7 +290,19 @@ class FormController extends Controller
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
 
     }
+    public function pilihkategori(Request $request)
 
+    {
+    
+        $pkat = DB::table('project')
+        ->join('kategori','kategori.id','=','kategori_id')
+        ->select('kategori.*','kategori.nama as tkat')
+        ->where('project.id',$usr->id)
+        ->first();
+    
+        return view('project'); 
+    
+    }
    // public function flash(){ 
     //    flashMe()->success(); 
         //dd(session()->all()); // dump 
