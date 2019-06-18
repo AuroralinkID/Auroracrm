@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Session;
 use Request;
 use DB;
@@ -15,7 +16,8 @@ use RajaOngkir;
 use PDF;
 use crocodicstudio\crudbooster\fonts\Fontawesome;
 
-class PostprodukController extends Controller
+
+class SysController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,15 +26,13 @@ class PostprodukController extends Controller
      */
     public function index()
     {
+        //
+    $data['sys'] = DB::table('jasa_sysadmin')
+        ->select('jasa_sysadmin.*')
+        ->orderby('jasa_sysadmin.id','DESC')
+        ->paginate('20');    
 
-			$data['aplikasi'] = DB::table('aplikasi')
-            ->join('kategori','kategori.id','=','kategori_id')
-            ->join('dev','dev.id','=','dev_id')
-			->select('aplikasi.*','kategori.nama as katnam','dev.nama as sunam','aplikasi.nama as judul','aplikasi.deskripsi as pdesk','aplikasi.hargap as harga')
-			->orderby('aplikasi.id','DESC')
-            ->paginate('10');
-            
-            return view('produk.index',$data);
+    return view('sysadmin.index',$data);
     }
 
     /**
@@ -65,10 +65,9 @@ class PostprodukController extends Controller
     public function show($id)
     {
         //
-        $data['app'] = DB::table('aplikasi')->where('id',$id)->first();
+        $data['adm'] = DB::table('jasa_sysadmin')->where('id',$id)->first();
 
-        return view('produk.show',$data);
-
+        return view ('sysadmin.show',$data);
     }
 
     /**

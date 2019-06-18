@@ -144,30 +144,17 @@ Form Sysadmin
 		                                </div> -->
 										<div class="row">
 		                                    <div class="col-sm-10 col-sm-offset-1">
-		                                        <div class="col-sm-4 col-sm-offset-2">
+		                                        <div class="col-sm-4 col-sm-offset-2"> 
+													</select>
+													
 															<div class="radio">
 																<label>
 																	<input type="radio" name="jasa" value="1">
 																	Setup VPS
 																</label>
-															</div><div class="radio">
-																<label>
-																	<input type="radio" name="jasa" value="2">
-																	Migrate Database
-																</label>
-															</div>
-															<div class="radio">
-																<label>
-																	<input type="radio" name="jasa" value="3">
-																	Scripting
-																</label>
-															</div><div class="radio">
-																<label>
-																	<input type="radio" name="jasa" value="4">
-																	Bug Bougty
-																</label>
 															</div>
 															</div>
+												
 		                                    </div>
 		                                </div>
 		                            </div>

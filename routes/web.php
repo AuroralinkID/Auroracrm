@@ -16,12 +16,16 @@ Route::get('/pdf/{$idservis}','FrontController@getPdf');
 Route::get('/orderpdf/{$idorder}','FrontController@getOrderpdf');
 
 Route::resource('produk', 'PostprodukController');
+Route::get('/produk/{id}','PostprodukController@show');
 
+Route::resource('jasa', 'JasaController');
+
+Route::resource('sysadmin', 'SysController');
 
 Route::get('/','FormController@postLeads');
 Route::get('/','SectionController@getIndex');
-Route::get('/produk','PostprodukController@getIndex');
-Route::get('/produk/{id}','PostprodukController@show');
+
+
 Route::get('/harga/web','FormController@webIndex');
 Route::get('/harga/servis','FormController@servis');
 Route::get('/harga/itsupport','FormController@support');

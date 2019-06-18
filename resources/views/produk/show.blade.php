@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('title')
-Produk Detail
+Produk Detail {{$app->nama}}
 @endsection
 @section('header')
 @endsection

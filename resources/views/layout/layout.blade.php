@@ -37,8 +37,8 @@
 			  <li class="active"><a href="{{url('')}}#hero_section" class="scroll-link"><span class="fa fa-home"></span> Beranda</a></li>
 			  <li><a href="{{url('')}}#aboutUs" class="scroll-link"><span class="fa fa-info-circle"></span> Tentang Kami</a></li>
 			  <li><a href="{{url('')}}#service" class="scroll-link"><span class="fa fa-wrench"></span> Layanan</a></li>
-        <li><a href="{{url('')}}#Portfolio" class="scroll-link"><span class="fa fa-cube"></span> Portfolio</a></li>
-        <li><a href="{{url('')}}#contact" class="scroll-link"><span class="fa fa-paper-plane-o"></span> Kontak</a></li>
+        <li><a href="{{url('')}}#Portfolio" class="scroll-link"><span class="fa fa-paper-plane-o"></span> Portfolio</a></li>
+        <li><a href="{{url('')}}#contact" class="scroll-link"><span class="fa fa-phone"></span> Kontak</a></li>
         </ul>
           <!--      <li><a href="#Portfolio" class="scroll-link">Portfolio</a></li> -->
           <!--		  <li><a href="#clients" class="scroll-link">Klien</a></li> -->

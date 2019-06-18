@@ -214,7 +214,7 @@ Selamat Datang Di Auroralink
                     <li>{{$ps->sup_empat}}</li>
                     <li>{{$ps->sup_lima}}</li>
                 </ul>
-                <a href="{{url('support')}}">Buka Support</a>
+                <a href="{{url('jasa')}}">Lihat Jasa</a>
             </div>
         </div> 
 
@@ -233,7 +233,7 @@ Selamat Datang Di Auroralink
                     <li>{{$psys->sys_empat}}</li>
                     <li>{{$psys->sys_lima}}</li>
                 </ul>
-                <a href="{{url('syadm')}}">Buka Project</a>
+                <a href="{{url('sysadmin')}}">Lihat Jobdesk</a>
                
             </div>
         </div> 
