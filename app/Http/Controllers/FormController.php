@@ -159,8 +159,13 @@ class FormController extends Controller
 
     public function getProject(){
 
-        $data['page_title'] = 'Register |';		
-
+        $data['aplikasi'] = DB::table('aplikasi')
+        ->join('kategori','kategori.id','=','kategori_id')
+        ->join('dev','dev.id','=','dev_id')
+        ->select('aplikasi.*','kategori.nama as katnam','dev.nama as sunam','aplikasi.nama as judul','aplikasi.deskripsi as pdesk','aplikasi.hargap as harga')
+        ->orderby('aplikasi.id','DESC')
+        ->paginate('20');
+        
         return view('project',$data);
     }
     public function postProject(\Illuminate\Http\Request $req){
@@ -168,10 +173,10 @@ class FormController extends Controller
         $validator = Validator::make(Request::all(),			
         [
         'email'=>'required|unique:cms_users|max:255',
-        'nama' => 'required|string|min:3|max:255',
+        'nama' => 'required|string|min:3',
         'telepon' => 'required',
-        'deskripsi' => 'required|string|min:3|max:255',
-        'alamat' => 'required|string|min:3|max:255',			
+        'deskripsi' => 'required|string|min:3',
+        'alamat' => 'required|string|min:3',			
         ]
     );
         if ($validator->fails()) 
@@ -190,8 +195,8 @@ class FormController extends Controller
 		$save['tgl_mulai'] = htmlentities(Request::get('openp'));
 		$save['tgl_selesai'] = htmlentities(Request::get('finishp'));
 		$save['status'] = 'mulai';
-		$save['harga_penawaran'] = htmlentities(Request::get('hargap'));
-		$save['harga_kesepakatan'] = htmlentities(Request::get('hargas'));
+//		$save['harga_penawaran'] = htmlentities(Request::get('hargap'));
+//		$save['harga_kesepakatan'] = htmlentities(Request::get('hargas'));
 		$save['team_id'] = '4';
         DB::table('project')->insert($save);
         $project= ['name'=> $save['nama'],'desk'=> $save['deskripsi'],'start'=> $save['tgl_mulai'],'end'=> $save['tgl_selesai'],'telp'=> $save['telepon'],'buy'=> $save['harga_penawaran'],'pay'=> $save['harga_kesepakatan']];
@@ -204,7 +209,11 @@ class FormController extends Controller
     }
     public function getSupport(){
 
-        $data['page_title'] = 'Register |';		
+        $data['jasa'] = DB::table('jasa')
+        ->join('jkategori','jkategori.id','=','jkategori_id')
+        ->select('jasa.*','jkategori.nama as jnam')
+        ->orderby('jasa.id','DESC')
+        ->paginate('20');		
 
         return view('support',$data);
     }
@@ -223,7 +232,7 @@ class FormController extends Controller
         DB::table('support')->insert($save);
         
         $support= ['name'=> $save['nama'],'desk'=> $save['deskripsi'],'kode'=> $save['kode_project'],'telp'=> $save['telepon']];
-        CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$support,'template'=>'support']);
+    //    CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$support,'template'=>'support']);
         $pesan = $kode_support;
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
 
@@ -231,13 +240,14 @@ class FormController extends Controller
     
     public function getSyadm(){
 
-        $data['page_title'] = 'Register |';		
-        //flashMe()->success(); 
-        //dd(session()->all()); // dump
+        $data['sys'] = DB::table('jasa_sysadmin')
+        ->select('jasa_sysadmin.*')
+        ->orderby('jasa_sysadmin.id','DESC')
+        ->paginate('20');    
+
         return view('syadm',$data);
     }
     public function postSysadmin(\Illuminate\Http\Request $req){
-
         $kode_sys = DB::table('sysadmin')->max('id') + 1;
         $kode_sys = str_pad('P-SYS#'.$kode_sys, 5, 0 , STR_PAD_LEFT);
         $save['kode_project'] = $kode_sys;
@@ -251,7 +261,7 @@ class FormController extends Controller
         DB::table('sysadmin')->insert($save);
         
         $sys= ['name'=> $save['nama'],'desk'=> $save['deskripsi'],'kode'=> $save['kode_project'],'telp'=> $save['telepon']];
-        CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$sys,'template'=>'sysadmin']);
+    //    CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$sys,'template'=>'sysadmin']);
         $pesan = $kode_sys;
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
 
@@ -287,26 +297,7 @@ class FormController extends Controller
 
 
         $pesan = '"Pesan berhasil di kirim"';
-		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
-
-    }
-    public function pilihkategori(Request $request)
-
-    {
-    
-        $pkat = DB::table('project')
-        ->join('kategori','kategori.id','=','kategori_id')
-        ->select('kategori.*','kategori.nama as tkat')
-        ->where('project.id',$usr->id)
-        ->first();
-    
-        return view('project'); 
+		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);    
     
     }
-   // public function flash(){ 
-    //    flashMe()->success(); 
-        //dd(session()->all()); // dump 
-      //  return redirect()->to('/flash'); 
-    //}
-
 }

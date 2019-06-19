@@ -3,6 +3,8 @@
 Form Project
 @endsection
 @section('content')
+
+
 	<div class="image-container set-full-height" style="background-image: url('img/mhe-planning.jpg')">
 	    <!--   Creative Tim Branding   -->
 
@@ -35,7 +37,6 @@ Form Project
 								<div class="wizard-navigation">
 									<ul>
 			                            <li><a href="#location" data-toggle="tab">Lokasi</a></li>
-			                            <li><a href="#type" data-toggle="tab">Kategori</a></li>
 										<li><a href="#produk" data-toggle="tab">Project</a></li>
 			                            <li><a href="#facilities" data-toggle="tab">Deadline</a></li>
 			                            <li><a href="#description" data-toggle="tab">Keterangan</a></li>
@@ -103,69 +104,24 @@ Form Project
 		                                	</div>
 		                            	</div>
 		                            </div>
-
-		                            <div class="tab-pane" id="type">
-		                                <h4 class="info-text">Kategori Project </h4>
-		                                <div class="row">
-		                                    <div class="col-sm-10 col-sm-offset-1">
-		                                        <div class="col-sm-4 col-sm-offset-2">
-															<div class="radio">
-																<label>
-																	<input type="radio" name="kategori" value="1">
-																	Web App
-																</label>
-															</div><div class="radio">
-																<label>
-																	<input type="radio" name="kategori" value="2">
-																	Desktop App
-																</label>
-															</div>
-															<div class="radio">
-																<label>
-																	<input type="radio" name="kategori" value="3">
-																	Mobile App
-																</label>
-															</div><div class="radio">
-																<label>
-																	<input type="radio" name="kategori" value="4">
-																	Custom App
-																</label>
-															</div>
-															</div>
-		                                    </div>
-		                                </div>
-		                            </div>
 		                            <div class="tab-pane" id="produk">
-		                                <h4 class="info-text">Project </h4>
+		                                <h4 class="info-text">Pilih Jenis	 Project </h4>
 		                                <div class="row">
 		                                    <div class="col-sm-10 col-sm-offset-1">
-		                                        <div class="col-sm-4 col-sm-offset-2">
+											@foreach($aplikasi as $key => $prod)
+		                                        <div class="col-sm-4">
 															<div class="radio">
 																<label>
-																	<input type="radio" name="produk" value="10">
-																	1. Web Profile
-																</label>
-															</div><div class="radio">
-																<label>
-																	<input type="radio" name="produk" value="11">
-																	2. Ecommerce
-																</label>
-															</div>
-															<div class="radio">
-																<label>
-																	<input type="radio" name="produk" value="12">
-																	3. HRIS
-																</label>
-															</div><div class="radio">
-																<label>
-																	<input type="radio" name="produk" value="13">
-																	4. SIS
+																	<input type="radio" name="produk" value='{{$prod->id}}'>
+																	<ul>{{$prod->nama}}	</ul>
 																</label>
 															</div>
 															</div>
+											@endforeach	
 		                                    </div>
 		                                </div>
 		                            </div>
+									
 		                            <div class="tab-pane" id="facilities">
 		                                <h4 class="info-text">Deadline </h4>
 		                                <div class="row">
@@ -181,10 +137,11 @@ Form Project
 		                                        	<input type="date" class="form-control" name="finishp">
 		                                    	</div>
 		                                    </div>
+											<!--
 		                                    <div class="col-sm-5 col-sm-offset-1">
 		                                    	<div class="form-group label-floating">
 		                                        	<label class="control-label">Harga Penawaran Kami</label>
-		                                        	<input type="number" class="form-control" name="hargap" value="5000000" readonly>
+		                                        	<input type="number" class="form-control" name="hargap" value="" readonly>
                                                 </div>
 		                                    </div>
 		                                    <div class="col-sm-5">
@@ -194,8 +151,10 @@ Form Project
 		                                            	
 		                                    	</div>
 	                                    	</div>
+											-->
 		                                </div>
 		                            </div>
+									
 		                            <div class="tab-pane" id="description">
 		                                <div class="row">
 		                                    <h4 class="info-text"> Keterangan </h4>

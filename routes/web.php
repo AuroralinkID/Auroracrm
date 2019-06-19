@@ -32,7 +32,7 @@ Route::get('/harga/itsupport','FormController@support');
 Route::get('/harga/sysadmin','FormController@sysadmin');
 Route::get('/form','FormController@formIndex');
 Route::get('/pickup','FormController@getServis');
-Route::get('form/project','FormController@getProject');
+Route::get('/project','FormController@getProject');
 Route::get('/support','FormController@getSupport');
 Route::get('/syadm','FormController@getSyadm');
 Route::get('/portofolio','FrontController@postPortofolio');

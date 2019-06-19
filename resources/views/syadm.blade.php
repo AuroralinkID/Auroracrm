@@ -101,7 +101,7 @@ Form Sysadmin
 		                            </div>
 
 		                            <div class="tab-pane" id="type">
-		                                <h4 class="info-text">Tipe Project </h4>
+		                                <h4 class="info-text">Pilih Project </h4>
 		                            <!--    <div class="row">
 		                                    <div class="col-sm-10 col-sm-offset-1">
 		                                        <div class="col-sm-4 col-sm-offset-2">
@@ -144,20 +144,45 @@ Form Sysadmin
 		                                </div> -->
 										<div class="row">
 		                                    <div class="col-sm-10 col-sm-offset-1">
-		                                        <div class="col-sm-4 col-sm-offset-2"> 
-													</select>
-													
+											@foreach($sys as $key => $sa)
+		                                        <div class="col-sm-4">
 															<div class="radio">
 																<label>
-																	<input type="radio" name="jasa" value="1">
-																	Setup VPS
+																	<input type="radio" name="jasa" value='{{$sa->id}}'>
+																	<ul>{{$sa->nama}}	</ul>
 																</label>
 															</div>
 															</div>
-												
+											@endforeach	
+		                                       <!-- <div class="col-sm-4 col-sm-offset-2"> 	
+															<div class="radio">
+																<label>
+																	<input type="radio" name="jasa" value="1">
+																	Deploy VPS
+																</label>
+															</div>
+															<div class="radio">
+																<label>
+																	<input type="radio" name="jasa" value="2">
+																	Migrate
+																</label>
+															</div>
+															<div class="radio">
+																<label>
+																	<input type="radio" name="jasa" value="3">
+																	Scripting
+																</label>
+															</div>
+															<div class="radio">
+																<label>
+																	<input type="radio" name="jasa" value="4">
+																	Bug Bougthy
+																</label>
+															</div>
+												</div>
 		                                    </div>
 		                                </div>
-		                            </div>
+		                            </div> -->
 		                     <!--       <div class="tab-pane" id="facilities">
 		                                <h4 class="info-text">Deadline </h4>
 		                                <div class="row">
@@ -184,10 +209,10 @@ Form Sysadmin
 		                                        	<label class="control-label">Catatan</label>
 		                                        	<input type="tex" class="form-control" id="catatn">
 		                                            	
-		                                    	</div>
-	                                    	</div>
-		                                </div>
-		                            </div> -->
+		                                    	</div> -->
+	                                    	</div> 
+		                                </div> 
+		                            </div> 
 		                            <div class="tab-pane" id="description">
 		                                <div class="row">
 		                                    <h4 class="info-text"> Keterangan </h4>
@@ -200,7 +225,7 @@ Form Sysadmin
 		                                    <div class="col-sm-4">
 		                                    	<div class="form-group label-floating">
 		                                            <label class="control-label">Contoh</label>
-		                                            <p class="description">"Saya ingin membuat script auto backup"</p>
+		                                            <p class="description">"Saya ingin migrasi server"</p>
 													<p><i>note : ini hanyalah parameter, anda akan di hubungi team via telepon jika sudah melakukan submit"</i></p>
 		                                        </div>
 		                                    </div>

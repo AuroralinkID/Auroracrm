@@ -39,11 +39,11 @@
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
 		//	$this->col[] = ["label"=>"Nama Pelanggan","name"=>"cms_users_id","join"=>"cms_users,name"];
-			$this->col[] = ["label"=>"Nama","name"=>"pt"];
+			$this->col[] = ["label"=>"PT","name"=>"pt"];
 			$this->col[] = ["label"=>"Nama","name"=>"nama"];
 		//	$this->col[] = ["label"=>"Deskripsi","name"=>"deskripsi"];
-			$this->col[] = ["label"=>"Kategori","name"=>"dkategori_id","join"=>"dkategori,nama"];
-			$this->col[] = ["label"=>"Produk","name"=>"produk_id","join"=>"produk,nama"];
+		//	$this->col[] = ["label"=>"Kategori","name"=>"kategori_id","join"=>"kategori,nama"];
+			$this->col[] = ["label"=>"Produk","name"=>"aplikasi_id","join"=>"aplikasi,nama"];
 			$this->col[] = ["label"=>"Tgl Mulai","name"=>"tgl_mulai"];
 			$this->col[] = ["label"=>"Tgl Mulai","name"=>"tgl_selesai"];
 			$this->col[] = ["label"=>"Status","name"=>"status"];
@@ -59,13 +59,13 @@
 			$this->form[] = ['label'=>'Alamat','name'=>'alamat','type'=>'textarea','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Telepon','name'=>'telepon','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Deskripsi','name'=>'deskripsi','type'=>'textarea','validation'=>'required|string|min:5|max:5000','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Kategori','name'=>'dkategori_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'dkategori','datamodal_columns'=>'nama','datamodal_size'=>'small'];
-			$this->form[] = ['label'=>'Produk','name'=>'produk_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'produk','datamodal_columns'=>'nama','datamodal_size'=>'small'];
+			$this->form[] = ['label'=>'Kategori','name'=>'kategori_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'dkategori','datamodal_columns'=>'nama','datamodal_size'=>'small'];
+			$this->form[] = ['label'=>'Produk','name'=>'aplikasi_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'produk','datamodal_columns'=>'nama','datamodal_size'=>'small'];
 			$this->form[] = ['label'=>'Tgl Mulai','name'=>'tgl_mulai','type'=>'date','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Tgl Selesai','name'=>'tgl_selesai','type'=>'date','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 		//	$this->form[] = ['label'=>'Status','name'=>'status','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Harga Penawaran','name'=>'harga_penawaran','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Harga Kesepakatan','name'=>'harga_kesepakatan','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+		//	$this->form[] = ['label'=>'Harga Penawaran','name'=>'harga_penawaran','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+		//	$this->form[] = ['label'=>'Harga Kesepakatan','name'=>'harga_kesepakatan','type'=>'money','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Pelaksana','name'=>'team_id','type'=>'datamodal','validation'=>'required|integer|min:0','width'=>'col-sm-10','datamodal_table'=>'team','datamodal_columns'=>'nama','datamodal_size'=>'small'];
 			# END FORM DO NOT REMOVE THIS LINE
 

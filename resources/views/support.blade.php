@@ -102,30 +102,16 @@ Form Support
 		                                <h4 class="info-text"> Jenis Layanan Support</h4>
 		                                <div class="row">
 		                                    <div class="col-sm-10 col-sm-offset-1">
-		                                        <div class="col-sm-4 col-sm-offset-2">
-														<div class="radio">
+											@foreach($jasa as $key => $js)
+		                                        <div class="col-sm-4">
+															<div class="radio">
 																<label>
-																	<input type="radio" name="jasa" value="11">
-																	#Com Prioritas
+																	<input type="radio" name="jasa" value="{{$js->id}}">
+																	<ul>{{$js->nama}}	</ul>
 																</label>
-														</div><div class="radio">
-																<label>
-																	<input type="radio" name="jasa" value="12">
-																	#Com Gold
-																</label>
-														</div>
-														<div class="radio">
-																<label>
-																	<input type="radio" name="jasa" value="13">
-																	#Com Silver
-																</label>
-														</div><div class="radio">
-																<label>
-																	<input type="radio" name="jasa" value="14">
-																	#COM Basic
-																</label>
-														</div>
-												</div>
+															</div>
+															</div>
+											@endforeach
 		                                    </div>
 		                                </div>
 		                            </div>
@@ -141,7 +127,7 @@ Form Support
 		                                    <div class="col-sm-4">
 		                                    	<div class="form-group">
 		                                            <label class="control-label">Contoh</label>
-		                                            <p class="description">"PC-Desktop Blank"</p>
+		                                            <p class="description">"Pasang Mikrotik"</p>
 		                                        </div>
 		                                    </div>
 		                                </div>
