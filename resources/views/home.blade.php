@@ -251,72 +251,70 @@ Selamat Datang Di Auroralink
   <footer class="blockquote-footer">Portofolio <cite title="Source Title">Kami</cite></footer>
 </blockquote>
   <!-- Container -->
-  <div class="container portfolio_title"> 
-    
-    <!-- Title -->
 
-    <!--/Title --> 
-    
-  </div>
+<div class="container">
 
-  
-  <!-- Container -->
-  
-  <div class="portfolio-top"></div>
-  
-  <!-- Portfolio Filters -->
-  <div class="portfolio"> 
-    
-    <div id="filters" class="sixteen columns">
-      <ul class="clearfix">
-        <li><a id="all" href="#" data-filter="*" class="active">
-        <h5>#All</h5>
-          </a></li>
-        <li><a class="" href="#" data-filter=".support">
-        <h5>#ITSupport</h5>
-          </a></li>
-        <li><a class="" href="#" data-filter=".servis">
-        <h5>#Servis</h5>
-          </a></li>
-        <li><a class="" href="#" data-filter=".web">
-        <h5>#WebDeveloper</h5>
-          </a></li>
-      </ul>
-    </div>
-    <!--/Portfolio Filters --> 
- <!-- Portfolio Wrapper  -->
- <div class="isotope fadeInLeft animated wow" style="position: relative; overflow: hidden; height: 480px;" id="portfolio_wrapper"> 
+
+    <div class="row ">
       
- @foreach($porto as $key => $port)
-      <!-- Portfolio Item WebDeveloper1-->
+      <!-- Container -->
+      
+      <div class="portfolio-top"></div>
+      
+      <!-- Portfolio Filters -->
+      <div class="portfolio"> 
+        
+        <div id="filters" class="sixteen columns">
+          <ul class="clearfix">
+            <li><a id="all" href="#" data-filter="*" class="active">
+            <h5>#All</h5>
+              </a></li>
+            <li><a class="" href="#" data-filter=".support">
+            <h5>#ITSupport</h5>
+              </a></li>
+            <li><a class="" href="#" data-filter=".servis">
+            <h5>#Servis</h5>
+              </a></li>
+            <li><a class="" href="#" data-filter=".web">
+            <h5>#WebDeveloper</h5>
+              </a></li>
+          </ul>
+        </div>
+        <!--/Portfolio Filters --> 
+    <!-- Portfolio Wrapper  -->
+    <div class="isotope fadeInLeft animated wow" style="position: relative; overflow: hidden; height: 480px;" id="portfolio_wrapper"> 
+          
+    @foreach($porto as $key => $port)
+          <!-- Portfolio Item WebDeveloper1-->
 
-      <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(337px, 0px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="{{$port->tags}}">
-        <div class="portfolio_img"> 
-        <a data-lightbox="roadtrip" rel="group_{produk}" title="{{$port->desk}}" href="{{asset('/' .$port->ppict)}}">
-          <img src="{{asset('/'. $port->ppict)}}" alt="#"></a> 
+          <div style="position: absolute; left: 0px; top: 2px; transform: translate3d(337px, 0px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="{{$port->tags}}">
+            <div class="portfolio_img"> 
+            <a data-lightbox="roadtrip" rel="group_{produk}" title="{{$port->desk}}" href="{{asset('/' .$port->ppict)}}">
+              <img src="{{asset('/'. $port->ppict)}}" alt="#"></a> 
+            </div>
+              <div class="item_info"> 
+                <h4 class="project_name">{{$port->pjud}}</h4>
+            </div>
+          </div>
+          <!--/Portfolio Item WebDeveloper1--> 
+    @endforeach
+                
         </div>
-          <div class="item_info"> 
-            <h4 class="project_name">{{$port->pjud}}</h4>
-        </div>
+        <!--/Portfolio Wrapper --> 
+    </div><!-- .outer-container -->
+
+      <!--/Portfolio Filters -->
+      
+        <div class="portfolio_btm"></div>
+      
+      
+              <div id="project_container">
+           <div class="clear"></div>
+        <div id="project_data"></div>
       </div>
-      <!--/Portfolio Item WebDeveloper1--> 
-@endforeach
-             
     </div>
-    <!--/Portfolio Wrapper --> 
-</div><!-- .outer-container -->
+</div> 
 
-  <!--/Portfolio Filters -->
-  
-  <div class="portfolio_btm"></div>
-  
-  
-  <div id="project_container">
-    <div class="clear"></div>
-    <div id="project_data"></div>
-  </div>
- 
-  
 </section>
 <!--/Portfolio --> 
 <section class="page_section" id="clients"><!--page_section-->

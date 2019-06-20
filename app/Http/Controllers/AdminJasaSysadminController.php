@@ -41,6 +41,7 @@
 			$this->form = [];
 			$this->form[] = ['label'=>'Nama Project','name'=>'nama','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Desk Project','name'=>'desk','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Gambar','name'=>'gambar','type'=>'upload','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Harga Project','name'=>'harga_awal','type'=>'money','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Harga Project','name'=>'harga_akhir','type'=>'money','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'Kat Satu','name'=>'satu','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
