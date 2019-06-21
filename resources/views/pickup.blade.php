@@ -19,13 +19,15 @@ Form Pickup
 		                    <form action="{{ action('FormController@postServis') }}" method="post">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 		                <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
-						@if ( Session::get('message') != '' )
+									
+									@if ( Session::get('message') != '' )
 									<div class='alert alert-{{ Session::get("message_type") }}'>
-									<i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}
+									<h3 class="info-text"><b><i class="icon fa fa-info"></i> {{ trans("crudbooster.alert_".Session::get("message_type")) }}</b></h3>
 									<!--	<div class='alert alert-info'> -->
-											{{ Session::get('message') }}
+									<h5 class="info-text"><b>{{ Session::get('message') }}</b></h5>									
 										</div>
 									@endif
+
 		                    	<div class="wizard-header">
 								
 		                        	<h3 class="wizard-title">

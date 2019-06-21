@@ -115,26 +115,33 @@ class FormController extends Controller
     }
 
     public function postServis(\Illuminate\Http\Request $req){
+          if(CRUDBooster::myid()){
+          }else{
+            $pesan = '!! Maaf Anda Harus Masuk Terlebih Dahulu !!';
+            return redirect()->back()->with(['message'=> $pesan,'message_type'=>'warning']);
+            }
+
         $validator = Validator::make(Request::all(),			
         [
-        //'email'=>'required|unique:cms_users|max:255',
-      //  'nama' => 'required|string|min:3|max:255',
-       // 'telepon' => 'required',
-       // 'deskripsi' => 'required|string|min:3|max:255',
-        //'alamat' => 'required|string|min:3|max:255',
-        //'keluhan' => 'required|string|min:3|max:255',			
-        ]
+           // 'email'=>'required|email|exists:'.config('crudbooster.USER_TABLE'),
+            //'password'=>'required'			
+            ]
+        
+    //      if(CRUDBooster::myid()){
+    //      }else{
+    //        return redirect()->route('getLogin')->with('message',('Anda harus mendaftar dulu'));
+    //        }
     );
+
         if ($validator->fails()) 
         {
             $message = $validator->errors()->all('Tolong Masukan Data Dengan Benar !!!!');
             return redirect()->back()->with(['message'=>implode(', ',$message),'message_type'=>'danger']);
         }
-
         $kode_servis = DB::table('servis')->max('id') + 1;
         $kode_servis = str_pad('SRVS#'.$kode_servis, 5, 0 , STR_PAD_LEFT);
         $save['kode_servis'] = $kode_servis;
-		$save['created_at'] = Carbon::now();
+        $save['created_at'] = Carbon::now();
         $save['nama'] = htmlentities(Request::get('nama'));
         $save['unit_id'] = Request::get('unit');
         $save['email'] = htmlentities(Request::get('email'));
@@ -142,15 +149,21 @@ class FormController extends Controller
 		$save['alamat'] = htmlentities(Request::get('alamat'));
 		$save['kelengkapan'] = Request::get('kelengkapan');
         $save['keluhan'] = htmlentities(Request::get('keluhan'));
-        $save['team_id'] = '4';
+        $save['team_id'] = CRUDBooster::myId();
         $save['sgaransi_id'] = Request::get('garansi');
         $save['status'] = 'request-pickup';
         $save['snid'] = htmlentities(Request::get('snid'));
         $save['model'] = htmlentities(Request::get('model'));
         DB::table('servis')->insert($save);
         $serv= ['name'=> $save['nama'],'noserv'=> $save['kode_servis'],'model'=> $save['model'],'telp'=> $save['telepon'],'sn'=> $save['snid']];
-        CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$serv,'template'=>'pickup_servis']); 
-        $pesan = $kode_servis;
+        //Notifikasi kirim email//
+      //  CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$serv,'template'=>'pickup_servis']); 
+        $config['content'] = "Ada Servis Baru";
+                        $config['to'] = CRUDBooster::adminPath('servis');
+                        $config['id_cms_users'] = [1]; //The Id of the user that is going to receive notification. This could be an array of id users [1,2,3,4,5]
+						CRUDBooster::sendNotification($config);
+        
+        $pesan = 'Data Berhasil Di Simpan Silahkan Check Email Anda';
         return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);   
         
         
@@ -169,7 +182,11 @@ class FormController extends Controller
         return view('project',$data);
     }
     public function postProject(\Illuminate\Http\Request $req){
-       
+        if(CRUDBooster::myid()){
+        }else{
+          $pesan = 'Maaf Anda Harus Masuk Terlebih Dahulu !!';
+          return redirect()->back()->with(['message'=> $pesan,'message_type'=>'warning']);
+          }
         $validator = Validator::make(Request::all(),			
         [
         'email'=>'required|unique:cms_users|max:255',
@@ -184,6 +201,7 @@ class FormController extends Controller
             $message = $validator->errors()->all('Tolong Masukan Data Dengan Benar !!!!');
             return redirect()->back()->with(['message'=>implode(', ',$message),'message_type'=>'danger']);
         }
+        
         $save['pt'] = htmlentities(Request::get('pt'));
         $save['nama'] = htmlentities(Request::get('nama'));
         $save['alamat'] = htmlentities(Request::get('alamat'));
@@ -195,12 +213,15 @@ class FormController extends Controller
 		$save['tgl_mulai'] = htmlentities(Request::get('openp'));
 		$save['tgl_selesai'] = htmlentities(Request::get('finishp'));
 		$save['status'] = 'mulai';
-//		$save['harga_penawaran'] = htmlentities(Request::get('hargap'));
-//		$save['harga_kesepakatan'] = htmlentities(Request::get('hargas'));
 		$save['team_id'] = '4';
         DB::table('project')->insert($save);
         $project= ['name'=> $save['nama'],'desk'=> $save['deskripsi'],'start'=> $save['tgl_mulai'],'end'=> $save['tgl_selesai'],'telp'=> $save['telepon'],'buy'=> $save['harga_penawaran'],'pay'=> $save['harga_kesepakatan']];
         CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$project,'template'=>'project_id']);
+        
+        $config['content'] = "Ada Project Baru";
+        $config['to'] = CRUDBooster::adminPath('project');
+        $config['id_cms_users'] = [1]; //The Id of the user that is going to receive notification. This could be an array of id users [1,2,3,4,5]
+        CRUDBooster::sendNotification($config);
 
         $pesan = 'Data Berhasil Di Simpan Silahkan Check Email Anda';
         return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
@@ -218,7 +239,11 @@ class FormController extends Controller
         return view('support',$data);
     }
     public function postSupport(\Illuminate\Http\Request $req){
-
+        if(CRUDBooster::myid()){
+        }else{
+          $pesan = ' Maaf Anda Harus Masuk Terlebih Dahulu !!';
+          return redirect()->back()->with(['message'=> $pesan,'message_type'=>'warning']);
+          }
         $kode_support = DB::table('support')->max('id') + 1;
         $kode_support = str_pad('P-SUP#'.$kode_support, 5, 0 , STR_PAD_LEFT);
         $save['kode_project'] = $kode_support;
@@ -232,8 +257,14 @@ class FormController extends Controller
         DB::table('support')->insert($save);
         
         $support= ['name'=> $save['nama'],'desk'=> $save['deskripsi'],'kode'=> $save['kode_project'],'telp'=> $save['telepon']];
-    //    CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$support,'template'=>'support']);
-        $pesan = $kode_support;
+        CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$support,'template'=>'support']);
+        $config['content'] = "Ada Trouble Baru";
+        $config['to'] = CRUDBooster::adminPath('support');
+        $config['id_cms_users'] = [1]; //The Id of the user that is going to receive notification. This could be an array of id users [1,2,3,4,5]
+        CRUDBooster::sendNotification($config);
+                        
+        
+        $pesan = 'Data Berhasil Di Simpan Silahkan Check Email Anda';
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
 
     }
@@ -248,6 +279,11 @@ class FormController extends Controller
         return view('syadm',$data);
     }
     public function postSysadmin(\Illuminate\Http\Request $req){
+        if(CRUDBooster::myid()){
+        }else{
+          $pesan = 'Maaf Anda Harus Masuk Terlebih Dahulu !!';
+          return redirect()->back()->with(['message'=> $pesan,'message_type'=>'warning']);
+          }
         $kode_sys = DB::table('sysadmin')->max('id') + 1;
         $kode_sys = str_pad('P-SYS#'.$kode_sys, 5, 0 , STR_PAD_LEFT);
         $save['kode_project'] = $kode_sys;
@@ -261,8 +297,13 @@ class FormController extends Controller
         DB::table('sysadmin')->insert($save);
         
         $sys= ['name'=> $save['nama'],'desk'=> $save['deskripsi'],'kode'=> $save['kode_project'],'telp'=> $save['telepon']];
-    //    CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$sys,'template'=>'sysadmin']);
-        $pesan = $kode_sys;
+        CRUDBooster::sendEmail(['to'=>$save['email'],'data'=>$sys,'template'=>'sysadmin']);
+        $config['content'] = "Ada Job Baru Sysadmin";
+        $config['to'] = CRUDBooster::adminPath('sysadmin');
+        $config['id_cms_users'] = [1]; //The Id of the user that is going to receive notification. This could be an array of id users [1,2,3,4,5]
+		CRUDBooster::sendNotification($config);
+        
+        $pesan = 'Data Berhasil Di Simpan Silahkan Check Email Anda';
 		return redirect()->back()->with(['message'=> $pesan,'message_type'=>'success']);
 
     }
