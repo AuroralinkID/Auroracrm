@@ -13,6 +13,9 @@
 
 CRUDBooster::routeController('/','FrontController');
 CRUDBooster::routeController('/','FormController');
+Route::get('/sitemap', 'SitemapController@index');
+Route::get('/sitemap/posts', 'SitemapController@posts');
+Route::get('/sitemap/categories', 'SitemapController@categories');
 Route::get('/blog','Blogcontroller@index');
 Route::get('/blog/search','Blogcontroller@getSearch');
 Route::get('/blog/kategori/{id}/{slug}','Blogcontroller@kategori');
