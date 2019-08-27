@@ -5,6 +5,11 @@ Produk Detail {{$app->nama}}
 @section('header')
 @endsection
 @section('content')
+@if ($app == 0)
+<div class="container">
+    <div class="alert alert-danger">Maaf Yang Kamu Cari Tidak Ada</div>
+</div>
+@endif
   <!--Main layout-->
   <blockquote class="blockquote text-center">
   <p class="mb-0"><strong><h2> <h3>{{$app->nama}}</h3></h2></strong></p>
@@ -14,7 +19,7 @@ Produk Detail {{$app->nama}}
 
   <hr class="mb-5">
     <div class="container dark-grey-text mt-5">
-    
+
       <!--Grid row-->
       <section class="card card-cascade wider reverse mb-3">
                 <!--Card image-->
@@ -232,7 +237,7 @@ Produk Detail {{$app->nama}}
 
                 <br>
               <!--
-               <a id="home-updates-jquery" href="" role="button" class="btn btn-info btn-rounded btn-md waves-effect waves-light">Demo</a> 
+               <a id="home-updates-jquery" href="" role="button" class="btn btn-info btn-rounded btn-md waves-effect waves-light">Demo</a>
               -->
               </div>
 

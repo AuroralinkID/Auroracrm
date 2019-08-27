@@ -10,8 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 CRUDBooster::routeController('/','FrontController');
 CRUDBooster::routeController('/','FormController');
+Route::get('/blog','Blogcontroller@index');
+Route::get('/blog/search','Blogcontroller@getSearch');
+Route::get('/blog/kategori/{id}/{slug}','Blogcontroller@kategori');
+Route::get('/blog/post/{slug}','Blogcontroller@post');
 Route::get('/pdf/{$idservis}','FrontController@getPdf');
 Route::get('/orderpdf/{$idorder}','FrontController@getOrderpdf');
 

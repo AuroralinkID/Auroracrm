@@ -16,12 +16,12 @@ Daftar Produk
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
             <div class="price-table pt-bg-blue">
                 <div >
-                
+
                     <span>#{{$prod->nama}}</span>
                     <span>{{$prod->katnam}}</span>
                     <span>Rp.{{number_format($prod->hargap)}}</span>
                 </div>
-                
+
                 <ul>
                     <li>Deadline {{$prod->deadline}}</li>
                     <li>{{$prod->f1}}</li>
@@ -33,10 +33,15 @@ Daftar Produk
                 </ul>
                 <a href="{{ url('produk', $prod->id) }}">Detail</a>
                 <a href="#">Demo</a>
-                           
+
             </div>
         </div>
         @endforeach
+        @if (count($aplikasi)==0)
+<div class="container">
+    <div class="alert alert-danger">Maaf Yang Kamu Cari Tidak Ada</div>
+</div>
+@endif
    </div>
 </div>
 </section>

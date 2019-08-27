@@ -1,19 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use Session;
 use Request;
 use DB;
-use Hash;
-use CRUDBooster;
-use Cart;
-use Carbon\Carbon;
-use General;
-use Location;
-use Illuminate\Support\Facades\Validator;
-use RajaOngkir;
-use PDF;
-use crocodicstudio\crudbooster\fonts\Fontawesome;
 
 class PostprodukController extends Controller
 {
@@ -31,7 +20,7 @@ class PostprodukController extends Controller
 			->select('aplikasi.*','kategori.nama as katnam','dev.nama as sunam','aplikasi.nama as judul','aplikasi.deskripsi as pdesk','aplikasi.hargap as harga')
 			->orderby('aplikasi.id','DESC')
             ->paginate('10');
-            
+            if(!$data) return redirect('/');
             return view('produk.index',$data);
     }
 
@@ -66,8 +55,13 @@ class PostprodukController extends Controller
     {
         //
         $data['app'] = DB::table('aplikasi')->where('id',$id)->first();
+        if (!$data) {
+            return redirect('/');
+        } else {
+            return view('produk.show',$data);
+        }
 
-        return view('produk.show',$data);
+
 
     }
 
