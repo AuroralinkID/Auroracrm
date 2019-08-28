@@ -12,7 +12,11 @@ Detail {{$adm->nama}}
   <p class="mb-0"><strong><h2> Detail {{$adm->nama}}</h2></strong></p>
   <footer class="blockquote-footer">Berikut Adalah Detail<cite title="Source Title">{{$adm->nama}}</cite></footer>
 </blockquote>
-
+@if($adm == 0)
+<div class="container">
+    <div class="alert alert-danger">Maaf Produk Yang Kamu Cari Tidak Ada</div>
+</div>
+@endif
 <div class="container">
 
 
@@ -36,13 +40,13 @@ Detail {{$adm->nama}}
       <hr class="mb-5">
       <h3 class="my-3">Deadline</h3>
       <p>{{$adm->created_at}}.</p>
-      
+
       <hr class="mb-5">
       <h3 class="my-3">Biaya</h3>
       <p>Rp.{{number_format($adm->harga_awal)}}.</p>
-      
-      
-      
+
+
+
     </div>
     <div class="col-md-4">
     <hr class="mb-5">
@@ -54,7 +58,7 @@ Detail {{$adm->nama}}
   <!-- /.row -->
 
   <!-- Related Projects Row -->
- 
+
 <!--
   <div class="row">
 

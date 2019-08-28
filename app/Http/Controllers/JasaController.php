@@ -30,7 +30,7 @@ class JasaController extends Controller
             ->join('jkategori','jkategori.id','=','jkategori_id')
 			->select('jasa.*','jkategori.nama as jnam')
 			->orderby('jasa.id','DESC')
-            ->paginate('20');    
+            ->paginate('20');
 
 		return view('jasa.index',$data);
 
@@ -66,10 +66,10 @@ class JasaController extends Controller
     public function show($id)
     {
         //
-        $data['js'] = DB::table('jasa')->where('id',$id)->first();
+        $data['js'] = DB::table('jasa')->where('slug',$id)->first();
 
         return view ('jasa.show',$data);
-        
+
     }
 
     /**

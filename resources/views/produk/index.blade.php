@@ -13,6 +13,11 @@ Daftar Produk
 <div class="container">
     <div class="row row-flex">
     @foreach($aplikasi as $key => $prod)
+    @if (count($aplikasi)==0)
+    <div class="container">
+        <div class="alert alert-danger">Maaf Yang Kamu Cari Tidak Ada</div>
+    </div>
+    @endif
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
             <div class="price-table pt-bg-blue">
                 <div >
@@ -31,17 +36,12 @@ Daftar Produk
                     <li>{{$prod->f5}}</li>
                     <li>{{$prod->f6}}</li>
                 </ul>
-                <a href="{{ url('produk', $prod->id) }}">Detail</a>
+                <a href="{{ url('produk', $prod->slug) }}">Detail</a>
                 <a href="#">Demo</a>
 
             </div>
         </div>
         @endforeach
-        @if (count($aplikasi)==0)
-<div class="container">
-    <div class="alert alert-danger">Maaf Yang Kamu Cari Tidak Ada</div>
-</div>
-@endif
    </div>
 </div>
 </section>

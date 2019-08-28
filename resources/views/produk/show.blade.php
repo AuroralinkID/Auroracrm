@@ -5,17 +5,16 @@ Produk Detail {{$app->nama}}
 @section('header')
 @endsection
 @section('content')
-@if ($app == 0)
-<div class="container">
-    <div class="alert alert-danger">Maaf Yang Kamu Cari Tidak Ada</div>
-</div>
-@endif
   <!--Main layout-->
   <blockquote class="blockquote text-center">
   <p class="mb-0"><strong><h2> <h3>{{$app->nama}}</h3></h2></strong></p>
   <footer class="blockquote-footer">Berikut adalah detail<cite title="Source Title"> {{$app->nama}}</cite></footer>
 </blockquote>
-
+@if($app == 0)
+<div class="container">
+    <div class="alert alert-danger">Maaf Produk Yang Kamu Cari Tidak Ada</div>
+</div>
+@endif
 
   <hr class="mb-5">
     <div class="container dark-grey-text mt-5">
@@ -416,7 +415,6 @@ Produk Detail {{$app->nama}}
       </div>
     </main>
   <!--Main layout-->
-
 @endsection
 @section('footer')
 @endsection

@@ -33,7 +33,7 @@ Daftar JobeDesk Sysadmin
       <td>{{$sy->desk}}</td>
       <td>Rp.{{number_format($sy->harga_awal)}}</td>
       <td>
-        <a href="{{ url('sysadmin', $sy->id) }}" class="btn btn-danger btn-md box-shadow--2dp"><span class="fa fa-info"></span> Detail</a>
+        <a href="{{ url('sysadmin', $sy->slug) }}" class="btn btn-danger btn-md box-shadow--2dp"><span class="fa fa-info"></span> Detail</a>
     <!--    <a href="#" class="btn btn-warning btn-md box-shadow--2dp"><span class="fa fa-link"></span> Demo</a>
         <a href="#" class="btn btn-primary btn-md box-shadow--2dp"><span class="fa fa-file-pdf-o"></span> Proposal</a> -->
       </td>
@@ -43,7 +43,7 @@ Daftar JobeDesk Sysadmin
 </table>
 </div>
 </div>
-<br> 
+<br>
 @endsection
 @section('footer')
 @endsection

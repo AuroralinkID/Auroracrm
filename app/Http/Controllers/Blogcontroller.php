@@ -32,22 +32,22 @@ class Blogcontroller extends Controller
         return view('post', $data);
     }
 
-    public function kategori($id, $slug){
-        $cat = DB::table('categories')->where('id', $id)->first();
+    public function kategori($idkat){
+        $cat = DB::table('categories')->where('name', $idkat)->first();
 
-        if(!$cat) return redirect('/');
 
         $data['blogs'] = DB::table('blog')
         ->join('categories','categories.id','=','categories_id')
         ->join('cms_users','cms_users.id','=','cms_users_id')
         ->select('blog.*','categories.name as katnam','cms_users.name as sunam')
         ->orderby('blog.id','ASC')
-        ->where('blog.categories_id', $id)
-        ->paginate('5');
+        ->where('blog.categories_id', $idkat)
+        ->paginate('6');
 
         $data['cat'] = $cat;
         $data['categories'] = DB::table('categories')->get();
 
+        // dd($data);
         return view('kategori', $data);
 
     }
@@ -61,5 +61,9 @@ class Blogcontroller extends Controller
         ->paginate('5');
         return view('kategori', $data);
 
+    }
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

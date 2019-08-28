@@ -23,19 +23,19 @@
                 <a class="nav-link" href="{{url('blog/')}}">Beranda <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{{url('blog/kategori/1/teknologi'.str_slug($cat->name))}}">Teknologi</a>
+                <a class="nav-link" href="{{url('blog/kategori/1-teknologi')}}">Teknologi</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{{url('blog/kategori/2/tutorial')}}">Tutorial</a>
+                <a class="nav-link" href="{{url('blog/kategori/2-tutorial')}}">Tutorial</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{{url('blog/kategori/3/tips-dan-trick')}}">Tips & Trik</a>
+                <a class="nav-link" href="{{url('blog/kategori/3-tips-dan-trick')}}">Tips & Trik</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{{url('blog/kategori/4/programming')}}">Programming</a>
+                <a class="nav-link" href="{{url('blog/kategori/4-programming')}}">Programming</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="{{url('blog/kategori/5/hacking')}}">Hacking</a>
+                <a class="nav-link" href="{{url('blog/kategori/5-hacking')}}">Hacking</a>
                 </li>
             </ul>
             <!-- End Menu -->

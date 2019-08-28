@@ -62,13 +62,13 @@ Auroralink | Blog
     </div>
     @endforeach
    <!-- end post -->
-   {{$blogs->links()}}
 @stop
-@if (count($blogs)==0)
+@if(!$blogs->count())
 <div class="container">
     <div class="alert alert-danger">Maaf Yang Kamu Cari Tidak Ada</div>
 </div>
 @endif
+
 @section('judul_recent')
     Recent Post
 @endsection

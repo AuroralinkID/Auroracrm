@@ -54,12 +54,11 @@ class PostprodukController extends Controller
     public function show($id)
     {
         //
-        $data['app'] = DB::table('aplikasi')->where('id',$id)->first();
-        if (!$data) {
-            return redirect('/');
-        } else {
-            return view('produk.show',$data);
-        }
+        $data['app'] = DB::table('aplikasi')->where('slug',$id)->first();
+        // if(!$object->count()){ abort(404); }
+        // dd($data);
+        return view('produk.show',$data);
+
 
 
 

@@ -9,31 +9,74 @@ class SitemapController extends Controller
     public function index()
     {
         $data['categories'] = DB::table('categories')->get();
-        $data['blogs'] = DB::table('blog')
-        ->join('categories','categories.id','=','categories_id')
-        ->join('cms_users','cms_users.id','=','cms_users_id')
-        ->select('blog.*','categories.name as katnam','cms_users.name as sunam','cms_users.photo as umage')
-        ->orderby('blog.id','DESC')
-        ->get();
+        $data['blogs'] = DB::table('blog')->get();
+        $data['produk'] = DB::table('produk')->get();
+        $data['user'] = DB::table('cms_users')->get();
 
       return response()->view('sitemap.index', [
-        'posts' => $data,
-        'kategori' => $data
+        'blogs' => $data,
+        'categories' => $data,
+        'produk' => $data,
+        'user' => $data
       ])->header('Content-Type', 'text/xml');
     }
     public function posts()
     {
         $data['blogs'] = DB::table('blog');
     return response()->view('sitemap.posts', [
-        'post' => $data,
+        'blogs' => $data,
     ])->header('Content-Type', 'text/xml');
+
     }
 
     public function categories()
     {
         $data['cat'] = DB::table('categories');
     return response()->view('sitemap.categories', [
-        'categories' => $data,
+        'cat' => $data,
     ])->header('Content-Type', 'text/xml');
     }
+    public function sysadmin()
+    {
+        $data['user'] = DB::table('cms_users');
+    return response()->view('sitemap.login', [
+        'user' => $data,
+    ])->header('Content-Type', 'text/xml');
+    }
+    public function jasa()
+    {
+        $data['cat'] = DB::table('categories');
+    return response()->view('sitemap.jasa', [
+        'cat' => $data,
+    ])->header('Content-Type', 'text/xml');
+    }
+    public function produk()
+    {
+        $data['produk'] = DB::table('produk');
+    return response()->view('sitemap.produk', [
+        'produk' => $data,
+    ])->header('Content-Type', 'text/xml');
+    }
+    public function login()
+    {
+        $data['cat'] = DB::table('categories');
+    return response()->view('sitemap.sysadmin', [
+        'cat' => $data,
+    ])->header('Content-Type', 'text/xml');
+    }
+    public function register()
+    {
+        $data['cat'] = DB::table('categories');
+    return response()->view('sitemap.register', [
+        'cat' => $data,
+    ])->header('Content-Type', 'text/xml');
+    }
+    public function pickup()
+    {
+        $data['cat'] = DB::table('categories');
+    return response()->view('sitemap.pickup', [
+        'cat' => $data,
+    ])->header('Content-Type', 'text/xml');
+    }
+
 }

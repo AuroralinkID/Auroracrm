@@ -10,7 +10,11 @@ Detail {{$js->nama}}
                     <footer class="blockquote-footer">Berikut Adalah Detail<cite title="Source Title">  {{$js->nama}}</cite></footer>
                     </blockquote>
 
-
+                    @if($js == 0)
+                    <div class="container">
+                        <div class="alert alert-danger">Maaf Yang Kamu Cari Tidak Ada</div>
+                    </div>
+                    @endif
         <div class="container">
 
 
@@ -33,17 +37,17 @@ Detail {{$js->nama}}
                         <hr class="mb-5">
                         <h3 class="my-3">Biaya</h3>
                         <p>Rp.{{number_format($js->biaya)}}.</p>
-                                        
+
                     <hr class="mb-5">
                         <a href="{{url('support')}}" target="_blank" class="btn btn-success btn-rounded btn-md waves-effect waves-light">
                             <i class="fa fa-paper-plane-o ml-2"></i> Buka Form Support</a>
-               
-    
+
+
                 </div>
 
             </div>
         </div>
-    </section>  
+    </section>
 @endsection
 @section('footer')
 @endsection

@@ -10,7 +10,6 @@ Daftar Support
   <footer class="blockquote-footer">Berikut Adalah List Support<cite title="Source Title"> beserta harga penawaran</cite></footer>
 </blockquote>
 
-
 <div class="container">
 <div class="inner_wrapper">
 <div class="col 6">
@@ -33,7 +32,7 @@ Daftar Support
       <td>{{$j->jnam}}</td>
       <td>Rp.{{number_format($j->biaya)}}</td>
       <td>
-        <a href="{{ url('jasa', $j->id) }}" class="btn btn-danger btn-md box-shadow--2dp"><span class="fa fa-info"></span> Detail</a>
+        <a href="{{ url('jasa', $j->slug) }}" class="btn btn-danger btn-md box-shadow--2dp"><span class="fa fa-info"></span> Detail</a>
     <!--    <a href="#" class="btn btn-warning btn-md box-shadow--2dp"><span class="fa fa-link"></span> Demo</a>
         <a href="#" class="btn btn-primary btn-md box-shadow--2dp"><span class="fa fa-file-pdf-o"></span> Proposal</a> -->
       </td>
@@ -43,7 +42,7 @@ Daftar Support
 </table>
 </div>
 </div>
-<br> 
+<br>
 @endsection
 @section('footer')
 @endsection

@@ -30,7 +30,7 @@ class SysController extends Controller
     $data['sys'] = DB::table('jasa_sysadmin')
         ->select('jasa_sysadmin.*')
         ->orderby('jasa_sysadmin.id','DESC')
-        ->paginate('20');    
+        ->paginate('20');
 
     return view('sysadmin.index',$data);
     }
@@ -65,7 +65,7 @@ class SysController extends Controller
     public function show($id)
     {
         //
-        $data['adm'] = DB::table('jasa_sysadmin')->where('id',$id)->first();
+        $data['adm'] = DB::table('jasa_sysadmin')->where('slug',$id)->first();
 
         return view ('sysadmin.show',$data);
     }
