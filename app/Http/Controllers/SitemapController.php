@@ -12,12 +12,18 @@ class SitemapController extends Controller
         $data['blogs'] = DB::table('blog')->get();
         $data['produk'] = DB::table('produk')->get();
         $data['user'] = DB::table('cms_users')->get();
+        $data['jasa'] = DB::table('jasa')->get();
+        $data['servis'] = DB::table('servis')->get();
+        $data['sys'] = DB::table('jasa_sysadmin')->get();
 
       return response()->view('sitemap.index', [
         'blogs' => $data,
         'categories' => $data,
         'produk' => $data,
-        'user' => $data
+        'user' => $data,
+        'jasa' => $data,
+        'servis' => $data,
+        'sys' => $data
       ])->header('Content-Type', 'text/xml');
     }
     public function posts()
@@ -36,7 +42,7 @@ class SitemapController extends Controller
         'cat' => $data,
     ])->header('Content-Type', 'text/xml');
     }
-    public function sysadmin()
+    public function login()
     {
         $data['user'] = DB::table('cms_users');
     return response()->view('sitemap.login', [
@@ -45,9 +51,9 @@ class SitemapController extends Controller
     }
     public function jasa()
     {
-        $data['cat'] = DB::table('categories');
+        $data['jasa'] = DB::table('jasa');
     return response()->view('sitemap.jasa', [
-        'cat' => $data,
+        'jasa' => $data,
     ])->header('Content-Type', 'text/xml');
     }
     public function produk()
@@ -57,25 +63,25 @@ class SitemapController extends Controller
         'produk' => $data,
     ])->header('Content-Type', 'text/xml');
     }
-    public function login()
+    public function sysadmin()
     {
-        $data['cat'] = DB::table('categories');
+        $data['sys'] = DB::table('jasa_sysadmin');
     return response()->view('sitemap.sysadmin', [
-        'cat' => $data,
+        'sys' => $data,
     ])->header('Content-Type', 'text/xml');
     }
     public function register()
     {
-        $data['cat'] = DB::table('categories');
+        $data['users'] = DB::table('cms_users');
     return response()->view('sitemap.register', [
-        'cat' => $data,
+        'users' => $data,
     ])->header('Content-Type', 'text/xml');
     }
     public function pickup()
     {
-        $data['cat'] = DB::table('categories');
+        $data['servis'] = DB::table('servis');
     return response()->view('sitemap.pickup', [
-        'cat' => $data,
+        'servis' => $data,
     ])->header('Content-Type', 'text/xml');
     }
 

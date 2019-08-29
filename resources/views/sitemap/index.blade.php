@@ -32,5 +32,37 @@
   <priority>0.6</priority>
 </url>
 @endforeach
+@foreach ($servis as $post)
+<url>
+  <loc>{{ url('/pickup') }}</loc>
+  <lastmod>{{date('M,d,Y',strtotime($post['created_at']))}}</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.6</priority>
+</url>
+@endforeach
+@foreach ($sys as $post)
+<url>
+  <loc>{{ url('/sysadmin') }}</loc>
+  <lastmod>{{date('M,d,Y',strtotime($post['created_at']))}}</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.6</priority>
+</url>
+@endforeach
+@foreach ($jasa as $post)
+<url>
+  <loc>{{ url('/jasa') }}</loc>
+  <lastmod>{{date('M,d,Y',strtotime($post['created_at']))}}</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.6</priority>
+</url>
+@endforeach
+@foreach ($user as $post)
+<url>
+  <loc>{{ url('/register') }}</loc>
+  <lastmod>{{date('M,d,Y',strtotime($post['created_at']))}}</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.6</priority>
+</url>
+@endforeach
 </urlset>
 
